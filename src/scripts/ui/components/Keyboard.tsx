@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 
+import { useAppSelector } from 'ui/store';
+
 import { Audio } from 'modules/audio';
-import { createMaster } from 'modules/project/master';
-import { createInstrument } from 'modules/audio/instrument';
+import { Master } from 'modules/project/master';
+import { Instrument } from 'modules/audio/instrument';
 
 interface KeyboardMapping {
     readonly [key: string]: number;
@@ -12,21 +14,7 @@ const keyboardMapping: KeyboardMapping = {
     a: 72, w: 73, s: 74, e: 75, d: 76, f: 77, t: 78, g: 79, z: 80, h: 81, u: 82, j: 83, k: 84,
 };
 
-const instrument = createInstrument({
-    algorithm: 4,
-    operators: [
-        {},
-        { ratio: 4 },
-        { level: 0 },
-        { level: 0 },
-    ],
-});
-
-const master = createMaster({
-    volume: 0.1,
-});
-
-const onKeyDown = (e: KeyboardEvent): void => {
+const onKeyDownFn = (instrument: Instrument, master: Master) => (e: KeyboardEvent): void => {
     const { key } = e;
 
     if (e.repeat || !Object.prototype.hasOwnProperty.call(keyboardMapping, key)) {
@@ -38,7 +26,7 @@ const onKeyDown = (e: KeyboardEvent): void => {
     Audio.noteOn(note, 127, instrument, master);
 };
 
-const onKeyUp = (e: KeyboardEvent): void => {
+const onKeyUpFn = () => (e: KeyboardEvent): void => {
     const { key } = e;
 
     if (e.repeat || !Object.prototype.hasOwnProperty.call(keyboardMapping, key)) {
@@ -51,6 +39,12 @@ const onKeyUp = (e: KeyboardEvent): void => {
 };
 
 export const Keyboard: React.FC = () => {
+    const master = useAppSelector((state) => state.master);
+    const instrument = useAppSelector((state) => state.instrument);
+
+    const onKeyDown = onKeyDownFn(instrument, master);
+    const onKeyUp = onKeyUpFn();
+
     useEffect(() => {
         document.addEventListener('keydown', onKeyDown);
         document.addEventListener('keyup', onKeyUp);
@@ -59,7 +53,7 @@ export const Keyboard: React.FC = () => {
             document.removeEventListener('keydown', onKeyDown);
             document.removeEventListener('keyup', onKeyUp);
         };
-    });
+    }, [onKeyDown, onKeyUp]);
 
     return null;
 };
