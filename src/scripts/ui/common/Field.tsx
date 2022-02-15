@@ -6,7 +6,7 @@ import { Text } from 'ui/common/Text';
 
 const Container = styled.div`
     display: inline-block;
-    min-width: ${toVU(25)};
+    min-width: ${toVU(20)};
     margin-right: ${toVU(1)};
     border: ${({ theme }) => theme.border.default};
     border-radius: ${({ theme }) => theme.radius.default};

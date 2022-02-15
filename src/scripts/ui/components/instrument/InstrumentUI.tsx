@@ -15,6 +15,20 @@ import { Heading } from 'ui/common/Heading';
 import { Section } from 'ui/common/Section';
 import { FilterUI } from 'ui/components/instrument/FilterUI';
 import { OperatorUI } from 'ui/components/instrument/OperatorUI';
+import { AlgorithmUI } from 'ui/components/instrument/AlgorithmUI';
+
+const Container = styled.div`
+    display: flex;
+    flex-direction: row;
+`;
+
+const Visual = styled.div`
+    margin-right: ${toVU(2)};
+`;
+
+const Data = styled.div`
+    flex: 1;
+`;
 
 const OperatorItem = styled.div`
     padding: ${toVU(1)};
@@ -40,46 +54,54 @@ export const InstrumentUI: React.FC<Props> = ({ instrumentId }) => {
                 {t('instrument')}: {name}
             </Heading>
 
-            <div>
-                <Slider
-                    label={t('algorithm')}
-                    value={algorithm}
-                    min={ALGORITHM_MIN}
-                    max={ALGORITHM_MAX}
-                    onChange={(value) => dispatch(
-                        setAlgorithm({ id: instrumentId, data: value })
-                    )}
-                />
+            <Container>
+                <Visual>
+                    <AlgorithmUI algorithm={algorithm} />
+                </Visual>
 
-                <Slider
-                    label={t('level')}
-                    value={level}
-                    min={LEVEL_MIN}
-                    max={LEVEL_MAX}
-                    onChange={(value) => dispatch(
-                        setLevel({ id: instrumentId, data: value })
-                    )}
-                />
+                <Data>
+                    <div>
+                        <Slider
+                            label={t('algorithm')}
+                            value={algorithm}
+                            min={ALGORITHM_MIN}
+                            max={ALGORITHM_MAX}
+                            onChange={(value) => dispatch(
+                                setAlgorithm({ id: instrumentId, data: value })
+                            )}
+                        />
 
-                <Slider
-                    label={t('pan')}
-                    value={pan}
-                    min={PAN_MIN}
-                    max={PAN_MAX}
-                    onChange={(value) => dispatch(
-                        setPan({ id: instrumentId, data: value })
-                    )}
-                />
-            </div>
+                        <Slider
+                            label={t('level')}
+                            value={level}
+                            min={LEVEL_MIN}
+                            max={LEVEL_MAX}
+                            onChange={(value) => dispatch(
+                                setLevel({ id: instrumentId, data: value })
+                            )}
+                        />
 
-            <Heading tag="h3" size="small">
-                {t('filter')}
-            </Heading>
+                        <Slider
+                            label={t('pan')}
+                            value={pan}
+                            min={PAN_MIN}
+                            max={PAN_MAX}
+                            onChange={(value) => dispatch(
+                                setPan({ id: instrumentId, data: value })
+                            )}
+                        />
+                    </div>
 
-            <FilterUI
-                instrumentId={instrumentId}
-                data={filter}
-            />
+                    <Heading tag="h3" size="small">
+                        {t('filter')}
+                    </Heading>
+
+                    <FilterUI
+                        instrumentId={instrumentId}
+                        data={filter}
+                    />
+                </Data>
+            </Container>
 
             <Heading tag="h3" size="small">
                 {t('operators')}
