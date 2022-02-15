@@ -99,7 +99,6 @@ export const Slider: React.FC<Props> = ({ label, value, min, max, minLabel, maxL
                     <Input
                         id={id}
                         type="range"
-                        title={`${value}`}
                         value={value}
                         min={min}
                         max={max}

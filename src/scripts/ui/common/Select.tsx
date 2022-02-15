@@ -52,7 +52,6 @@ export const Select = <T extends string>({ label, value, options, onChange }: Pr
         <Field id={id} label={label}>
             <StyledSelect
                 id={id}
-                title={`${value}`}
                 value={value}
                 onChange={change(onChange)}
             >
