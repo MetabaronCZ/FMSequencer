@@ -3,12 +3,13 @@ import { Provider } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import { store } from 'ui/store';
-import { GlobalStyles } from 'ui/components/GlobalStyles';
-import { NavigationScroll } from 'ui/components/NavigationScroll';
+import { store } from 'store';
 
 import { routes } from 'modules/routes';
 import { defaultTheme } from 'modules/theme';
+
+import { GlobalStyles } from 'ui/components/GlobalStyles';
+import { NavigationScroll } from 'ui/components/NavigationScroll';
 
 export const App: React.FC = () => (
     <React.StrictMode>

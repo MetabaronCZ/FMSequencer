@@ -24,26 +24,26 @@ const HeadingBase = css`
 const HeadingDefault = styled.div`
     ${HeadingBase};
     ${Text.Large};
-    margin: ${toVU(3)} 0 ${toVU(2)};
+    margin: ${toVU(2)} 0 ${toVU(1)};
 `;
 
 const HeadingSmall = styled.div`
     ${HeadingBase};
     ${Text.Default};
     font-weight: bold;
-    margin: ${toVU(3)} 0 ${toVU(2)};
+    margin: ${toVU(2)} 0 ${toVU(1)};
 `;
 
 const HeadingLarge = styled.div`
     ${HeadingBase};
     ${Text.Larger};
-    margin: ${toVU(4)} 0 ${toVU(3)};
+    margin: ${toVU(3)} 0 ${toVU(2)};
 `;
 
 const HeadingLarger = styled.div`
     ${HeadingBase};
     ${Text.Largest};
-    margin: ${toVU(5)} 0 ${toVU(4)};
+    margin: ${toVU(4)} 0 ${toVU(3)};
 `;
 
 interface Props {
@@ -52,7 +52,11 @@ interface Props {
 }
 
 export const Heading: React.FC<Props> = ({ tag, size = 'default', children }) => {
-    const props = { tag, children };
+    const props = {
+        tag,
+        children,
+        as: tag,
+    };
     switch (size) {
         case 'small': return <HeadingSmall {...props} />;
         case 'large': return <HeadingLarge {...props} />;

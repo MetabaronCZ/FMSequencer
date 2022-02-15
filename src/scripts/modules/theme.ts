@@ -1,12 +1,18 @@
 import { toVU } from 'modules/typography';
 import { DefaultTheme } from 'styled-components';
 
+const borderSize = 1;
+
+const color = {
+    white: '#fff',
+    black: '#000',
+    greyLightest: '#f0f0f0',
+    grey: '#ccc',
+};
+
 declare module 'styled-components' {
     export interface DefaultTheme {
-        readonly color: {
-            readonly white: string;
-            readonly black: string;
-        };
+        readonly color: typeof color;
         readonly font: {
             readonly default: string;
         };
@@ -33,16 +39,20 @@ declare module 'styled-components' {
             readonly medium: string;
             readonly large: string;
         };
+        readonly border: {
+            readonly size: number;
+            readonly default: string;
+        };
+        readonly radius: {
+            readonly default: string;
+        };
     }
 }
 
 export const defaultTheme: DefaultTheme = {
-    color: {
-        white: '#fff',
-        black: '#000',
-    },
+    color,
     font: {
-        default: 'Tahoma, Verdana, Arial, sans-serif',
+        default: 'Roboto, Tahoma, Verdana, Arial, sans-serif',
     },
     fontSize: {
         largest: '32px',
@@ -66,5 +76,12 @@ export const defaultTheme: DefaultTheme = {
         small: 'screen and (min-width: 576px)',
         medium: 'screen and (min-width: 768px)',
         large: 'screen and (min-width: 992px)',
+    },
+    border: {
+        size: borderSize,
+        default: `${borderSize}px solid ${color.black}`,
+    },
+    radius: {
+        default: '3px',
     },
 };

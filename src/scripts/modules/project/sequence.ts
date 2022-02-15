@@ -1,9 +1,9 @@
-interface SequenceTrack {
+interface SequenceTrackData {
     readonly pattern: number;
     readonly repeat: number;
 }
 
-export interface Sequence {
+export interface SequenceData {
     readonly bars: number; // length in bars
-    readonly tracks: SequenceTrack[];
+    readonly tracks: SequenceTrackData[];
 }

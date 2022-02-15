@@ -16,8 +16,8 @@ export const i18n = i18next
                 translation: localeEn,
             },
         },
-        lng: 'cs',
-        fallbackLng: 'cs',
+        lng: 'en',
+        fallbackLng: 'en',
         debug: ENV.isDev,
         interpolation: {
             escapeValue: false,

@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 
-import { useAppSelector } from 'ui/store';
+import { useAppSelector } from 'store';
 
-import { Audio } from 'modules/audio';
-import { Master } from 'modules/project/master';
-import { Instrument } from 'modules/audio/instrument';
+import { AudioEngine } from 'modules/engine';
+import { InstrumentData } from 'modules/audio/instrument';
+import { VELOCITY_MAX } from 'modules/audio/instrument/velocity';
 
 interface KeyboardMapping {
     readonly [key: string]: number;
@@ -14,7 +14,7 @@ const keyboardMapping: KeyboardMapping = {
     a: 72, w: 73, s: 74, e: 75, d: 76, f: 77, t: 78, g: 79, z: 80, h: 81, u: 82, j: 83, k: 84,
 };
 
-const onKeyDownFn = (instrument: Instrument, master: Master) => (e: KeyboardEvent): void => {
+const onKeyDownFn = (instrument: InstrumentData) => (e: KeyboardEvent): void => {
     const { key } = e;
 
     if (e.repeat || !Object.prototype.hasOwnProperty.call(keyboardMapping, key)) {
@@ -23,7 +23,8 @@ const onKeyDownFn = (instrument: Instrument, master: Master) => (e: KeyboardEven
     e.preventDefault();
 
     const note = keyboardMapping[key];
-    Audio.noteOn(note, 127, instrument, master);
+    const time = AudioEngine.getTime();
+    AudioEngine.voices[0].noteOn(note, VELOCITY_MAX, instrument, time);
 };
 
 const onKeyUpFn = () => (e: KeyboardEvent): void => {
@@ -34,15 +35,14 @@ const onKeyUpFn = () => (e: KeyboardEvent): void => {
     }
     e.preventDefault();
 
-    const note = keyboardMapping[key];
-    Audio.noteOff(note);
+    const time = AudioEngine.getTime();
+    AudioEngine.voices[0].noteOff(time);
 };
 
 export const Keyboard: React.FC = () => {
-    const master = useAppSelector((state) => state.master);
-    const instrument = useAppSelector((state) => state.instrument);
+    const instrument = useAppSelector((state) => state.instruments[0]);
 
-    const onKeyDown = onKeyDownFn(instrument, master);
+    const onKeyDown = onKeyDownFn(instrument);
     const onKeyUp = onKeyUpFn();
 
     useEffect(() => {

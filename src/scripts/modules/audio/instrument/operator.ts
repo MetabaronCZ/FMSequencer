@@ -1,26 +1,28 @@
-import { createEnvelope, Envelope, EnvelopeConfig } from 'modules/audio/instrument/envelope';
+import { LEVEL_MAX } from 'modules/audio/instrument/level';
+import { OscillatorTypeID } from 'modules/audio/instrument/oscillator';
+import { createEnvelopeData, EnvelopeData, EnvelopeConfig } from 'modules/audio/instrument/envelope';
 
-export interface Operator {
-    readonly type: OscillatorType;
+export interface OperatorData {
+    readonly type: OscillatorTypeID;
     readonly level: number;
     readonly ratio: number;
-    readonly envelope: Envelope;
+    readonly envelope: EnvelopeData;
 }
-const defaults: Operator = {
-    type: 'sine',
-    level: 1,
+const defaults: OperatorData = {
+    type: 'SIN',
+    level: LEVEL_MAX,
     ratio: 1,
-    envelope: createEnvelope(),
+    envelope: createEnvelopeData(),
 };
 
 export interface OperatorConfig {
-    readonly type?: OscillatorType;
+    readonly type?: OscillatorTypeID;
     readonly level?: number;
     readonly ratio?: number;
     readonly envelope?: EnvelopeConfig;
 }
 
-export const createOperator = (config: OperatorConfig = {}) : Operator => ({
+export const createOperatorData = (config: OperatorConfig = {}) : OperatorData => ({
     ...Object.assign({}, defaults, config),
-    envelope: createEnvelope(config.envelope),
+    envelope: createEnvelopeData(config.envelope),
 });

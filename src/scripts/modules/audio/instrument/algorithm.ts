@@ -1,10 +1,26 @@
-interface AlgorithmConfig {
-    readonly [id: number]: {
-        readonly operators: Array<number | number[]>;
-        readonly nodes: Array<[number, number]>;
-        readonly lines: Array<[number, number]>;
+export const algorithmIds = [1, 2, 3, 4, 5, 6, 7, 8] as const;
+export type AlgorithmID = typeof algorithmIds[number];
+
+export const ALGORITHM_MIN = algorithmIds[0];
+export const ALGORITHM_MAX = algorithmIds[algorithmIds.length - 1];
+
+export const isAlgorithm = (nr: number): nr is AlgorithmID => {
+    return algorithmIds.includes(nr as AlgorithmID);
+};
+
+type AlgorithmConfigItem = number | number[];
+
+export const isAlgorithmConfigCarrier = (item: AlgorithmConfigItem): item is number => {
+    return !Array.isArray(item);
+};
+
+type AlgorithmConfig = {
+    readonly [id in AlgorithmID]: {
+        readonly operators: AlgorithmConfigItem[];
+        readonly nodes: AlgorithmConfigItem[];
+        readonly lines: AlgorithmConfigItem[];
     };
-}
+};
 
 export const algorithmConfig: AlgorithmConfig = {
     1: {

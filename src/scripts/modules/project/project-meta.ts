@@ -1,4 +1,4 @@
-export interface ProjectMeta {
+export interface ProjectMetaData {
     readonly name: string;
     readonly description: string;
     readonly tempo: number;

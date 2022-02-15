@@ -1,1 +1,21 @@
-{}
+{
+    "home": "Home",
+    "error": "Error",
+    "master": "Master",
+    "instrument": "Instrument",
+    "algorithm": "Algorithm",
+    "level": "Level",
+    "pan": "Pan",
+    "filter": "Filter",
+    "filterType": "Type",
+    "filterCutoff": "Cutoff",
+    "filterResonance": "Resonance",
+    "operators": "Operators",
+    "operator": "Operator",
+    "ratio": "Ratio",
+    "envelope": "Envelope",
+    "envelopeAttack": "Attack",
+    "envelopeDecay": "Decay",
+    "envelopeSustain": "Sustain",
+    "envelopeRelease": "Release"
+}

@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { configureStore, Dispatch } from '@reduxjs/toolkit';
 
-import { MasterActions, masterSlice } from 'ui/store/master';
-import { InstrumentActions, instrumentSlice } from 'ui/store/instrument';
+import { MasterActions, masterSlice } from 'store/master';
+import { InstrumentActions, instrumentSlice } from 'store/instrument';
 
 export const store = configureStore({
     reducer: {
-        instrument: instrumentSlice.reducer,
+        instruments: instrumentSlice.reducer,
         master: masterSlice.reducer,
     },
 });
