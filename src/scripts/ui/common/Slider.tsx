@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { toVU } from 'modules/typography';
-import { getSign } from 'modules/core/number';
+import { getSign, limitNumber } from 'modules/core/number';
 
 import { Text } from 'ui/common/Text';
 import { Field } from 'ui/common/Field';
@@ -17,10 +17,11 @@ const change = (cb: Onchange) => (e: React.ChangeEvent<HTMLInputElement>) => {
     cb(value);
 };
 
-const wheel = (step: number, cb: Onchange) => (e: React.WheelEvent<HTMLInputElement>) => {
+const wheel = (step: number, min: number, max: number, cb: Onchange) => (e: React.WheelEvent<HTMLInputElement>) => {
     const value = parseFloat(e.currentTarget.value);
     const diff = -1 * getSign(e.deltaY) * step;
-    const result = parseFloat((value + diff).toFixed(2));
+    let result = parseFloat((value + diff).toFixed(2));
+    result = limitNumber(result, min, max);
     cb(result);
 };
 
@@ -79,17 +80,19 @@ interface Props {
     readonly value: number;
     readonly min: number;
     readonly max: number;
+    readonly minLabel?: string;
+    readonly maxLabel?: string;
     readonly step?: number;
     readonly onChange: Onchange;
 }
 
-export const Slider: React.FC<Props> = ({ label, value, min, max, step = 1, onChange }) => {
+export const Slider: React.FC<Props> = ({ label, value, min, max, minLabel, maxLabel, step = 1, onChange }) => {
     const id = `slider-${sliderCounter++}`;
     return (
-        <Field id={id} label={`${label}: ${value}`}>
+        <Field id={id} label={label}>
             <Container>
                 <Limit type="button" onClick={() => onChange(min)}>
-                    {min}
+                    {minLabel || min}
                 </Limit>
 
                 <Value>
@@ -102,12 +105,12 @@ export const Slider: React.FC<Props> = ({ label, value, min, max, step = 1, onCh
                         max={max}
                         step={step}
                         onChange={change(onChange)}
-                        onWheel={wheel(step, onChange)}
+                        onWheel={wheel(step, min, max, onChange)}
                     />
                 </Value>
 
                 <Limit type="button" onClick={() => onChange(max)}>
-                    {max}
+                    {maxLabel || max}
                 </Limit>
             </Container>
         </Field>

@@ -38,7 +38,7 @@ export const FilterUI: React.FC<Props> = ({ instrumentId, data }) => {
             />
 
             <Slider
-                label={t('filterCutoff')}
+                label={`${t('filterCutoff')}: ${cutoff}`}
                 value={cutoff}
                 min={FREQUENCY_MIN}
                 max={FREQUENCY_MAX}
@@ -48,10 +48,11 @@ export const FilterUI: React.FC<Props> = ({ instrumentId, data }) => {
             />
 
             <Slider
-                label={t('filterResonance')}
+                label={`${t('filterResonance')}: ${resonance}`}
                 value={resonance}
                 min={RESONANCE_MIN}
                 max={RESONANCE_MAX}
+                step={RESONANCE_MIN}
                 onChange={(value) => dispatch(
                     setFilterResonance({ id: instrumentId, data: value })
                 )}

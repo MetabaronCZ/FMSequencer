@@ -6,9 +6,9 @@ import { useAppDispatch } from 'store';
 import { instrumentSlice } from 'store/instrument';
 
 import { toVU } from 'modules/typography';
+import { ratios } from 'modules/audio/instrument/ratio';
 import { OperatorData } from 'modules/audio/instrument/operator';
 import { LEVEL_MAX, LEVEL_MIN } from 'modules/audio/instrument/level';
-import { RATIO_MAX, RATIO_MIN } from 'modules/audio/instrument/ratio';
 import { OscillatorTypeID, oscillatorTypes } from 'modules/audio/instrument/oscillator';
 
 import { Slider } from 'ui/common/Slider';
@@ -37,6 +37,8 @@ export const OperatorUI: React.FC<Props> = ({ operatorId, instrumentId, data }) 
     const dispatch = useAppDispatch();
     const { level, ratio, type, envelope } = data;
     const { setOperatorType, setOperatorLevel, setOperatorRatio } = instrumentSlice.actions;
+    const minRatioIndex = 0;
+    const maxRatioIndex = ratios.length - 1;
     return (
         <div>
             <Row>
@@ -54,7 +56,7 @@ export const OperatorUI: React.FC<Props> = ({ operatorId, instrumentId, data }) 
                 />
 
                 <Slider
-                    label={t('level')}
+                    label={`${t('level')}: ${level}`}
                     value={level}
                     min={LEVEL_MIN}
                     max={LEVEL_MAX}
@@ -68,15 +70,17 @@ export const OperatorUI: React.FC<Props> = ({ operatorId, instrumentId, data }) 
                 />
 
                 <Slider
-                    label={t('ratio')}
-                    value={ratio}
-                    min={RATIO_MIN}
-                    max={RATIO_MAX}
+                    label={`${t('ratio')}: ${ratio}`}
+                    value={ratios.indexOf(ratio)}
+                    min={minRatioIndex}
+                    max={maxRatioIndex}
+                    minLabel={ratios[minRatioIndex]}
+                    maxLabel={ratios[maxRatioIndex]}
                     onChange={(value) => dispatch(
                         setOperatorRatio({
                             operator: operatorId,
                             instrument: instrumentId,
-                            data: value,
+                            data: ratios[value],
                         })
                     )}
                 />

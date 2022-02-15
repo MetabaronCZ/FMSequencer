@@ -2,6 +2,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useAppDispatch } from 'store';
+import { instrumentSlice } from 'store/instrument';
+
 import {
     EnvelopeData,
     ENVELOPE_ATTACK_MAX, ENVELOPE_ATTACK_MIN,
@@ -11,7 +13,6 @@ import {
 } from 'modules/audio/instrument/envelope';
 
 import { Slider } from 'ui/common/Slider';
-import { instrumentSlice } from 'store/instrument';
 
 interface Props {
     readonly instrumentId: number;
@@ -31,7 +32,7 @@ export const EnvelopeUI: React.FC<Props> = ({ instrumentId, operatorId, data }) 
     return (
         <div>
             <Slider
-                label={t('envelopeAttack')}
+                label={`${t('envelopeAttack')}: ${attack}`}
                 value={attack}
                 min={ENVELOPE_ATTACK_MIN}
                 max={ENVELOPE_ATTACK_MAX}
@@ -46,7 +47,7 @@ export const EnvelopeUI: React.FC<Props> = ({ instrumentId, operatorId, data }) 
             />
 
             <Slider
-                label={t('envelopeDecay')}
+                label={`${t('envelopeDecay')}: ${decay}`}
                 value={decay}
                 min={ENVELOPE_DECAY_MIN}
                 max={ENVELOPE_DECAY_MAX}
@@ -61,7 +62,7 @@ export const EnvelopeUI: React.FC<Props> = ({ instrumentId, operatorId, data }) 
             />
 
             <Slider
-                label={t('envelopeSustain')}
+                label={`${t('envelopeSustain')}: ${sustain}`}
                 value={sustain}
                 min={ENVELOPE_SUSTAIN_MIN}
                 max={ENVELOPE_SUSTAIN_MAX}
@@ -75,7 +76,7 @@ export const EnvelopeUI: React.FC<Props> = ({ instrumentId, operatorId, data }) 
             />
 
             <Slider
-                label={t('envelopeRelease')}
+                label={`${t('envelopeRelease')}: ${release}`}
                 value={release}
                 min={ENVELOPE_RELEASE_MIN}
                 max={ENVELOPE_RELEASE_MAX}

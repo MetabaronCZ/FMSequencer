@@ -62,7 +62,7 @@ export const InstrumentUI: React.FC<Props> = ({ instrumentId }) => {
                 <Data>
                     <div>
                         <Slider
-                            label={t('algorithm')}
+                            label={`${t('algorithm')}: ${algorithm}`}
                             value={algorithm}
                             min={ALGORITHM_MIN}
                             max={ALGORITHM_MAX}
@@ -72,7 +72,7 @@ export const InstrumentUI: React.FC<Props> = ({ instrumentId }) => {
                         />
 
                         <Slider
-                            label={t('level')}
+                            label={`${t('level')}: ${level}`}
                             value={level}
                             min={LEVEL_MIN}
                             max={LEVEL_MAX}
@@ -82,7 +82,7 @@ export const InstrumentUI: React.FC<Props> = ({ instrumentId }) => {
                         />
 
                         <Slider
-                            label={t('pan')}
+                            label={`${t('pan')}: ${pan}`}
                             value={pan}
                             min={PAN_MIN}
                             max={PAN_MAX}

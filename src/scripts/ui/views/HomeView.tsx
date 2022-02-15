@@ -24,7 +24,7 @@ export const HomeView: React.FC = () => {
                 algorithm: 4,
                 operators: [
                     {},
-                    { ratio: 4 },
+                    { ratio: '4' },
                     { level: 0 },
                     { level: 0 },
                 ],

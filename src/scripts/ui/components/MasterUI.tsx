@@ -22,7 +22,7 @@ export const MasterUI: React.FC = () => {
 
             <div>
                 <Slider
-                    label={t('level')}
+                    label={`${t('level')}: ${master.level}`}
                     value={master.level}
                     min={LEVEL_MIN}
                     max={LEVEL_MAX}

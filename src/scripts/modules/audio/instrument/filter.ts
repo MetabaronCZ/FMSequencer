@@ -1,6 +1,6 @@
 import { FREQUENCY_MAX } from 'modules/audio/instrument/frequency';
 
-export const RESONANCE_MIN = 0.0001;
+export const RESONANCE_MIN = 0.01;
 export const RESONANCE_MAX = 100;
 
 export const filterTypes = ['LOWPASS', 'HIGHPASS', 'BANDPASS'] as const;

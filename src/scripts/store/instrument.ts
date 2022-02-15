@@ -4,7 +4,6 @@ import { limitNumber } from 'modules/core/number';
 
 import { PAN_MAX, PAN_MIN } from 'modules/audio/instrument/pan';
 import { LEVEL_MAX, LEVEL_MIN } from 'modules/audio/instrument/level';
-import { RATIO_MAX, RATIO_MIN } from 'modules/audio/instrument/ratio';
 import { FREQUENCY_MAX, FREQUENCY_MIN } from 'modules/audio/instrument/frequency';
 import {
     ENVELOPE_ATTACK_MAX, ENVELOPE_ATTACK_MIN,
@@ -14,6 +13,7 @@ import {
 } from 'modules/audio/instrument/envelope';
 
 import { AudioEngine } from 'modules/engine';
+import { RatioID } from 'modules/audio/instrument/ratio';
 import { OscillatorTypeID } from 'modules/audio/instrument/oscillator';
 import { FilterTypeID, RESONANCE_MAX, RESONANCE_MIN } from 'modules/audio/instrument/filter';
 import { ALGORITHM_MAX, ALGORITHM_MIN, isAlgorithm } from 'modules/audio/instrument/algorithm';
@@ -40,7 +40,7 @@ type SetInstrumentFilterCutoffAction = PayloadAction<InstrumentActionPayload<num
 type SetInstrumentFilterResonanceAction = PayloadAction<InstrumentActionPayload<number>>;
 type SetInstrumentOperatorTypeAction = PayloadAction<OperatorActionPayload<OscillatorTypeID>>;
 type SetInstrumentOperatorLevelAction = PayloadAction<OperatorActionPayload<number>>;
-type SetInstrumentOperatorRatioAction = PayloadAction<OperatorActionPayload<number>>;
+type SetInstrumentOperatorRatioAction = PayloadAction<OperatorActionPayload<RatioID>>;
 type SetInstrumentEnvelopeActionAction = PayloadAction<OperatorActionPayload<number>>;
 type SetInstrumentEnvelopeDecayAction = PayloadAction<OperatorActionPayload<number>>;
 type SetInstrumentEnvelopeSustainAction = PayloadAction<OperatorActionPayload<number>>;
@@ -141,11 +141,10 @@ export const instrumentSlice = createSlice({
         },
         setOperatorRatio: (state, action: SetInstrumentOperatorRatioAction) => {
             const { operator, instrument, data } = action.payload;
-            const value = limitNumber(data, RATIO_MIN, RATIO_MAX);
-            state[instrument].operators[operator].ratio = value;
+            state[instrument].operators[operator].ratio = data;
 
             const time = AudioEngine.getTime();
-            AudioEngine.voices[instrument].operators[operator].setRatio(value, time);
+            AudioEngine.voices[instrument].operators[operator].setRatio(data, time);
         },
         setOperatorEnvelopeAction: (state, action: SetInstrumentEnvelopeActionAction) => {
             const { operator, instrument, data } = action.payload;

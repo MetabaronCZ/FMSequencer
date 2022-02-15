@@ -4,6 +4,7 @@ import { Level } from 'modules/engine/level';
 import { Oscillator } from 'modules/engine/oscillator';
 import { OperatorData } from 'modules/audio/instrument/operator';
 import { OscillatorTypeID } from 'modules/audio/instrument/oscillator';
+import { getRatioValue, RatioID } from 'modules/audio/instrument/ratio';
 import { ENVELOPE_SUSTAIN_MAX } from 'modules/audio/instrument/envelope';
 
 const FORCED_RELEASE_TIME = 0.01;
@@ -48,8 +49,9 @@ export class Operator extends Bus<Oscillator, Level> {
         this.setLevel(activeData.level, time);
     }
 
-    public setRatio(value: number, time: number): void {
-        this.osc.setFrequency(this.activeBaseFrequency * value, time);
+    public setRatio(value: RatioID, time: number): void {
+        const ratio = getRatioValue(value);
+        this.osc.setFrequency(this.activeBaseFrequency * ratio, time);
     }
 
     public start(baseFrequency: number, data: OperatorData, time: number): void {
