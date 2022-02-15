@@ -71,14 +71,12 @@ export class Voice extends Bus<Filter, Pan> {
             op.disconnect();
         }
         const algo = algorithmConfig[algoId].operators;
-        // const carriersCount = algo.filter((op) => 0 === op).length;
 
         algo.forEach((data, i) => {
             const src = operators[i];
 
             if (isAlgorithmConfigCarrier(data)) {
                 // carrier
-                // src.setLevelMultiplier(1 / carriersCount, time);
                 src.output.connect(filter);
             } else {
                 // modulator
