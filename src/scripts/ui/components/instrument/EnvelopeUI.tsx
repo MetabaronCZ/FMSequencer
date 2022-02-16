@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useAppDispatch } from 'store';
-import { instrumentSlice } from 'store/instrument';
+import { instrumentSlice } from 'store/instruments';
 
 import {
     EnvelopeData,

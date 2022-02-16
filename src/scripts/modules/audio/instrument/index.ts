@@ -21,7 +21,7 @@ const defaults: InstrumentData = {
     name: 'Instrument',
     level: LEVEL_MAX,
     pan: 0,
-    algorithm: 1,
+    algorithm: 8,
     operators: emptyOperators.map(() => createOperatorData()),
     filter: createFilterData(),
 };

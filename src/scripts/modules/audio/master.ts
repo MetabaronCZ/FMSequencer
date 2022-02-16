@@ -1,10 +1,8 @@
-import { LEVEL_MAX } from 'modules/audio/instrument/level';
-
 export interface MasterData {
     readonly level: number;
 }
 const defaults: MasterData = {
-    level: LEVEL_MAX,
+    level: 10,
 };
 
 export interface MasterConfig {

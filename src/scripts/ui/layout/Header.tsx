@@ -1,5 +1,8 @@
 import React from 'react';
+import { Menu } from 'ui/components/menu/Menu';
 
 export const Header: React.FC = () => (
-    <header>header</header>
+    <header>
+        <Menu />
+    </header>
 );

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import { toVU } from 'modules/typography';
@@ -15,7 +15,7 @@ const Layout = styled.div`
 `;
 
 const LayoutHeader = styled.header`
-    padding: ${toVU(2)} 0;
+    padding: 0 0 ${toVU(2)};
 `;
 
 const LayoutContent = styled.main`
@@ -26,30 +26,18 @@ const LayoutFooter = styled.footer`
     padding: ${toVU(2)} 0;
 `;
 
-interface Props {
-    readonly title: string;
-}
+export const Page: React.FC = ({ children }) => (
+    <Layout>
+        <LayoutHeader>
+            <Header />
+        </LayoutHeader>
 
-export const Page: React.FC<Props> = ({ title, children }) => {
-    useEffect(() => {
-        if (document) {
-            document.title = title;
-        }
-    }, [title]);
+        <LayoutContent>
+            {children}
+        </LayoutContent>
 
-    return (
-        <Layout>
-            <LayoutHeader>
-                <Header />
-            </LayoutHeader>
-
-            <LayoutContent>
-                {children}
-            </LayoutContent>
-
-            <LayoutFooter>
-                <Footer />
-            </LayoutFooter>
-        </Layout>
-    );
-};
+        <LayoutFooter>
+            <Footer />
+        </LayoutFooter>
+    </Layout>
+);

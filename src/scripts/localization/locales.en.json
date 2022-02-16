@@ -3,6 +3,7 @@
     "error": "Error",
     "master": "Master",
     "instrument": "Instrument",
+    "instruments": "Instruments",
     "algorithm": "Algorithm",
     "level": "Level",
     "pan": "Pan",

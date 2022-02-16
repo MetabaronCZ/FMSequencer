@@ -11,7 +11,7 @@ const pathStatic = './src/static';
 const pathTemplates = './src/templates';
 
 const pathDist = path.resolve(__dirname, './dist');
-const pathPublic = './scripts/';
+const pathPublic = '/scripts/';
 const pathModules = './node_modules';
 
 module.exports = {

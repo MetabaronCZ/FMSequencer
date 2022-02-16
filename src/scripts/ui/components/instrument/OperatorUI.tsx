@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 
 import { useAppDispatch } from 'store';
-import { instrumentSlice } from 'store/instrument';
+import { instrumentSlice } from 'store/instruments';
 
 import { toVU } from 'modules/typography';
 import { ratios } from 'modules/audio/instrument/ratio';

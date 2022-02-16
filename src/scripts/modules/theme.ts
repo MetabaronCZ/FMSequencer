@@ -42,8 +42,12 @@ declare module 'styled-components' {
         readonly border: {
             readonly size: number;
             readonly default: string;
+            readonly white: string;
         };
         readonly radius: {
+            readonly default: string;
+        };
+        readonly outline: {
             readonly default: string;
         };
     }
@@ -80,8 +84,12 @@ export const defaultTheme: DefaultTheme = {
     border: {
         size: borderSize,
         default: `${borderSize}px solid ${color.black}`,
+        white: `${borderSize}px solid ${color.white}`,
     },
     radius: {
         default: '3px',
+    },
+    outline: {
+        default: `${borderSize}px dotted ${color.white}`,
     },
 };

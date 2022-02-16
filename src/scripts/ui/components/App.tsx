@@ -1,10 +1,11 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { MemoryRouter, Routes, Route } from 'react-router-dom';
 
 import { store } from 'store';
 
+import { paths } from 'modules/paths';
 import { routes } from 'modules/routes';
 import { defaultTheme } from 'modules/theme';
 
@@ -17,19 +18,19 @@ export const App: React.FC = () => (
             <ThemeProvider theme={defaultTheme}>
                 <GlobalStyles />
 
-                <BrowserRouter>
+                <MemoryRouter>
                     <NavigationScroll />
 
                     <Routes>
                         {routes.map((route, i) => (
                             <Route
-                                path={route.path}
+                                path={paths[route.path]}
                                 element={<route.component />}
                                 key={i}
                             />
                         ))}
                     </Routes>
-                </BrowserRouter>
+                </MemoryRouter>
             </ThemeProvider>
         </Provider>
     </React.StrictMode>
