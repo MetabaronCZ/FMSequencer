@@ -31,6 +31,11 @@ export class Operator extends Bus<Oscillator, Level> {
         this.osc.connect(this.level);
     }
 
+    public set(value: OperatorData, time: number): void {
+        this.setType(value.type);
+        this.setLevel(value.level, time);
+    }
+
     public setType(value: OscillatorTypeID): void {
         this.osc.setType(value);
     }

@@ -33,6 +33,19 @@ export class Voice extends Bus<Filter, Pan> {
         level.connect(pan);
     }
 
+    public set(value: InstrumentData, time: number): void {
+        const { algorithm, level, pan, filter, operators } = value;
+
+        this.setAlgorithm(algorithm, time);
+        this.filter.set(filter, time);
+        this.level.set(level, time);
+        this.pan.set(pan, time);
+
+        this.operators.forEach((op, i) => {
+            op.set(operators[i], time);
+        });
+    }
+
     public setAlgorithm(algoId: AlgorithmID, time: number): void {
         this.connectOperators(algoId, time);
     }

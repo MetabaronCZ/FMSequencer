@@ -12,7 +12,14 @@ export type MasterActions = LoadMasterAction | SetMasterLevelAction;
 
 export const masterSlice = createSlice({
     name: 'master',
-    initialState: createMasterData(),
+    initialState: () => {
+        const state = createMasterData();
+
+        const time = AudioEngine.getTime();
+        AudioEngine.master.set(state, time);
+
+        return state;
+    },
     reducers: {
         create: (state, action: LoadMasterAction) => {
             const newState = createMasterData(action.payload);

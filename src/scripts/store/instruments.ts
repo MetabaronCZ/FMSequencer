@@ -65,17 +65,21 @@ export type InstrumentActions =
 
 export const instrumentSlice = createSlice({
     name: 'instruments',
-    initialState: (
-        Array(INSTRUMENT_COUNT).fill(0)
+    initialState: () => {
+        const state = Array(INSTRUMENT_COUNT).fill(0)
             .map((val, i) => createInstrumentData({
                 name: `Instrument ${i + 1}`,
-            }))
-    ),
+            }));
+
+        const time = AudioEngine.getTime();
+
+        state.forEach((inst, i) => {
+            AudioEngine.voices[i].set(inst, time);
+        });
+
+        return state;
+    },
     reducers: {
-        create: (state, action: LoadInstrumentAction) => {
-            const { id, data } = action.payload;
-            state[id] = createInstrumentData(data);
-        },
         setName: (state, action: SetInstrumentNameAction) => {
             const { id, data } = action.payload;
             state[id].name = data.substring(0, INSTRUMENT_NAME_LENGTH);
