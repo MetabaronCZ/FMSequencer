@@ -27,7 +27,7 @@ const StyledLink = styled(Link)<StyledProps>`
 
 export const MenuLink: React.FC<LinkProps> = ({ children, to, ...props }) => {
     const resolved = useResolvedPath(to);
-    const match = useMatch({ path: resolved.pathname, end: true });
+    const match = useMatch({ path: resolved.pathname + '/*' });
     const isActive = !!match;
     return (
         <StyledLink
