@@ -43,6 +43,7 @@ declare module 'styled-components' {
             readonly size: number;
             readonly default: string;
             readonly white: string;
+            readonly grey: string;
         };
         readonly radius: {
             readonly default: string;
@@ -85,6 +86,7 @@ export const defaultTheme: DefaultTheme = {
         size: borderSize,
         default: `${borderSize}px solid ${color.black}`,
         white: `${borderSize}px solid ${color.white}`,
+        grey: `${borderSize}px solid ${color.grey}`,
     },
     radius: {
         default: '3px',

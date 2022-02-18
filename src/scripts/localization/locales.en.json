@@ -13,6 +13,7 @@
     "filterResonance": "Resonance",
     "operators": "Operators",
     "operator": "Operator",
+    "shape": "Shape",
     "ratio": "Ratio",
     "envelope": "Envelope",
     "envelopeAttack": "Attack",

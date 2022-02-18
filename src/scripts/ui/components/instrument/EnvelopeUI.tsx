@@ -37,6 +37,7 @@ export const EnvelopeUI: React.FC<Props> = ({ instrumentId, operatorId, data }) 
                 min={ENVELOPE_ATTACK_MIN}
                 max={ENVELOPE_ATTACK_MAX}
                 step={0.01}
+                vertical
                 onChange={(value) => dispatch(
                     setOperatorEnvelopeAction({
                         operator: operatorId,
@@ -52,6 +53,7 @@ export const EnvelopeUI: React.FC<Props> = ({ instrumentId, operatorId, data }) 
                 min={ENVELOPE_DECAY_MIN}
                 max={ENVELOPE_DECAY_MAX}
                 step={0.1}
+                vertical
                 onChange={(value) => dispatch(
                     setOperatorEnvelopeDecay({
                         operator: operatorId,
@@ -66,6 +68,7 @@ export const EnvelopeUI: React.FC<Props> = ({ instrumentId, operatorId, data }) 
                 value={sustain}
                 min={ENVELOPE_SUSTAIN_MIN}
                 max={ENVELOPE_SUSTAIN_MAX}
+                vertical
                 onChange={(value) => dispatch(
                     setOperatorEnvelopeSustain({
                         operator: operatorId,
@@ -81,6 +84,7 @@ export const EnvelopeUI: React.FC<Props> = ({ instrumentId, operatorId, data }) 
                 min={ENVELOPE_RELEASE_MIN}
                 max={ENVELOPE_RELEASE_MAX}
                 step={0.1}
+                vertical
                 onChange={(value) => dispatch(
                     setOperatorEnvelopeRelease({
                         operator: operatorId,

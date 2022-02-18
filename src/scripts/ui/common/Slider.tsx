@@ -7,6 +7,7 @@ import { getSign, limitNumber } from 'modules/core/number';
 import { Text } from 'ui/common/Text';
 import { Field } from 'ui/common/Field';
 
+const verticalSliderHeight = toVU(15);
 let sliderCounter = 0;
 
 type Onchange = (value: number) => void;
@@ -25,11 +26,19 @@ const wheel = (step: number, min: number, max: number, cb: Onchange) => (e: Reac
     cb(result);
 };
 
-const Container = styled.div`
+interface StyledProps {
+    readonly $isVertical: boolean;
+}
+
+const Container = styled.div<StyledProps>`
     display: flex;
     flex-direction: row;
     align-items: center;
     background: ${({ theme }) => theme.color.white};
+
+    ${({ $isVertical }) => $isVertical && `
+        flex-direction: column-reverse;
+    `}
 `;
 
 const Limit = styled.button`
@@ -42,13 +51,20 @@ const Limit = styled.button`
     cursor: pointer;
 `;
 
-const Value = styled.div`
-    flex: 1;
+const Value = styled.div<StyledProps>`
+    position: relative;
+    flex: 1 0 auto;
+
+    ${({ $isVertical }) => $isVertical && `
+        width: ${toVU(3)};
+        height: ${toVU(15)};
+    `}
 `;
 
-const Input = styled.input`
+const Input = styled.input<StyledProps>`
     display: block;
     width: 100%;
+    height: calc(${toVU(2)} + ${({ theme }) => 2 * theme.border.size}px);
     background: transparent;
     border: ${({ theme }) => theme.border.default};
     border-radius: ${({ theme }) => theme.radius.default};
@@ -73,6 +89,14 @@ const Input = styled.input`
         background: ${({ theme }) => theme.color.black};
         appearance: none;
     }
+
+    ${({ theme, $isVertical }) => $isVertical && `
+        position: absolute;
+        top: calc(40% + ${2 * theme.border.size}px);
+        left: -200%;
+        width: ${verticalSliderHeight};
+        transform: rotate(270deg);
+    `}
 `;
 
 interface Props {
@@ -83,20 +107,32 @@ interface Props {
     readonly minLabel?: string;
     readonly maxLabel?: string;
     readonly step?: number;
+    readonly vertical?: boolean;
     readonly onChange: Onchange;
 }
 
-export const Slider: React.FC<Props> = ({ label, value, min, max, minLabel, maxLabel, step = 1, onChange }) => {
+export const Slider: React.FC<Props> = (props) => {
+    const {
+        label, value, min, max, minLabel, maxLabel,
+        step = 1, vertical = false, onChange,
+    } = props;
+
     const id = `slider-${sliderCounter++}`;
+
     return (
-        <Field id={id} label={label}>
-            <Container>
+        <Field
+            id={id}
+            label={label}
+            vertical={vertical}
+        >
+            <Container $isVertical={vertical}>
                 <Limit type="button" onClick={() => onChange(min)}>
                     {minLabel || min}
                 </Limit>
 
-                <Value>
+                <Value $isVertical={vertical}>
                     <Input
+                        $isVertical={vertical}
                         id={id}
                         type="range"
                         value={value}
