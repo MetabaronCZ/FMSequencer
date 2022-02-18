@@ -1,0 +1,60 @@
+import React from 'react';
+import styled from 'styled-components';
+
+import { toVU } from 'modules/typography';
+
+import { Text } from 'ui/common/Text';
+
+type Onchange<T extends string> = (value: T) => void;
+
+const change = <T extends string>(cb: Onchange<T>) => (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.currentTarget.value as T;
+    e.preventDefault();
+    cb(value);
+};
+
+interface SelectOption<T extends string> {
+    readonly label: string;
+    readonly value: T;
+}
+export const createSelectOptions = <T, U extends string>(data: T[], cb: (item: T, i: number) => SelectOption<U>): SelectOption<U>[] => {
+    return data.map(cb);
+};
+
+const StyledSelect = styled.select`
+    ${Text.Default};
+    display: inline-block;
+    height: ${toVU(3)};
+    padding: 0;
+    border: none;
+    outline: none;
+    background: ${({ theme }) => theme.color.white};
+    font-size: inherit;
+    cursor: pointer;
+
+    option {
+        ${Text.Default};
+        font-size: inherit;
+    }
+`;
+
+interface Props<T extends string> {
+    readonly value: T;
+    readonly options: SelectOption<T>[];
+    readonly onChange: Onchange<T>;
+}
+
+export const SelectRaw = <T extends string>({ value, options, onChange }: Props<T>): JSX.Element => {
+    return (
+        <StyledSelect
+            value={value}
+            onChange={change(onChange)}
+        >
+            {options.map(({ label, value }) => (
+                <option value={value} key={value}>
+                    {label}
+                </option>
+            ))}
+        </StyledSelect>
+    );
+};

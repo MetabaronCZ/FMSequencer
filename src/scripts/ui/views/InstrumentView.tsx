@@ -12,7 +12,7 @@ export const InstrumentView: React.FC = () => {
     return (
         <Page>
             <InstrumentUI instrumentId={selectedInstrument} />
-            <Keyboard />
+            <Keyboard instrumentId={selectedInstrument} />
         </Page>
     );
 };

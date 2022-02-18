@@ -5,7 +5,6 @@ import { MemoryRouter, Routes, Route } from 'react-router-dom';
 
 import { store } from 'store';
 
-import { paths } from 'modules/paths';
 import { routes } from 'modules/routes';
 import { defaultTheme } from 'modules/theme';
 
@@ -24,7 +23,7 @@ export const App: React.FC = () => (
                     <Routes>
                         {routes.map((route, i) => (
                             <Route
-                                path={paths[route.path]}
+                                path={route.path}
                                 element={<route.component />}
                                 key={i}
                             />

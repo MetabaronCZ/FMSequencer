@@ -14,7 +14,7 @@ const keyboardMapping: KeyboardMapping = {
     a: 72, w: 73, s: 74, e: 75, d: 76, f: 77, t: 78, g: 79, z: 80, h: 81, u: 82, j: 83, k: 84,
 };
 
-const onKeyDownFn = (instrument: InstrumentData) => (e: KeyboardEvent): void => {
+const onKeyDownFn = (instrument: InstrumentData, instrumentId: number) => (e: KeyboardEvent): void => {
     const { key } = e;
 
     if (e.repeat || !Object.prototype.hasOwnProperty.call(keyboardMapping, key)) {
@@ -24,10 +24,10 @@ const onKeyDownFn = (instrument: InstrumentData) => (e: KeyboardEvent): void => 
 
     const note = keyboardMapping[key];
     const time = AudioEngine.getTime();
-    AudioEngine.voices[0].noteOn(note, VELOCITY_MAX, instrument, time);
+    AudioEngine.voices[instrumentId].noteOn(note, VELOCITY_MAX, instrument, time);
 };
 
-const onKeyUpFn = () => (e: KeyboardEvent): void => {
+const onKeyUpFn = (instrumentId: number) => (e: KeyboardEvent): void => {
     const { key } = e;
 
     if (e.repeat || !Object.prototype.hasOwnProperty.call(keyboardMapping, key)) {
@@ -36,14 +36,18 @@ const onKeyUpFn = () => (e: KeyboardEvent): void => {
     e.preventDefault();
 
     const time = AudioEngine.getTime();
-    AudioEngine.voices[0].noteOff(time);
+    AudioEngine.voices[instrumentId].noteOff(time);
 };
 
-export const Keyboard: React.FC = () => {
-    const instrument = useAppSelector((state) => state.instruments[0]);
+interface Props {
+    readonly instrumentId: number;
+}
 
-    const onKeyDown = onKeyDownFn(instrument);
-    const onKeyUp = onKeyUpFn();
+export const Keyboard: React.FC<Props> = ({ instrumentId }) => {
+    const instrument = useAppSelector((state) => state.instruments[instrumentId]);
+
+    const onKeyDown = onKeyDownFn(instrument, instrumentId);
+    const onKeyUp = onKeyUpFn(instrumentId);
 
     useEffect(() => {
         document.addEventListener('keydown', onKeyDown);

@@ -1,8 +1,7 @@
 export const paths = {
     HOME: '/',
     INSTRUMENTS: '/instrument',
-    INSTRUMENT: '/instrument/:id',
+    INSTRUMENT: (id: string) => `/instrument/${id}`,
     MASTER: '/master',
-    '*': '*',
 };
 export type PathID = keyof typeof paths;

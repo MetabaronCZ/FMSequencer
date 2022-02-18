@@ -2,16 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 import { TFunction, useTranslation } from 'react-i18next';
 
-import { PathID, paths } from 'modules/paths';
+import { paths } from 'modules/paths';
 import { MenuLink } from 'ui/components/menu/MenuLink';
 
 interface MenuItem {
     readonly title: string;
-    readonly path: PathID;
+    readonly path: string;
 }
 const getMenuItems = (t: TFunction): MenuItem[] => [
-    { title: t('instruments'), path: 'INSTRUMENTS' },
-    { title: t('master'), path: 'MASTER' },
+    { title: t('instruments'), path: paths.INSTRUMENTS },
+    { title: t('master'), path: paths.MASTER },
 ];
 
 const MenuList = styled.ul`
@@ -33,7 +33,7 @@ export const Menu: React.FC = () => {
             <MenuList>
                 {items.map(({ title, path }, i) => (
                     <MenuListItem key={i}>
-                        <MenuLink to={paths[path]}>
+                        <MenuLink to={path}>
                             {title}
                         </MenuLink>
                     </MenuListItem>

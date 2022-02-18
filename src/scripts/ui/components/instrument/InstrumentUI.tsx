@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 
 import { instrumentSlice } from 'store/instruments';
@@ -16,6 +17,8 @@ import { Section } from 'ui/common/Section';
 import { FilterUI } from 'ui/components/instrument/FilterUI';
 import { OperatorUI } from 'ui/components/instrument/OperatorUI';
 import { AlgorithmUI } from 'ui/components/instrument/AlgorithmUI';
+import { createSelectOptions, SelectRaw } from 'ui/common/SelectRaw';
+import { paths } from 'modules/paths';
 
 const Container = styled.div`
     display: flex;
@@ -43,15 +46,30 @@ interface Props {
 }
 
 export const InstrumentUI: React.FC<Props> = ({ instrumentId }) => {
+    const navigate = useNavigate();
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
-    const instrument = useAppSelector((state) => state.instruments[instrumentId]);
-    const { name, algorithm, level, pan, filter, operators } = instrument;
+    const instruments = useAppSelector((state) => state.instruments);
+    const { algorithm, level, pan, filter, operators } = instruments[instrumentId];
     const { setAlgorithm, setLevel, setPan } = instrumentSlice.actions;
+
+    const instOptions = createSelectOptions(instruments, (inst, i) => ({
+        label: inst.name,
+        value: `${i}`,
+    }));
+
     return (
         <Section>
             <Heading tag="h2" size="default">
-                {t('instrument')}: {name}
+                {t('instrument')}
+                {' '}
+                <SelectRaw
+                    value={`${instrumentId}`}
+                    options={instOptions}
+                    onChange={(value) => {
+                        navigate(paths.INSTRUMENT(value));
+                    }}
+                />
             </Heading>
 
             <Container>
