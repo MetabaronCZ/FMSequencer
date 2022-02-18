@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { instrumentSlice } from 'store/instruments';
 import { useAppDispatch, useAppSelector } from 'store';
 
+import { paths } from 'modules/paths';
 import { toVU } from 'modules/typography';
 import { PAN_MAX, PAN_MIN } from 'modules/audio/instrument/pan';
 import { LEVEL_MAX, LEVEL_MIN } from 'modules/audio/instrument/level';
@@ -18,7 +19,6 @@ import { FilterUI } from 'ui/components/instrument/FilterUI';
 import { OperatorUI } from 'ui/components/instrument/OperatorUI';
 import { AlgorithmUI } from 'ui/components/instrument/AlgorithmUI';
 import { createSelectOptions, SelectRaw } from 'ui/common/SelectRaw';
-import { paths } from 'modules/paths';
 
 const Container = styled.div`
     display: flex;
