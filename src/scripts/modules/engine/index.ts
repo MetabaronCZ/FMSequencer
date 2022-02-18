@@ -5,7 +5,6 @@ import { SAMPLE_RATE, VOICE_COUNT } from 'modules/audio/config';
 class Engine {
     public readonly master: Master;
     public readonly voices: Voice[];
-    public readonly previewVoice: Voice;
     private readonly context: AudioContext;
 
     constructor() {
@@ -15,13 +14,11 @@ class Engine {
 
         this.context = ctx;
         this.voices = new Array(VOICE_COUNT).fill(0).map(() => new Voice(ctx));
-        this.previewVoice = new Voice(ctx);
         this.master = new Master(ctx);
 
         for (const voice of this.voices) {
             voice.output.connect(this.master.input);
         }
-        this.previewVoice.output.connect(this.master.input);
         this.master.output.connect(ctx.destination);
     }
 
