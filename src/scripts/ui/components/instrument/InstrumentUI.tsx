@@ -17,8 +17,8 @@ import { Heading } from 'ui/common/Heading';
 import { Section } from 'ui/common/Section';
 import { FilterUI } from 'ui/components/instrument/FilterUI';
 import { OperatorUI } from 'ui/components/instrument/OperatorUI';
-import { AlgorithmUI } from 'ui/components/instrument/AlgorithmUI';
 import { createSelectOptions, SelectRaw } from 'ui/common/SelectRaw';
+import { AlgorithmCanvas } from 'ui/components/instrument/AlgorithmCanvas';
 
 const Container = styled.div`
     display: flex;
@@ -33,10 +33,15 @@ const Data = styled.div`
     flex: 1;
 `;
 
-const OperatorItem = styled.div`
+const OperatorList = styled.ul`
+    list-style-type: none;
+    margin-top: ${toVU(2)};
+`;
+
+const OperatorItem = styled.li`
     padding: ${toVU(1)};
 
-    &:nth-child(2n) {
+    &:nth-child(2n - 1) {
         background: ${({ theme }) => theme.color.greyLightest};
     }
 `;
@@ -74,7 +79,7 @@ export const InstrumentUI: React.FC<Props> = ({ instrumentId }) => {
 
             <Container>
                 <Visual>
-                    <AlgorithmUI algorithm={algorithm} />
+                    <AlgorithmCanvas algorithm={algorithm} />
                 </Visual>
 
                 <Data>
@@ -121,19 +126,17 @@ export const InstrumentUI: React.FC<Props> = ({ instrumentId }) => {
                 </Data>
             </Container>
 
-            <Heading tag="h3" size="small">
-                {t('operators')}
-            </Heading>
-
-            {operators.map((operator, i) => (
-                <OperatorItem key={i}>
-                    <OperatorUI
-                        operatorId={i}
-                        instrumentId={instrumentId}
-                        data={operator}
-                    />
-                </OperatorItem>
-            ))}
+            <OperatorList>
+                {operators.map((operator, i) => (
+                    <OperatorItem key={i}>
+                        <OperatorUI
+                            operatorId={i}
+                            instrumentId={instrumentId}
+                            data={operator}
+                        />
+                    </OperatorItem>
+                ))}
+            </OperatorList>
         </Section>
     );
 };

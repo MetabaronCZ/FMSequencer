@@ -6,12 +6,12 @@ import { algorithmConfig, AlgorithmID } from 'modules/audio/instrument/algorithm
 
 const opSize = 25;
 const opPadding = 10;
-const algoCanvasSize = OPERATOR_COUNT * (opSize + opPadding) + opPadding;
-const algoColor = '#fff';
+const canvasSize = OPERATOR_COUNT * (opSize + opPadding) + opPadding;
+const lineColor = '#fff';
 
 const Container = styled.div`
-    width: ${algoCanvasSize}px;
-    height: ${algoCanvasSize}px;
+    width: ${canvasSize}px;
+    height: ${canvasSize}px;
     background: ${({ theme }) => theme.color.black};
 `;
 
@@ -19,7 +19,7 @@ interface Props {
     readonly algorithm: AlgorithmID;
 }
 
-export const AlgorithmUI: React.FC<Props> = ({ algorithm }) => {
+export const AlgorithmCanvas: React.FC<Props> = ({ algorithm }) => {
     const containerElm = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -29,10 +29,10 @@ export const AlgorithmUI: React.FC<Props> = ({ algorithm }) => {
             return;
         }
         const canvas = document.createElement('canvas');
-        canvas.width = algoCanvasSize;
-        canvas.height = algoCanvasSize;
-        canvas.style.width = algoCanvasSize + 'px';
-        canvas.style.height = algoCanvasSize + 'px';
+        canvas.width = canvasSize;
+        canvas.height = canvasSize;
+        canvas.style.width = canvasSize + 'px';
+        canvas.style.height = canvasSize + 'px';
 
         const ctx = canvas.getContext('2d');
 
@@ -42,8 +42,8 @@ export const AlgorithmUI: React.FC<Props> = ({ algorithm }) => {
         const algo = algorithmConfig[algorithm];
         ctx.translate(0.5, 0.5);
 
-        ctx.strokeStyle = algoColor;
-        ctx.fillStyle = algoColor;
+        ctx.strokeStyle = lineColor;
+        ctx.fillStyle = lineColor;
         ctx.font = '14px sans-serif';
         ctx.textAlign = 'center';
         ctx.lineWidth = 2;
@@ -55,7 +55,7 @@ export const AlgorithmUI: React.FC<Props> = ({ algorithm }) => {
             let x0 = x * (opSize + opPadding);
             let y0 = y * (opSize + opPadding);
             x0 += opPadding;
-            y0 = algoCanvasSize - y0 - (opSize + opPadding);
+            y0 = canvasSize - y0 - (opSize + opPadding);
 
             algoLineTips.push([
                 [x0 + opSize / 2, y0],
@@ -87,10 +87,3 @@ export const AlgorithmUI: React.FC<Props> = ({ algorithm }) => {
         <Container ref={containerElm} />
     );
 };
-
-/*
-        <StyledCanvas
-            width={algoCanvasSize}
-            height={algoCanvasSize}
-        />
-*/

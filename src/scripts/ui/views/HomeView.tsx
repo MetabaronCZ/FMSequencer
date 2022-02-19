@@ -1,10 +1,8 @@
 import React from 'react';
+import { Navigate } from 'react-router';
 
-import { Page } from 'ui/layout/Page';
-import { Paragraph } from 'ui/common/Paragraph';
+import { paths } from 'modules/paths';
 
 export const HomeView: React.FC = () => (
-    <Page>
-        <Paragraph>...</Paragraph>
-    </Page>
+    <Navigate to={paths.INSTRUMENTS} />
 );

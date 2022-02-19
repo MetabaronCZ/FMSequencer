@@ -12,9 +12,10 @@ import { LEVEL_MAX, LEVEL_MIN } from 'modules/audio/instrument/level';
 import { OscillatorTypeID, oscillatorTypes } from 'modules/audio/instrument/oscillator';
 
 import { Slider } from 'ui/common/Slider';
+import { Heading } from 'ui/common/Heading';
 import { createSelectOptions, Select } from 'ui/common/Select';
 import { EnvelopeUI } from 'ui/components/instrument/EnvelopeUI';
-import { Heading } from 'ui/common/Heading';
+import { EnvelopeCanvas } from 'ui/components/instrument/EnvelopeCanvas';
 
 const oscTypeValues = oscillatorTypes.slice(0) as OscillatorTypeID[];
 
@@ -45,15 +46,18 @@ interface StyledProps {
 }
 
 const Column = styled.div<StyledProps>`
+    flex: 0 0 auto;
     margin-left: ${toVU(1)};
 
     &: last-child {
+        flex: 1;
         margin-right: 0;
     }
 
     ${({ theme, $isVertical }) => !!$isVertical && `
         writing-mode: vertical-lr;
         transform: rotate(180deg);
+        text-align: right;
         margin-left: ${toVU(2)};
         border-right: ${theme.border.grey};
 
@@ -147,6 +151,12 @@ export const OperatorUI: React.FC<Props> = ({ operatorId, instrumentId, data }) 
                     instrumentId={instrumentId}
                     operatorId={operatorId}
                     data={envelope}
+                />
+            </Column>
+
+            <Column>
+                <EnvelopeCanvas
+                    envelope={envelope}
                 />
             </Column>
         </Container>
