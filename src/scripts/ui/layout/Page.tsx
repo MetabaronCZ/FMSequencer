@@ -9,7 +9,7 @@ import { Footer } from 'ui/layout/Footer';
 const Layout = styled.div`
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    height: 100vh;
     max-width: 980px;
     margin: 0 auto;
 `;
@@ -20,6 +20,7 @@ const LayoutHeader = styled.header`
 
 const LayoutContent = styled.main`
     flex: 1;
+    overflow-y: auto;
 `;
 
 const LayoutFooter = styled.footer`
