@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link, LinkProps } from 'react-router-dom';
 import { useMatch, useResolvedPath } from 'react-router';
 
-import { toVU } from 'modules/typography';
+import { toVU } from 'ui/typography';
 import { Text } from 'ui/common/Text';
 
 interface StyledProps {

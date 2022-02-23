@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { toVU } from 'modules/typography';
+import { toVU } from 'ui/typography';
 
 import { Text } from 'ui/common/Text';
 
@@ -32,9 +32,14 @@ const StyledSelect = styled.select`
     font-size: inherit;
     cursor: pointer;
 
+    &:hover {
+        background-color: ${({ theme }) => theme.color.greyLightest};
+    }
+
     option {
         ${Text.Default};
         font-size: inherit;
+        background: ${({ theme }) => theme.color.white};
     }
 `;
 

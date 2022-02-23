@@ -3,14 +3,15 @@ import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 
 import { useAppDispatch } from 'store';
-import { instrumentSlice } from 'store/instruments';
+import { projectSlice } from 'store/project';
 
-import { toVU } from 'modules/typography';
-import { ratios } from 'modules/audio/instrument/ratio';
-import { OperatorData } from 'modules/audio/instrument/operator';
-import { LEVEL_MAX, LEVEL_MIN } from 'modules/audio/instrument/level';
-import { OscillatorTypeID, oscillatorTypes } from 'modules/audio/instrument/oscillator';
+import {
+    OscillatorTypeID, oscillatorTypes, ratios,
+    LEVEL_MAX, LEVEL_MIN,
+} from 'modules/engine/config';
+import { OperatorData } from 'modules/project/instrument/operator';
 
+import { toVU } from 'ui/typography';
 import { Slider } from 'ui/common/Slider';
 import { Heading } from 'ui/common/Heading';
 import { createSelectOptions, Select } from 'ui/common/Select';
@@ -69,23 +70,27 @@ const Column = styled.div<StyledProps>`
 `;
 
 interface Props {
-    readonly instrumentId: number;
-    readonly operatorId: number;
+    readonly track: number;
+    readonly operator: number;
     readonly data: OperatorData;
 }
 
-export const OperatorUI: React.FC<Props> = ({ operatorId, instrumentId, data }) => {
+export const OperatorUI: React.FC<Props> = ({ track, operator, data }) => {
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
     const { level, ratio, type, envelope } = data;
-    const { setOperatorType, setOperatorLevel, setOperatorRatio } = instrumentSlice.actions;
+    const {
+        setInstrumentOperatorType,
+        setInstrumentOperatorLevel, setInstrumentOperatorRatio,
+    } = projectSlice.actions;
+
     const minRatioIndex = 0;
     const maxRatioIndex = ratios.length - 1;
     return (
         <Container>
             <Column $isVertical>
                 <Heading tag="h3" size="small">
-                    {`${t('operator')} ${operatorId + 1}`}
+                    {`${t('operator')} ${operator + 1}`}
                 </Heading>
             </Column>
 
@@ -96,9 +101,9 @@ export const OperatorUI: React.FC<Props> = ({ operatorId, instrumentId, data }) 
                         value={type}
                         options={options}
                         onChange={(value) => dispatch(
-                            setOperatorType({
-                                operator: operatorId,
-                                instrument: instrumentId,
+                            setInstrumentOperatorType({
+                                track,
+                                operator,
                                 data: value,
                             })
                         )}
@@ -112,9 +117,9 @@ export const OperatorUI: React.FC<Props> = ({ operatorId, instrumentId, data }) 
                         min={LEVEL_MIN}
                         max={LEVEL_MAX}
                         onChange={(value) => dispatch(
-                            setOperatorLevel({
-                                operator: operatorId,
-                                instrument: instrumentId,
+                            setInstrumentOperatorLevel({
+                                track,
+                                operator,
                                 data: value,
                             })
                         )}
@@ -130,9 +135,9 @@ export const OperatorUI: React.FC<Props> = ({ operatorId, instrumentId, data }) 
                         minLabel={ratios[minRatioIndex]}
                         maxLabel={ratios[maxRatioIndex]}
                         onChange={(value) => dispatch(
-                            setOperatorRatio({
-                                operator: operatorId,
-                                instrument: instrumentId,
+                            setInstrumentOperatorRatio({
+                                track,
+                                operator,
                                 data: ratios[value],
                             })
                         )}
@@ -148,16 +153,14 @@ export const OperatorUI: React.FC<Props> = ({ operatorId, instrumentId, data }) 
 
             <Column>
                 <EnvelopeUI
-                    instrumentId={instrumentId}
-                    operatorId={operatorId}
+                    track={track}
+                    operator={operator}
                     data={envelope}
                 />
             </Column>
 
             <Column>
-                <EnvelopeCanvas
-                    envelope={envelope}
-                />
+                <EnvelopeCanvas envelope={envelope} />
             </Column>
         </Container>
     );

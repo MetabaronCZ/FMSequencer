@@ -5,9 +5,8 @@ import { MemoryRouter, Routes, Route } from 'react-router-dom';
 
 import { store } from 'store';
 
-import { routes } from 'modules/routes';
-import { defaultTheme } from 'modules/theme';
-
+import { routes } from 'ui/routes';
+import { defaultTheme } from 'ui/theme';
 import { GlobalStyles } from 'ui/components/GlobalStyles';
 import { NavigationScroll } from 'ui/components/NavigationScroll';
 

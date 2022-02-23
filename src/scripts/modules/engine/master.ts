@@ -1,6 +1,6 @@
 import { Bus } from 'modules/engine/bus';
 import { Level } from 'modules/engine/level';
-import { MasterData } from 'modules/audio/master';
+import { MasterData } from 'modules/project/master';
 import { Compressor } from 'modules/engine/compressor';
 
 export class Master extends Bus<Level, Compressor> {

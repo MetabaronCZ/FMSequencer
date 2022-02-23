@@ -1,13 +1,13 @@
+import {
+    OscillatorTypeID, RatioID,
+    FORCED_RELEASE_TIME, ENVELOPE_SUSTAIN_MAX,
+} from 'modules/engine/config';
 import { Bus } from 'modules/engine/bus';
 import { Node } from 'modules/engine/node';
 import { Level } from 'modules/engine/level';
 import { Oscillator } from 'modules/engine/oscillator';
-import { OperatorData } from 'modules/audio/instrument/operator';
-import { OscillatorTypeID } from 'modules/audio/instrument/oscillator';
-import { getRatioValue, RatioID } from 'modules/audio/instrument/ratio';
-import { ENVELOPE_SUSTAIN_MAX } from 'modules/audio/instrument/envelope';
-
-const FORCED_RELEASE_TIME = 0.01;
+import { getRatioValue } from 'modules/project/instrument/ratio';
+import { OperatorData } from 'modules/project/instrument/operator';
 
 export class Operator extends Bus<Oscillator, Level> {
     private readonly osc: Oscillator;

@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 
 import { useAppSelector } from 'store';
 
+import { VELOCITY_MAX } from 'modules/engine/config';
+import { InstrumentData } from 'modules/project/instrument';
 import { AudioEngine } from 'modules/engine';
-import { InstrumentData } from 'modules/audio/instrument';
-import { VELOCITY_MAX } from 'modules/audio/instrument/velocity';
 
 interface KeyboardMapping {
     readonly [key: string]: number;
@@ -14,7 +14,7 @@ const keyboardMapping: KeyboardMapping = {
     a: 72, w: 73, s: 74, e: 75, d: 76, f: 77, t: 78, g: 79, z: 80, h: 81, u: 82, j: 83, k: 84,
 };
 
-const onKeyDownFn = (instrument: InstrumentData, instrumentId: number) => (e: KeyboardEvent): void => {
+const onKeyDownFn = (instrument: InstrumentData, track: number) => (e: KeyboardEvent): void => {
     const { key } = e;
 
     if (e.repeat || !Object.prototype.hasOwnProperty.call(keyboardMapping, key)) {
@@ -24,10 +24,10 @@ const onKeyDownFn = (instrument: InstrumentData, instrumentId: number) => (e: Ke
 
     const note = keyboardMapping[key];
     const time = AudioEngine.getTime();
-    AudioEngine.voices[instrumentId].noteOn(note, VELOCITY_MAX, instrument, time);
+    AudioEngine.voices[track].noteOn(note, VELOCITY_MAX, instrument, time);
 };
 
-const onKeyUpFn = (instrumentId: number) => (e: KeyboardEvent): void => {
+const onKeyUpFn = (track: number) => (e: KeyboardEvent): void => {
     const { key } = e;
 
     if (e.repeat || !Object.prototype.hasOwnProperty.call(keyboardMapping, key)) {
@@ -36,18 +36,17 @@ const onKeyUpFn = (instrumentId: number) => (e: KeyboardEvent): void => {
     e.preventDefault();
 
     const time = AudioEngine.getTime();
-    AudioEngine.voices[instrumentId].noteOff(time);
+    AudioEngine.voices[track].noteOff(time);
 };
 
 interface Props {
-    readonly instrumentId: number;
+    readonly track: number;
 }
 
-export const Keyboard: React.FC<Props> = ({ instrumentId }) => {
-    const instrument = useAppSelector((state) => state.instruments[instrumentId]);
-
-    const onKeyDown = onKeyDownFn(instrument, instrumentId);
-    const onKeyUp = onKeyUpFn(instrumentId);
+export const Keyboard: React.FC<Props> = ({ track }) => {
+    const { instrument } = useAppSelector((state) => state.project.tracks[track]);
+    const onKeyDown = onKeyDownFn(instrument, track);
+    const onKeyUp = onKeyUpFn(track);
 
     useEffect(() => {
         document.addEventListener('keydown', onKeyDown);

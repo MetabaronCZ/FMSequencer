@@ -1,16 +1,15 @@
-import { OPERATOR_COUNT } from 'modules/audio/config';
-import { VELOCITY_MAX } from 'modules/audio/instrument/velocity';
-import { FREQUENCY_BASE } from 'modules/audio/instrument/frequency';
+import {
+    AlgorithmID, FREQUENCY_BASE, VELOCITY_MAX,
+    MODULATOR_LEVEL_MULTIPLIER, OPERATOR_COUNT,
+} from 'modules/engine/config';
 
 import { Bus } from 'modules/engine/bus';
 import { Pan } from 'modules/engine/pan';
 import { Level } from 'modules/engine/level';
 import { Filter } from 'modules/engine/filter';
 import { Operator } from 'modules/engine/operator';
-import { InstrumentData } from 'modules/audio/instrument';
-import { algorithmConfig, AlgorithmID, isAlgorithmConfigCarrier } from 'modules/audio/instrument/algorithm';
-
-const MODULATOR_LEVEL_MULTIPLIER = 3000;
+import { InstrumentData } from 'modules/project/instrument';
+import { algorithmConfig, isAlgorithmConfigCarrier } from 'modules/project/instrument/algorithm';
 
 export class Voice extends Bus<Filter, Pan> {
     public readonly filter: Filter;
@@ -27,7 +26,7 @@ export class Voice extends Bus<Filter, Pan> {
         this.pan = pan;
         this.level = level;
         this.filter = filter;
-        this.operators = new Array(OPERATOR_COUNT).fill(0).map(() => new Operator(ctx));
+        this.operators = Array(OPERATOR_COUNT).fill(0).map(() => new Operator(ctx));
 
         filter.connect(level);
         level.connect(pan);

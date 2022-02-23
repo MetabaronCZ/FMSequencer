@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { TFunction, useTranslation } from 'react-i18next';
 
-import { paths } from 'modules/paths';
+import { paths } from 'ui/paths';
 import { MenuLink } from 'ui/components/menu/MenuLink';
 
 interface MenuItem {

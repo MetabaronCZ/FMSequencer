@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { toVU } from 'modules/typography';
+import { toVU } from 'ui/typography';
 
 import { Text } from 'ui/common/Text';
 import { Field } from 'ui/common/Field';

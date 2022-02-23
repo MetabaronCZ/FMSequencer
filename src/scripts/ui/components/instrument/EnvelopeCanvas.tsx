@@ -1,7 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
-import { EnvelopeData, ENVELOPE_ATTACK_MAX, ENVELOPE_DECAY_MAX, ENVELOPE_RELEASE_MAX, ENVELOPE_SUSTAIN_MAX } from 'modules/audio/instrument/envelope';
+import {
+    ENVELOPE_ATTACK_MAX, ENVELOPE_DECAY_MAX,
+    ENVELOPE_RELEASE_MAX, ENVELOPE_SUSTAIN_MAX,
+} from 'modules/engine/config';
+import { EnvelopeData } from 'modules/project/instrument/envelope';
 
 const canvasWidth = 300;
 const canvasHeight = 150;

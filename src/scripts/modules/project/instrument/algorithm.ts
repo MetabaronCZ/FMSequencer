@@ -1,8 +1,4 @@
-export const algorithmIds = [1, 2, 3, 4, 5, 6, 7, 8] as const;
-export type AlgorithmID = typeof algorithmIds[number];
-
-export const ALGORITHM_MIN = algorithmIds[0];
-export const ALGORITHM_MAX = algorithmIds[algorithmIds.length - 1];
+import { AlgorithmID, algorithmIds } from 'modules/engine/config';
 
 export const isAlgorithm = (nr: number): nr is AlgorithmID => {
     return algorithmIds.includes(nr as AlgorithmID);

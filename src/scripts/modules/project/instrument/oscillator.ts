@@ -1,5 +1,4 @@
-export const oscillatorTypes = ['SIN', 'TRI', 'SAW', 'SQR'] as const;
-export type OscillatorTypeID = typeof oscillatorTypes[number];
+import { OscillatorTypeID } from 'modules/engine/config';
 
 type OscillatorTypeData = {
     readonly [id in OscillatorTypeID]: OscillatorType;

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { toVU } from 'modules/typography';
+import { toVU } from 'ui/typography';
 
 import { Header } from 'ui/layout/Header';
 import { Footer } from 'ui/layout/Footer';

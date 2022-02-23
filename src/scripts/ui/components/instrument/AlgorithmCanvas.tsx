@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
-import { OPERATOR_COUNT } from 'modules/audio/config';
-import { algorithmConfig, AlgorithmID } from 'modules/audio/instrument/algorithm';
+import { AlgorithmID, OPERATOR_COUNT } from 'modules/engine/config';
+import { algorithmConfig } from 'modules/project/instrument/algorithm';
 
 const opSize = 25;
 const opPadding = 10;

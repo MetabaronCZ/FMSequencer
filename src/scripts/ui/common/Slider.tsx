@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { toVU } from 'modules/typography';
+import { toVU } from 'ui/typography';
 import { getSign, limitNumber } from 'modules/core/number';
 
 import { Text } from 'ui/common/Text';

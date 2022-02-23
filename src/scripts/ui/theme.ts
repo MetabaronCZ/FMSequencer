@@ -1,4 +1,4 @@
-import { toVU } from 'modules/typography';
+import { toVU } from 'ui/typography';
 import { DefaultTheme } from 'styled-components';
 
 const borderSize = 1;

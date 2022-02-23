@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { getImagePath, toVU } from 'modules/typography';
+import { getImagePath, toVU } from 'ui/typography';
 
 const loadersize = toVU(4);
 const img = getImagePath('loader.gif');

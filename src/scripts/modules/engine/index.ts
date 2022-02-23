@@ -1,6 +1,6 @@
-import { Voice } from 'modules/engine/voice';
+import { SAMPLE_RATE, TRACK_COUNT } from 'modules/engine/config';
 import { Master } from 'modules/engine/master';
-import { SAMPLE_RATE, VOICE_COUNT } from 'modules/audio/config';
+import { Voice } from 'modules/engine/voice';
 
 class Engine {
     public readonly master: Master;
@@ -13,7 +13,7 @@ class Engine {
         });
 
         this.context = ctx;
-        this.voices = new Array(VOICE_COUNT).fill(0).map(() => new Voice(ctx));
+        this.voices = Array(TRACK_COUNT).fill(0).map(() => new Voice(ctx));
         this.master = new Master(ctx);
 
         for (const voice of this.voices) {

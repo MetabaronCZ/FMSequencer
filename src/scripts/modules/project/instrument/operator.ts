@@ -1,7 +1,5 @@
-import { RatioID } from 'modules/audio/instrument/ratio';
-import { LEVEL_MAX } from 'modules/audio/instrument/level';
-import { OscillatorTypeID } from 'modules/audio/instrument/oscillator';
-import { createEnvelopeData, EnvelopeData, EnvelopeConfig } from 'modules/audio/instrument/envelope';
+import { LEVEL_MAX, OscillatorTypeID, RatioID } from 'modules/engine/config';
+import { createEnvelopeData, EnvelopeData, EnvelopeConfig } from 'modules/project/instrument/envelope';
 
 export interface OperatorData {
     readonly type: OscillatorTypeID;
@@ -23,7 +21,11 @@ export interface OperatorConfig {
     readonly envelope?: EnvelopeConfig;
 }
 
-export const createOperatorData = (config: OperatorConfig = {}) : OperatorData => ({
-    ...Object.assign({}, defaults, config),
-    envelope: createEnvelopeData(config.envelope),
-});
+export const createOperatorData = (config: OperatorConfig = {}) : OperatorData => {
+    return {
+        ...Object.assign({}, defaults, config),
+        envelope: config.envelope
+            ? createEnvelopeData(config.envelope)
+            : defaults.envelope,
+    };
+};

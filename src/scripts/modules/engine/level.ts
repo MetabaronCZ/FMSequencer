@@ -1,4 +1,4 @@
-import { LEVEL_MAX } from 'modules/audio/instrument/level';
+import { LEVEL_MAX } from 'modules/engine/config';
 import { Node } from 'modules/engine/node';
 
 export class Level extends Node<GainNode> {

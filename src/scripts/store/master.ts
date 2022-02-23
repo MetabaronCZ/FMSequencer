@@ -1,40 +1,22 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { PayloadAction } from '@reduxjs/toolkit';
 
+import { ProjectReducer } from 'store/project';
+
+import { LEVEL_MAX, LEVEL_MIN } from 'modules/engine/config';
 import { limitNumber } from 'modules/core/number';
-
 import { AudioEngine } from 'modules/engine';
-import { LEVEL_MAX, LEVEL_MIN } from 'modules/audio/instrument/level';
-import { createMasterData, MasterConfig } from 'modules/audio/master';
 
-type LoadMasterAction = PayloadAction<MasterConfig>;
 type SetMasterLevelAction = PayloadAction<number>;
-export type MasterActions = LoadMasterAction | SetMasterLevelAction;
+export type MasterActions = SetMasterLevelAction;
 
-export const masterSlice = createSlice({
-    name: 'master',
-    initialState: () => {
-        const state = createMasterData();
+const setMasterLevel: ProjectReducer<SetMasterLevelAction> = (state, action) => {
+    const value = limitNumber(action.payload, LEVEL_MIN, LEVEL_MAX);
+    state.master.level = value;
 
-        const time = AudioEngine.getTime();
-        AudioEngine.master.set(state, time);
+    const time = AudioEngine.getTime();
+    AudioEngine.master.level.set(value, time);
+};
 
-        return state;
-    },
-    reducers: {
-        create: (state, action: LoadMasterAction) => {
-            const newState = createMasterData(action.payload);
-
-            const time = AudioEngine.getTime();
-            AudioEngine.master.set(newState, time);
-
-            return newState;
-        },
-        setLevel: (state, action: SetMasterLevelAction) => {
-            const value = limitNumber(action.payload, LEVEL_MIN, LEVEL_MAX);
-            state.level = value;
-
-            const time = AudioEngine.getTime();
-            AudioEngine.master.level.set(value, time);
-        },
-    },
-});
+export const masterReducer = {
+    setMasterLevel,
+};

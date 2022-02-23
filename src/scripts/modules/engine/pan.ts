@@ -1,4 +1,4 @@
-import { PAN_MAX } from 'modules/audio/instrument/pan';
+import { PAN_MAX } from 'modules/engine/config';
 import { Node } from 'modules/engine/node';
 
 export class Pan extends Node<StereoPannerNode> {

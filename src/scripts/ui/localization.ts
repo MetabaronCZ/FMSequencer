@@ -1,7 +1,7 @@
 import i18next from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-import { ENV } from 'modules/env';
+import { ENV } from 'env';
 import localeCs from 'localization/locales.cs.json';
 import localeEn from 'localization/locales.en.json';
 

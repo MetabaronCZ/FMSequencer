@@ -2,10 +2,9 @@ import logger from 'redux-logger';
 import { useDispatch, useSelector } from 'react-redux';
 import { configureStore, Dispatch, Middleware } from '@reduxjs/toolkit';
 
-import { MasterActions, masterSlice } from 'store/master';
-import { InstrumentActions, instrumentSlice } from 'store/instruments';
-
-import { ENV } from 'modules/env';
+import { ENV } from 'env';
+import { ProjectActions, projectSlice } from 'store/project';
+import { SessionActions, sessionSlice } from 'store/session';
 
 const middleware: Middleware[] = [];
 
@@ -15,15 +14,15 @@ if (ENV.isDev) {
 
 export const store = configureStore({
     reducer: {
-        instruments: instrumentSlice.reducer,
-        master: masterSlice.reducer,
+        project: projectSlice.reducer,
+        session: sessionSlice.reducer,
     },
     middleware,
 });
 
 export type Store = ReturnType<typeof store.getState>;
 
-type AppActions = MasterActions | InstrumentActions;
+type AppActions = ProjectActions | SessionActions;
 
 type AppDispatch = typeof store.dispatch;
 export const useAppDispatch = (): Dispatch<AppActions> => useDispatch<AppDispatch>();

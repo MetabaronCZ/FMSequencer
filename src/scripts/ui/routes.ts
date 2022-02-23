@@ -1,7 +1,6 @@
 import { FunctionComponent } from 'react';
 
-import { paths } from 'modules/paths';
-
+import { paths } from 'ui/paths';
 import { HomeView } from 'ui/views/HomeView';
 import { ErrorView } from 'ui/views/ErrorView';
 import { MasterView } from 'ui/views/MasterView';

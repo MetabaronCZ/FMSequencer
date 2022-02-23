@@ -1,10 +1,4 @@
-import { FREQUENCY_MAX } from 'modules/audio/instrument/frequency';
-
-export const RESONANCE_MIN = 0.01;
-export const RESONANCE_MAX = 100;
-
-export const filterTypes = ['LOWPASS', 'HIGHPASS', 'BANDPASS'] as const;
-export type FilterTypeID = typeof filterTypes[number];
+import { FilterTypeID, FREQUENCY_MAX } from 'modules/engine/config';
 
 type FilterTypeData = {
     readonly [id in FilterTypeID]: BiquadFilterType;

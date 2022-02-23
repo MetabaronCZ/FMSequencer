@@ -2,32 +2,32 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useAppDispatch } from 'store';
-import { instrumentSlice } from 'store/instruments';
+import { projectSlice } from 'store/project';
 
 import {
-    EnvelopeData,
     ENVELOPE_ATTACK_MAX, ENVELOPE_ATTACK_MIN,
     ENVELOPE_DECAY_MAX, ENVELOPE_DECAY_MIN,
     ENVELOPE_SUSTAIN_MIN, ENVELOPE_SUSTAIN_MAX,
     ENVELOPE_RELEASE_MIN, ENVELOPE_RELEASE_MAX,
-} from 'modules/audio/instrument/envelope';
+} from 'modules/engine/config';
+import { EnvelopeData } from 'modules/project/instrument/envelope';
 
 import { Slider } from 'ui/common/Slider';
 
 interface Props {
-    readonly instrumentId: number;
-    readonly operatorId: number;
+    readonly track: number;
+    readonly operator: number;
     readonly data: EnvelopeData;
 }
 
-export const EnvelopeUI: React.FC<Props> = ({ instrumentId, operatorId, data }) => {
+export const EnvelopeUI: React.FC<Props> = ({ track, operator, data }) => {
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
     const { attack, decay, sustain, release } = data;
     const {
-        setOperatorEnvelopeAction, setOperatorEnvelopeDecay,
-        setOperatorEnvelopeSustain, setOperatorEnvelopeRelease,
-    } = instrumentSlice.actions;
+        setInstrumentOperatorEnvelopeAction, setInstrumentOperatorEnvelopeDecay,
+        setInstrumentOperatorEnvelopeSustain, setInstrumentOperatorEnvelopeRelease,
+    } = projectSlice.actions;
 
     return (
         <div>
@@ -39,9 +39,9 @@ export const EnvelopeUI: React.FC<Props> = ({ instrumentId, operatorId, data }) 
                 step={0.01}
                 vertical
                 onChange={(value) => dispatch(
-                    setOperatorEnvelopeAction({
-                        operator: operatorId,
-                        instrument: instrumentId,
+                    setInstrumentOperatorEnvelopeAction({
+                        track,
+                        operator,
                         data: value,
                     })
                 )}
@@ -55,9 +55,9 @@ export const EnvelopeUI: React.FC<Props> = ({ instrumentId, operatorId, data }) 
                 step={0.1}
                 vertical
                 onChange={(value) => dispatch(
-                    setOperatorEnvelopeDecay({
-                        operator: operatorId,
-                        instrument: instrumentId,
+                    setInstrumentOperatorEnvelopeDecay({
+                        track,
+                        operator,
                         data: value,
                     })
                 )}
@@ -70,9 +70,9 @@ export const EnvelopeUI: React.FC<Props> = ({ instrumentId, operatorId, data }) 
                 max={ENVELOPE_SUSTAIN_MAX}
                 vertical
                 onChange={(value) => dispatch(
-                    setOperatorEnvelopeSustain({
-                        operator: operatorId,
-                        instrument: instrumentId,
+                    setInstrumentOperatorEnvelopeSustain({
+                        track,
+                        operator,
                         data: value,
                     })
                 )}
@@ -86,9 +86,9 @@ export const EnvelopeUI: React.FC<Props> = ({ instrumentId, operatorId, data }) 
                 step={0.1}
                 vertical
                 onChange={(value) => dispatch(
-                    setOperatorEnvelopeRelease({
-                        operator: operatorId,
-                        instrument: instrumentId,
+                    setInstrumentOperatorEnvelopeRelease({
+                        track,
+                        operator,
                         data: value,
                     })
                 )}

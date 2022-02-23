@@ -1,14 +1,4 @@
-export const ENVELOPE_ATTACK_MIN = 0;
-export const ENVELOPE_ATTACK_MAX = 10;
-
-export const ENVELOPE_DECAY_MIN = 0;
-export const ENVELOPE_DECAY_MAX = 10;
-
-export const ENVELOPE_SUSTAIN_MIN = 0;
-export const ENVELOPE_SUSTAIN_MAX = 100;
-
-export const ENVELOPE_RELEASE_MIN = 0;
-export const ENVELOPE_RELEASE_MAX = 10;
+import { ENVELOPE_SUSTAIN_MAX } from 'modules/engine/config';
 
 export interface EnvelopeData {
     readonly attack: number;

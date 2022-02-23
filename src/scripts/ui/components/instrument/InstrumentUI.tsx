@@ -3,15 +3,16 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 
-import { instrumentSlice } from 'store/instruments';
+import { projectSlice } from 'store/project';
 import { useAppDispatch, useAppSelector } from 'store';
 
-import { paths } from 'modules/paths';
-import { toVU } from 'modules/typography';
-import { PAN_MAX, PAN_MIN } from 'modules/audio/instrument/pan';
-import { LEVEL_MAX, LEVEL_MIN } from 'modules/audio/instrument/level';
-import { ALGORITHM_MAX, ALGORITHM_MIN } from 'modules/audio/instrument/algorithm';
+import {
+    AlgorithmID, ALGORITHM_MAX, ALGORITHM_MIN,
+    LEVEL_MAX, LEVEL_MIN, PAN_MAX, PAN_MIN,
+} from 'modules/engine/config';
 
+import { paths } from 'ui/paths';
+import { toVU } from 'ui/typography';
 import { Slider } from 'ui/common/Slider';
 import { Heading } from 'ui/common/Heading';
 import { Section } from 'ui/common/Section';
@@ -47,16 +48,20 @@ const OperatorItem = styled.li`
 `;
 
 interface Props {
-    readonly instrumentId: number;
+    readonly track: number;
 }
 
-export const InstrumentUI: React.FC<Props> = ({ instrumentId }) => {
+export const InstrumentUI: React.FC<Props> = ({ track }) => {
     const navigate = useNavigate();
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
-    const instruments = useAppSelector((state) => state.instruments);
-    const { algorithm, level, pan, filter, operators } = instruments[instrumentId];
-    const { setAlgorithm, setLevel, setPan } = instrumentSlice.actions;
+    const tracks = useAppSelector((state) => state.project.tracks);
+    const instruments = tracks.map((track) => track.instrument);
+    const { algorithm, level, pan, filter, operators } = instruments[track];
+    const {
+        setInstrumentAlgorithm,
+        setInstrumentLevel, setInstrumentPan,
+    } = projectSlice.actions;
 
     const instOptions = createSelectOptions(instruments, (inst, i) => ({
         label: inst.name,
@@ -69,7 +74,7 @@ export const InstrumentUI: React.FC<Props> = ({ instrumentId }) => {
                 {t('instrument')}
                 {' '}
                 <SelectRaw
-                    value={`${instrumentId}`}
+                    value={`${track}`}
                     options={instOptions}
                     onChange={(value) => {
                         navigate(paths.INSTRUMENT(value));
@@ -90,7 +95,10 @@ export const InstrumentUI: React.FC<Props> = ({ instrumentId }) => {
                             min={ALGORITHM_MIN}
                             max={ALGORITHM_MAX}
                             onChange={(value) => dispatch(
-                                setAlgorithm({ id: instrumentId, data: value })
+                                setInstrumentAlgorithm({
+                                    track,
+                                    data: value as AlgorithmID,
+                                })
                             )}
                         />
 
@@ -100,7 +108,7 @@ export const InstrumentUI: React.FC<Props> = ({ instrumentId }) => {
                             min={LEVEL_MIN}
                             max={LEVEL_MAX}
                             onChange={(value) => dispatch(
-                                setLevel({ id: instrumentId, data: value })
+                                setInstrumentLevel({ track, data: value })
                             )}
                         />
 
@@ -110,7 +118,7 @@ export const InstrumentUI: React.FC<Props> = ({ instrumentId }) => {
                             min={PAN_MIN}
                             max={PAN_MAX}
                             onChange={(value) => dispatch(
-                                setPan({ id: instrumentId, data: value })
+                                setInstrumentPan({ track, data: value })
                             )}
                         />
                     </div>
@@ -120,7 +128,7 @@ export const InstrumentUI: React.FC<Props> = ({ instrumentId }) => {
                     </Heading>
 
                     <FilterUI
-                        instrumentId={instrumentId}
+                        track={track}
                         data={filter}
                     />
                 </Data>
@@ -130,8 +138,8 @@ export const InstrumentUI: React.FC<Props> = ({ instrumentId }) => {
                 {operators.map((operator, i) => (
                     <OperatorItem key={i}>
                         <OperatorUI
-                            operatorId={i}
-                            instrumentId={instrumentId}
+                            track={track}
+                            operator={i}
                             data={operator}
                         />
                     </OperatorItem>

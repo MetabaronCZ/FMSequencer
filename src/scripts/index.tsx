@@ -1,10 +1,10 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-import { App } from 'ui/components/App';
+import { Logger } from 'modules/core/logger';
 
-import { Logger } from 'modules/logger';
-import { i18n } from 'modules/localization';
+import { App } from 'ui/components/App';
+import { i18n } from 'ui/localization';
 
 const root = document.getElementById('root');
 

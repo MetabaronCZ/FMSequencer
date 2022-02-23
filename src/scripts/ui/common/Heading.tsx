@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 
 import { Text } from 'ui/common/Text';
-import { toVU } from 'modules/typography';
+import { toVU } from 'ui/typography';
 
 type HeadingTag = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 type HeadingSize = 'default' | 'small' | 'large' | 'larger';

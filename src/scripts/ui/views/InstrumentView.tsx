@@ -7,12 +7,12 @@ import { InstrumentUI } from 'ui/components/instrument/InstrumentUI';
 
 export const InstrumentView: React.FC = () => {
     const { id } = useParams();
-    const selectedInstrument = id ? parseInt(id) : 0;
+    const track = id ? parseInt(id) : 0;
 
     return (
         <Page>
-            <InstrumentUI instrumentId={selectedInstrument} />
-            <Keyboard instrumentId={selectedInstrument} />
+            <InstrumentUI track={track} />
+            <Keyboard track={track} />
         </Page>
     );
 };
