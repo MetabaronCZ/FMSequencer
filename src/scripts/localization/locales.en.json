@@ -3,7 +3,6 @@
     "error": "Error",
     "master": "Master",
     "instrument": "Instrument",
-    "instruments": "Instruments",
     "algorithm": "Algorithm",
     "level": "Level",
     "pan": "Pan",
@@ -19,5 +18,10 @@
     "envelopeAttack": "Attack",
     "envelopeDecay": "Decay",
     "envelopeSustain": "Sustain",
-    "envelopeRelease": "Release"
+    "envelopeRelease": "Release",
+    "project": "Project",
+    "sequence": "Sequence",
+    "pattern": "Pattern",
+    "track": "Track",
+    "song": "Song"
 }

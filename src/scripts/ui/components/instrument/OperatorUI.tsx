@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 
 import { useAppDispatch } from 'store';
@@ -11,12 +10,12 @@ import {
 } from 'modules/engine/config';
 import { OperatorData } from 'modules/project/instrument/operator';
 
-import { toVU } from 'ui/typography';
 import { Slider } from 'ui/common/Slider';
 import { Heading } from 'ui/common/Heading';
 import { createSelectOptions, Select } from 'ui/common/Select';
 import { EnvelopeUI } from 'ui/components/instrument/EnvelopeUI';
 import { EnvelopeCanvas } from 'ui/components/instrument/EnvelopeCanvas';
+import { DataGrid, DataGridColumn, DataGridRow } from 'ui/common/DataGrid';
 
 const oscTypeValues = oscillatorTypes.slice(0) as OscillatorTypeID[];
 
@@ -24,50 +23,6 @@ const options = createSelectOptions(oscTypeValues, (item) => ({
     label: item,
     value: item,
 }));
-
-const Container = styled.div`
-    display: flex;
-    flex-direction: row;
-`;
-
-const Row = styled.div`
-    margin-bottom: ${toVU(1)};
-
-    &: last-child {
-        margin-bottom: 0;
-    }
-
-    & > * {
-        width: 100%;
-    }
-`;
-
-interface StyledProps {
-    readonly $isVertical?: boolean;
-}
-
-const Column = styled.div<StyledProps>`
-    flex: 0 0 auto;
-    margin-left: ${toVU(1)};
-
-    &: last-child {
-        flex: 1;
-        margin-right: 0;
-    }
-
-    ${({ theme, $isVertical }) => !!$isVertical && `
-        writing-mode: vertical-lr;
-        transform: rotate(180deg);
-        text-align: right;
-        margin-left: ${toVU(2)};
-        border-right: ${theme.border.grey};
-
-        &:first-child {
-            margin-left: 0;
-            border-right: none;
-        }
-    `};
-`;
 
 interface Props {
     readonly track: number;
@@ -87,15 +42,15 @@ export const OperatorUI: React.FC<Props> = ({ track, operator, data }) => {
     const minRatioIndex = 0;
     const maxRatioIndex = ratios.length - 1;
     return (
-        <Container>
-            <Column $isVertical>
+        <DataGrid>
+            <DataGridColumn isVertical>
                 <Heading tag="h3" size="small">
                     {`${t('operator')} ${operator + 1}`}
                 </Heading>
-            </Column>
+            </DataGridColumn>
 
-            <Column>
-                <Row>
+            <DataGridColumn>
+                <DataGridRow>
                     <Select
                         label={t('shape')}
                         value={type}
@@ -108,9 +63,9 @@ export const OperatorUI: React.FC<Props> = ({ track, operator, data }) => {
                             })
                         )}
                     />
-                </Row>
+                </DataGridRow>
 
-                <Row>
+                <DataGridRow>
                     <Slider
                         label={`${t('level')}: ${level}`}
                         value={level}
@@ -124,9 +79,9 @@ export const OperatorUI: React.FC<Props> = ({ track, operator, data }) => {
                             })
                         )}
                     />
-                </Row>
+                </DataGridRow>
 
-                <Row>
+                <DataGridRow>
                     <Slider
                         label={`${t('ratio')}: ${ratio}`}
                         value={ratios.indexOf(ratio)}
@@ -142,26 +97,26 @@ export const OperatorUI: React.FC<Props> = ({ track, operator, data }) => {
                             })
                         )}
                     />
-                </Row>
-            </Column>
+                </DataGridRow>
+            </DataGridColumn>
 
-            <Column $isVertical>
+            <DataGridColumn isVertical>
                 <Heading tag="h3" size="small">
                     {t('envelope')}
                 </Heading>
-            </Column>
+            </DataGridColumn>
 
-            <Column>
+            <DataGridColumn>
                 <EnvelopeUI
                     track={track}
                     operator={operator}
                     data={envelope}
                 />
-            </Column>
+            </DataGridColumn>
 
-            <Column>
+            <DataGridColumn>
                 <EnvelopeCanvas envelope={envelope} />
-            </Column>
-        </Container>
+            </DataGridColumn>
+        </DataGrid>
     );
 };

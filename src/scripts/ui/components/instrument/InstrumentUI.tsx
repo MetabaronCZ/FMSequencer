@@ -19,20 +19,9 @@ import { Section } from 'ui/common/Section';
 import { FilterUI } from 'ui/components/instrument/FilterUI';
 import { OperatorUI } from 'ui/components/instrument/OperatorUI';
 import { createSelectOptions, SelectRaw } from 'ui/common/SelectRaw';
+import { AnalyserCanvas } from 'ui/components/instrument/AnalyserCanvas';
 import { AlgorithmCanvas } from 'ui/components/instrument/AlgorithmCanvas';
-
-const Container = styled.div`
-    display: flex;
-    flex-direction: row;
-`;
-
-const Visual = styled.div`
-    margin-right: ${toVU(2)};
-`;
-
-const Data = styled.div`
-    flex: 1;
-`;
+import { DataGrid, DataGridColumn, DataGridRow } from 'ui/common/DataGrid';
 
 const OperatorList = styled.ul`
     list-style-type: none;
@@ -57,22 +46,20 @@ export const InstrumentUI: React.FC<Props> = ({ track }) => {
     const dispatch = useAppDispatch();
     const tracks = useAppSelector((state) => state.project.tracks);
     const instruments = tracks.map((track) => track.instrument);
-    const { algorithm, level, pan, filter, operators } = instruments[track];
+    const { name, algorithm, level, pan, filter, operators } = instruments[track];
     const {
         setInstrumentAlgorithm,
         setInstrumentLevel, setInstrumentPan,
     } = projectSlice.actions;
 
-    const instOptions = createSelectOptions(instruments, (inst, i) => ({
-        label: inst.name,
+    const instOptions = createSelectOptions(tracks, (inst, i) => ({
+        label: `${t('track')} ${i + 1}`,
         value: `${i}`,
     }));
 
     return (
         <Section>
             <Heading tag="h2" size="default">
-                {t('instrument')}
-                {' '}
                 <SelectRaw
                     value={`${track}`}
                     options={instOptions}
@@ -80,15 +67,17 @@ export const InstrumentUI: React.FC<Props> = ({ track }) => {
                         navigate(paths.INSTRUMENT(value));
                     }}
                 />
+                {' '}
+                ({name})
             </Heading>
 
-            <Container>
-                <Visual>
+            <DataGrid>
+                <DataGridColumn>
                     <AlgorithmCanvas algorithm={algorithm} />
-                </Visual>
+                </DataGridColumn>
 
-                <Data>
-                    <div>
+                <DataGridColumn>
+                    <DataGridRow>
                         <Slider
                             label={`${t('algorithm')}: ${algorithm}`}
                             value={algorithm}
@@ -101,7 +90,9 @@ export const InstrumentUI: React.FC<Props> = ({ track }) => {
                                 })
                             )}
                         />
+                    </DataGridRow>
 
+                    <DataGridRow>
                         <Slider
                             label={`${t('level')}: ${level}`}
                             value={level}
@@ -111,7 +102,9 @@ export const InstrumentUI: React.FC<Props> = ({ track }) => {
                                 setInstrumentLevel({ track, data: value })
                             )}
                         />
+                    </DataGridRow>
 
+                    <DataGridRow>
                         <Slider
                             label={`${t('pan')}: ${pan}`}
                             value={pan}
@@ -121,18 +114,24 @@ export const InstrumentUI: React.FC<Props> = ({ track }) => {
                                 setInstrumentPan({ track, data: value })
                             )}
                         />
-                    </div>
+                    </DataGridRow>
+                </DataGridColumn>
 
+                <DataGridColumn isVertical>
                     <Heading tag="h3" size="small">
                         {t('filter')}
                     </Heading>
+                </DataGridColumn>
 
-                    <FilterUI
-                        track={track}
-                        data={filter}
-                    />
-                </Data>
-            </Container>
+                <FilterUI
+                    track={track}
+                    data={filter}
+                />
+
+                <DataGridColumn>
+                    <AnalyserCanvas track={track} />
+                </DataGridColumn>
+            </DataGrid>
 
             <OperatorList>
                 {operators.map((operator, i) => (

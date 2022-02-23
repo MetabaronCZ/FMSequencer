@@ -7,6 +7,7 @@ import { Bus } from 'modules/engine/bus';
 import { Pan } from 'modules/engine/pan';
 import { Level } from 'modules/engine/level';
 import { Filter } from 'modules/engine/filter';
+import { Analyser } from 'modules/engine/analyser';
 import { Operator } from 'modules/engine/operator';
 import { InstrumentData } from 'modules/project/instrument';
 import { algorithmConfig, isAlgorithmConfigCarrier } from 'modules/project/instrument/algorithm';
@@ -14,22 +15,26 @@ import { algorithmConfig, isAlgorithmConfigCarrier } from 'modules/project/instr
 export class Voice extends Bus<Filter, Pan> {
     public readonly filter: Filter;
     public readonly level: Level;
+    public readonly analyser: Analyser;
     public readonly pan: Pan;
     public readonly operators: Operator[];
 
     constructor(ctx: AudioContext) {
         const filter = new Filter(ctx);
         const level = new Level(ctx);
+        const analyser = new Analyser(ctx);
         const pan = new Pan(ctx);
         super(filter, pan);
 
         this.pan = pan;
         this.level = level;
         this.filter = filter;
+        this.analyser = analyser;
         this.operators = Array(OPERATOR_COUNT).fill(0).map(() => new Operator(ctx));
 
         filter.connect(level);
-        level.connect(pan);
+        level.connect(analyser);
+        analyser.connect(pan);
     }
 
     public set(value: InstrumentData, time: number): void {

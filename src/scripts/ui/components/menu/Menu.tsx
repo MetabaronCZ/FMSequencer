@@ -1,18 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { TFunction, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
-import { paths } from 'ui/paths';
 import { MenuLink } from 'ui/components/menu/MenuLink';
-
-interface MenuItem {
-    readonly title: string;
-    readonly path: string;
-}
-const getMenuItems = (t: TFunction): MenuItem[] => [
-    { title: t('instruments'), path: paths.INSTRUMENTS },
-    { title: t('master'), path: paths.MASTER },
-];
+import { getMenuItems } from 'ui/components/menu/items';
 
 const MenuList = styled.ul`
     list-style-type: none;

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { AlgorithmID, OPERATOR_COUNT } from 'modules/engine/config';
 import { algorithmConfig } from 'modules/project/instrument/algorithm';
 
-const opSize = 25;
+const opSize = 29;
 const opPadding = 10;
 const canvasSize = OPERATOR_COUNT * (opSize + opPadding) + opPadding;
 const lineColor = '#fff';

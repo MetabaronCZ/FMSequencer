@@ -8,7 +8,6 @@ import { InstrumentUI } from 'ui/components/instrument/InstrumentUI';
 export const InstrumentView: React.FC = () => {
     const { id } = useParams();
     const track = id ? parseInt(id) : 0;
-
     return (
         <Page>
             <InstrumentUI track={track} />
