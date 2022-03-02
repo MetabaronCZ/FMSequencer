@@ -12,9 +12,11 @@ export const ProjectView: React.FC = () => {
             <Paragraph>
                 <strong>Name:</strong> {name}
                 <br />
-                <strong>Description:</strong> {description || '-'}
-                <br />
                 <strong>Tempo:</strong> {tempo} BPM
+                <br />
+                <strong>Description:</strong>
+                <br />
+                {description || '-'}
             </Paragraph>
         </Page>
     );

@@ -1,24 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 
+import { useAppDispatch } from 'store';
 import { projectSlice } from 'store/project';
-import { useAppDispatch, useAppSelector } from 'store';
 
+import { InstrumentData } from 'modules/project/instrument';
 import {
     AlgorithmID, ALGORITHM_MAX, ALGORITHM_MIN,
     LEVEL_MAX, LEVEL_MIN, PAN_MAX, PAN_MIN,
 } from 'modules/engine/config';
 
-import { paths } from 'ui/paths';
 import { toVU } from 'ui/typography';
 import { Slider } from 'ui/common/Slider';
 import { Heading } from 'ui/common/Heading';
 import { Section } from 'ui/common/Section';
 import { FilterUI } from 'ui/components/instrument/FilterUI';
 import { OperatorUI } from 'ui/components/instrument/OperatorUI';
-import { createSelectOptions, SelectRaw } from 'ui/common/SelectRaw';
 import { AnalyserCanvas } from 'ui/components/instrument/AnalyserCanvas';
 import { AlgorithmCanvas } from 'ui/components/instrument/AlgorithmCanvas';
 import { DataGrid, DataGridColumn, DataGridRow } from 'ui/common/DataGrid';
@@ -38,39 +36,16 @@ const OperatorItem = styled.li`
 
 interface Props {
     readonly track: number;
+    readonly instrument: InstrumentData;
 }
 
-export const InstrumentUI: React.FC<Props> = ({ track }) => {
-    const navigate = useNavigate();
+export const InstrumentUI: React.FC<Props> = ({ track, instrument }) => {
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
-    const tracks = useAppSelector((state) => state.project.tracks);
-    const instruments = tracks.map((track) => track.instrument);
-    const { name, algorithm, level, pan, filter, operators } = instruments[track];
-    const {
-        setInstrumentAlgorithm,
-        setInstrumentLevel, setInstrumentPan,
-    } = projectSlice.actions;
-
-    const instOptions = createSelectOptions(tracks, (inst, i) => ({
-        label: `${t('track')} ${i + 1}`,
-        value: `${i}`,
-    }));
-
+    const { algorithm, level, pan, filter, operators } = instrument;
+    const { setInstrumentAlgorithm, setInstrumentLevel, setInstrumentPan } = projectSlice.actions;
     return (
         <Section>
-            <Heading tag="h2" size="default">
-                <SelectRaw
-                    value={`${track}`}
-                    options={instOptions}
-                    onChange={(value) => {
-                        navigate(paths.INSTRUMENT(value));
-                    }}
-                />
-                {' '}
-                ({name})
-            </Heading>
-
             <DataGrid>
                 <DataGridColumn>
                     <AlgorithmCanvas algorithm={algorithm} />

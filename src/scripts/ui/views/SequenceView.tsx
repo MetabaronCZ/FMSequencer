@@ -2,25 +2,50 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 
-import { useAppSelector } from 'store';
+import { projectSlice } from 'store/project';
+import { useAppDispatch, useAppSelector } from 'store';
 
 import { paths } from 'ui/paths';
 import { Page } from 'ui/layout/Page';
 import { Heading } from 'ui/common/Heading';
-import { Paragraph } from 'ui/common/Paragraph';
+import { SequenceUI } from 'ui/components/sequence/SequenceUI';
 import { createSelectOptions, SelectRaw } from 'ui/common/SelectRaw';
+import { SEQUENCE_LENGTH_MAX, SEQUENCE_LENGTH_MIN } from 'modules/project/config';
 
 export const SequenceView: React.FC = () => {
     const { id } = useParams();
     const { t } = useTranslation();
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
     const sequences = useAppSelector((state) => state.project.sequences);
+    const { setSequenceLength } = projectSlice.actions;
     const sequence = id ? parseInt(id) : 0;
+    const { bars } = sequences[sequence];
+
+    const barValues = Array(SEQUENCE_LENGTH_MAX).fill(0)
+        .map((bar, i) => SEQUENCE_LENGTH_MIN + i);
 
     const seqOptions = createSelectOptions(sequences, (seq, i) => ({
         label: `${t('sequence')} ${i + 1}`,
         value: `${i}`,
     }));
+
+    const barOptions = createSelectOptions(barValues, (i) => ({
+        label: `${i} ${t('bar', { count: i })}`,
+        value: `${i}`,
+    }));
+
+    const setLength = (value: string): void => {
+        const newLength = parseInt(value, 10);
+
+        if (newLength < bars && !window.confirm(t('confirmSequenceLengthChange'))) {
+            return;
+        }
+        dispatch(setSequenceLength({
+            sequence,
+            data: newLength,
+        }));
+    };
 
     return (
         <Page>
@@ -32,13 +57,15 @@ export const SequenceView: React.FC = () => {
                         navigate(paths.SEQUENCE(value));
                     }}
                 />
+                {' '}
+                <SelectRaw
+                    value={`${bars}`}
+                    options={barOptions}
+                    onChange={setLength}
+                />
             </Heading>
 
-            <pre>
-                <Paragraph>
-                    {JSON.stringify(sequences[sequence], null, '\t')}
-                </Paragraph>
-            </pre>
+            <SequenceUI sequence={sequences[sequence]} />
         </Page>
     );
 };

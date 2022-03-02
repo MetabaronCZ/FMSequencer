@@ -4,5 +4,5 @@ import { Navigate } from 'react-router';
 import { paths } from 'ui/paths';
 
 export const HomeView: React.FC = () => (
-    <Navigate to={paths.INSTRUMENTS} />
+    <Navigate to={paths.SEQUENCES} />
 );

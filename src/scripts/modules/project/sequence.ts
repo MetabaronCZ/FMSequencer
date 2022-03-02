@@ -7,7 +7,7 @@ export interface SequenceData {
 }
 
 const defaults: SequenceData = {
-    bars: 1,
+    bars: 4,
     tracks: [],
 };
 
