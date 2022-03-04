@@ -1,19 +1,19 @@
 import React from 'react';
 
-import { useAppSelector } from 'store';
-
 import { Page } from 'ui/layout/Page';
-import { Paragraph } from 'ui/common/Paragraph';
+import { SongUI } from 'ui/components/SongUI';
+import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
 
-export const SongView: React.FC = () => {
-    const song = useAppSelector((state) => state.project.song);
-    return (
-        <Page>
-            <pre>
-                <Paragraph>
-                    {JSON.stringify(song, null, '\t')}
-                </Paragraph>
-            </pre>
-        </Page>
-    );
-};
+export const SongView: React.FC = () => (
+    <Page>
+        <Grid>
+            <GridRow>
+                <GridColumn>
+                    <SongUI />
+                </GridColumn>
+
+                <GridColumn />
+            </GridRow>
+        </Grid>
+    </Page>
+);

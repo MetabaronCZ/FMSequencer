@@ -5,12 +5,14 @@ import { useNavigate, useParams } from 'react-router';
 import { projectSlice } from 'store/project';
 import { useAppDispatch, useAppSelector } from 'store';
 
+import { getSequenceName } from 'modules/project/sequence';
+import { SEQUENCE_LENGTH_MAX, SEQUENCE_LENGTH_MIN } from 'modules/project/config';
+
 import { paths } from 'ui/paths';
 import { Page } from 'ui/layout/Page';
 import { Heading } from 'ui/common/Heading';
 import { SequenceUI } from 'ui/components/sequence/SequenceUI';
 import { createSelectOptions, SelectRaw } from 'ui/common/SelectRaw';
-import { SEQUENCE_LENGTH_MAX, SEQUENCE_LENGTH_MIN } from 'modules/project/config';
 
 export const SequenceView: React.FC = () => {
     const { id } = useParams();
@@ -26,7 +28,7 @@ export const SequenceView: React.FC = () => {
         .map((bar, i) => SEQUENCE_LENGTH_MIN + i);
 
     const seqOptions = createSelectOptions(sequences, (seq, i) => ({
-        label: `${t('sequence')} ${i + 1}`,
+        label: getSequenceName(t, i),
         value: `${i}`,
     }));
 
