@@ -25,8 +25,8 @@ export interface ProjectConfig {
 }
 
 export const createProjectData = (config: ProjectConfig = {}): ProjectData => {
-    const tracks = config.tracks || [];
-    const seqs = config.sequences || [{}];
+    const tracks = config.tracks ?? [];
+    const seqs = config.sequences ?? [{}];
     return {
         name: config.name ?? 'New Project',
         description: config.description ?? '',

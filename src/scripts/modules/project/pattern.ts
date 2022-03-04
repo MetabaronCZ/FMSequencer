@@ -13,7 +13,7 @@ export interface PatternConfig {
 }
 
 export const createPatternData = (config: PatternConfig = {}): PatternData => {
-    const notes = config.notes || [{}];
+    const notes = config.notes ?? [{}];
     return {
         bars: config.bars ?? 4,
         division: config.division ?? 4,

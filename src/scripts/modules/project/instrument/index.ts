@@ -21,7 +21,7 @@ export interface InstrumentConfig {
 }
 
 export const createInstrumentData = (id: number, config: InstrumentConfig = {}): InstrumentData => {
-    const operators = config.operators || [];
+    const operators = config.operators ?? [];
     return {
         name: config.name ?? `Instrument ${id + 1}`,
         level: config.level ?? LEVEL_MAX,

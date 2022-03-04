@@ -12,7 +12,7 @@ export interface TrackConfig {
 }
 
 export const createTrackData = (id: number, config: TrackConfig = {}): TrackData => {
-    const patterns = config.patterns || [{}];
+    const patterns = config.patterns ?? [{}];
     return {
         patterns: patterns.map((item) => createPatternData(item)),
         instrument: createInstrumentData(id, config.instrument),

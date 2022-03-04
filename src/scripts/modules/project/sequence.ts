@@ -12,7 +12,7 @@ export interface SequenceConfig {
 }
 
 export const createSequenceData = (config: SequenceConfig = {}): SequenceData => {
-    const tracks = config.tracks || [];
+    const tracks = config.tracks ?? [];
     return {
         bars: config.bars ?? 4,
         tracks: Array(TRACK_COUNT).fill(0).map((item, i) => createSequenceTrackData(tracks[i])),

@@ -9,7 +9,7 @@ export interface SongConfig {
 }
 
 export const createSongData = (config: SongConfig = {}): SongData => {
-    const sequences = config.sequences || [{}];
+    const sequences = config.sequences ?? [{}];
     return {
         sequences: sequences.map((item) => createSongSequenceData(item)),
     };

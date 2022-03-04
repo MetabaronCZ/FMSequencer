@@ -9,7 +9,7 @@ export interface SequenceTrackConfig {
 }
 
 export const createSequenceTrackData = (config: SequenceTrackConfig = {}): SequenceTrackData => {
-    const patterns = config.patterns || [{}];
+    const patterns = config.patterns ?? [{}];
     return {
         patterns: patterns.map((item) => createSequencePatternData(item)),
     };
