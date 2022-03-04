@@ -2,16 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { toVU } from 'ui/typography';
-
 import { Text } from 'ui/common/Text';
-
-type Onchange<T extends string> = (value: T) => void;
-
-const change = <T extends string>(cb: Onchange<T>) => (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.currentTarget.value as T;
-    e.preventDefault();
-    cb(value);
-};
+import { change, OnChange } from 'ui/event';
 
 interface SelectOption<T extends string> {
     readonly label: string;
@@ -46,7 +38,7 @@ const StyledSelect = styled.select`
 interface Props<T extends string> {
     readonly value: T;
     readonly options: SelectOption<T>[];
-    readonly onChange: Onchange<T>;
+    readonly onChange: OnChange<T>;
 }
 
 export const SelectRaw = <T extends string>({ value, options, onChange }: Props<T>): JSX.Element => {

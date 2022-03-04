@@ -28,5 +28,9 @@
     "solo": "Solo",
     "bar_one": "Bar",
     "bar_other": "Bars",
-    "confirmSequenceLengthChange": "Do you want to delete bars with allocated patterns?"
+    "confirmSequenceLengthChange": "Do you want to delete bars with allocated patterns?",
+    "name": "Name",
+    "tempo": "Tempo",
+    "bpm": "BPM",
+    "description": "Description"
 }
