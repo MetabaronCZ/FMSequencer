@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 
 import { toVU } from 'ui/typography';
@@ -24,6 +24,24 @@ const wheel = (step: number, min: number, max: number, cb: Onchange) => (e: Reac
     let result = parseFloat((value + diff).toFixed(2));
     result = limitNumber(result, min, max);
     cb(result);
+};
+
+const preventScroll = (e: WheelEvent): void => {
+    e.preventDefault();
+};
+
+const setPreventScroll = (elm: HTMLInputElement | null): void => {
+    const cont = elm ? elm.closest('main') : null;
+    if (cont) {
+        cont.addEventListener('wheel', preventScroll);
+    }
+};
+
+const releasePreventScroll = (elm: HTMLInputElement | null): void => {
+    const cont = elm ? elm.closest('main') : null;
+    if (cont) {
+        cont.removeEventListener('wheel', preventScroll);
+    }
 };
 
 interface StyledProps {
@@ -116,7 +134,7 @@ export const Slider: React.FC<Props> = (props) => {
         label, value, min, max, minLabel, maxLabel,
         step = 1, vertical = false, onChange,
     } = props;
-
+    const inputElm = useRef<HTMLInputElement>(null);
     const id = `slider-${sliderCounter++}`;
 
     return (
@@ -133,6 +151,7 @@ export const Slider: React.FC<Props> = (props) => {
                 <Value $isVertical={vertical}>
                     <Input
                         $isVertical={vertical}
+                        ref={inputElm}
                         id={id}
                         type="range"
                         value={value}
@@ -141,6 +160,8 @@ export const Slider: React.FC<Props> = (props) => {
                         step={step}
                         onChange={change(onChange)}
                         onWheel={wheel(step, min, max, onChange)}
+                        onMouseEnter={() => setPreventScroll(inputElm.current)}
+                        onMouseLeave={() => releasePreventScroll(inputElm.current)}
                     />
                 </Value>
 
