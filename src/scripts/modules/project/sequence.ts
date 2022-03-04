@@ -6,11 +6,6 @@ export interface SequenceData {
     readonly tracks: SequenceTrackData[];
 }
 
-const defaults: SequenceData = {
-    bars: 4,
-    tracks: [],
-};
-
 export interface SequenceConfig {
     readonly bars?: number;
     readonly tracks?: SequenceTrackConfig[];
@@ -19,7 +14,7 @@ export interface SequenceConfig {
 export const createSequenceData = (config: SequenceConfig = {}): SequenceData => {
     const tracks = config.tracks || [];
     return {
-        ...Object.assign({}, defaults, config),
+        bars: config.bars ?? 4,
         tracks: Array(TRACK_COUNT).fill(0).map((item, i) => createSequenceTrackData(tracks[i])),
     };
 };

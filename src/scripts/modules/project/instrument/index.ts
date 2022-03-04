@@ -10,14 +10,6 @@ export interface InstrumentData {
     readonly operators: OperatorData[];
     readonly filter: FilterData;
 }
-const defaults: InstrumentData = {
-    name: 'Instrument',
-    level: LEVEL_MAX,
-    pan: 0,
-    algorithm: 8,
-    operators: [],
-    filter: createFilterData(),
-};
 
 export interface InstrumentConfig {
     readonly name?: string;
@@ -31,8 +23,10 @@ export interface InstrumentConfig {
 export const createInstrumentData = (id: number, config: InstrumentConfig = {}): InstrumentData => {
     const operators = config.operators || [];
     return {
-        ...Object.assign({}, defaults, config),
-        name: config.name || `${defaults.name} ${id + 1}`,
+        name: config.name ?? `Instrument ${id + 1}`,
+        level: config.level ?? LEVEL_MAX,
+        pan: config.pan ?? 0,
+        algorithm: config.algorithm ?? 8,
         operators: Array(OPERATOR_COUNT).fill(0).map((item, i) => createOperatorData(operators[i])),
         filter: createFilterData(config.filter),
     };

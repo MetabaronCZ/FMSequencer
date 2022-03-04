@@ -5,11 +5,6 @@ export interface PatternData {
     readonly bars: number; // length in bars
     readonly division: number; // number of steps in one bar
 }
-const defaults: PatternData = {
-    notes: [],
-    bars: 4,
-    division: 4,
-};
 
 export interface PatternConfig {
     readonly notes?: NoteConfig[];
@@ -18,10 +13,10 @@ export interface PatternConfig {
 }
 
 export const createPatternData = (config: PatternConfig = {}): PatternData => {
+    const notes = config.notes || [{}];
     return {
-        ...Object.assign({}, defaults, config),
-        notes: config.notes
-            ? config.notes.map((item) => createNoteData(item))
-            : defaults.notes,
+        bars: config.bars ?? 4,
+        division: config.division ?? 4,
+        notes: notes.map((item) => createNoteData(item)),
     };
 };

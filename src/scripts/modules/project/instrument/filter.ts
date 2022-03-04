@@ -18,11 +18,6 @@ export interface FilterData {
     readonly cutoff: number;
     readonly resonance: number;
 }
-const defaults: FilterData = {
-    type: 'LOWPASS',
-    cutoff: FREQUENCY_MAX,
-    resonance: 1,
-};
 
 export interface FilterConfig {
     readonly type?: FilterTypeID;
@@ -31,5 +26,9 @@ export interface FilterConfig {
 }
 
 export const createFilterData = (config: FilterConfig = {}): FilterData => {
-    return Object.assign({}, defaults, config);
+    return {
+        type: config.type ?? 'LOWPASS',
+        cutoff: config.cutoff ?? FREQUENCY_MAX,
+        resonance: config.resonance ?? 1,
+    };
 };

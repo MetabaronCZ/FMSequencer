@@ -7,12 +7,6 @@ export interface OperatorData {
     readonly ratio: RatioID;
     readonly envelope: EnvelopeData;
 }
-const defaults: OperatorData = {
-    type: 'SIN',
-    level: LEVEL_MAX,
-    ratio: '1',
-    envelope: createEnvelopeData(),
-};
 
 export interface OperatorConfig {
     readonly type?: OscillatorTypeID;
@@ -23,9 +17,9 @@ export interface OperatorConfig {
 
 export const createOperatorData = (config: OperatorConfig = {}) : OperatorData => {
     return {
-        ...Object.assign({}, defaults, config),
-        envelope: config.envelope
-            ? createEnvelopeData(config.envelope)
-            : defaults.envelope,
+        type: config.type ?? 'SIN',
+        level: config.level ?? LEVEL_MAX,
+        ratio: config.ratio ?? '1',
+        envelope: createEnvelopeData(config.envelope),
     };
 };

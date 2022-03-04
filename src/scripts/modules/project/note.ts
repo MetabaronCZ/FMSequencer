@@ -6,12 +6,6 @@ export interface NoteData {
     readonly start: number;
     readonly duration: number;
 }
-const defaults: NoteData = {
-    pitch: PITCH_BASE,
-    velocity: VELOCITY_MAX,
-    start: 0,
-    duration: 1,
-};
 
 export interface NoteConfig {
     readonly pitch?: number;
@@ -21,5 +15,10 @@ export interface NoteConfig {
 }
 
 export const createNoteData = (config: NoteConfig = {}): NoteData => {
-    return Object.assign({}, defaults, config);
+    return {
+        pitch: config.pitch ?? PITCH_BASE,
+        velocity: config.velocity ?? VELOCITY_MAX,
+        start: config.start ?? 0,
+        duration: config.duration ?? 1,
+    };
 };

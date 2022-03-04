@@ -6,12 +6,6 @@ export interface EnvelopeData {
     readonly sustain: number;
     readonly release: number;
 }
-const defaults: EnvelopeData = {
-    attack: 0.01,
-    decay: 0.1,
-    sustain: ENVELOPE_SUSTAIN_MAX,
-    release: 0.5,
-};
 
 export interface EnvelopeConfig {
     readonly attack?: number;
@@ -21,5 +15,10 @@ export interface EnvelopeConfig {
 }
 
 export const createEnvelopeData = (config: EnvelopeConfig = {}): EnvelopeData => {
-    return Object.assign({}, defaults, config);
+    return {
+        attack: config.attack ?? 0.01,
+        decay: config.decay ?? 0.1,
+        sustain: config.sustain ?? ENVELOPE_SUSTAIN_MAX,
+        release: config.release ?? 0.5,
+    };
 };

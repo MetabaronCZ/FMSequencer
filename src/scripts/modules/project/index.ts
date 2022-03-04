@@ -13,17 +13,6 @@ export interface ProjectData {
     readonly sequences: SequenceData[];
     readonly song: SongData;
 }
-const defaults: ProjectData = {
-    name: 'New Project',
-    description: '',
-    tempo: 130,
-    master: createMasterData(),
-    tracks: [],
-    sequences: [
-        createSequenceData(),
-    ],
-    song: createSongData(),
-};
 
 export interface ProjectConfig {
     readonly name?: string;
@@ -37,13 +26,14 @@ export interface ProjectConfig {
 
 export const createProjectData = (config: ProjectConfig = {}): ProjectData => {
     const tracks = config.tracks || [];
+    const seqs = config.sequences || [{}];
     return {
-        ...Object.assign({}, defaults, config),
+        name: config.name ?? 'New Project',
+        description: config.description ?? '',
+        tempo: config.tempo ?? 130,
         master: createMasterData(config.master),
         tracks: Array(TRACK_COUNT).fill(0).map((item, i) => createTrackData(i, tracks[i])),
-        sequences: config.sequences
-            ? config.sequences.map((item) => createSequenceData(item))
-            : defaults.sequences,
+        sequences: seqs.map((item) => createSequenceData(item)),
         song: createSongData(config.song),
     };
 };

@@ -4,21 +4,13 @@ export interface SequenceTrackData {
     readonly patterns: SequencePatternData[];
 }
 
-const defaults: SequenceTrackData = {
-    patterns: [
-        createSequencePatternData(),
-    ],
-};
-
 export interface SequenceTrackConfig {
     readonly patterns?: SequencePatternConfig[];
 }
 
 export const createSequenceTrackData = (config: SequenceTrackConfig = {}): SequenceTrackData => {
+    const patterns = config.patterns || [{}];
     return {
-        ...Object.assign({}, defaults, config),
-        patterns: config.patterns
-            ? config.patterns.map((item) => createSequencePatternData(item))
-            : defaults.patterns,
+        patterns: patterns.map((item) => createSequencePatternData(item)),
     };
 };
