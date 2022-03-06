@@ -52,11 +52,23 @@ const TableHeader = styled.th`
     text-align: left;
 `;
 
-interface StyledProps {
+interface StyledTableRowProps {
+    readonly $footer?: boolean;
+}
+
+export const TableRow = styled.tr<StyledTableRowProps>`
+    ${({ $footer, theme }) => !!$footer && `
+        & > td {
+            border-top: ${theme.border.grey};
+        }
+    `}
+`;
+
+interface StyledTableItemProps {
     readonly $align?: AlignSetting;
 }
 
-export const TableItem = styled.td<StyledProps>`
+export const TableItem = styled.td<StyledTableItemProps>`
     ${Text.Default};
     padding: ${toVU(0.5)} ${toVU(1)};
     text-align: ${({ $align }) => $align ?? 'left'};

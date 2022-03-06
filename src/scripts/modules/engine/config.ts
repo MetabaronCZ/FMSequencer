@@ -25,7 +25,7 @@ export const oscillatorTypes = ['SIN', 'TRI', 'SAW', 'SQR'] as const;
 export type OscillatorTypeID = typeof oscillatorTypes[number];
 
 // OSC ratio
-const arr1 = Array(126).fill(0).map((val, i) => `1/${i + 2}`).reverse();
+const arr1 = Array(127).fill(0).map((val, i) => `1/${i + 2}`).reverse();
 const arr2 = Array(32).fill(0).map((val, i) => `${i + 1}`);
 
 export const ratios = [...arr1.concat(arr2)] as const;

@@ -9,7 +9,7 @@ import { getSequenceName } from 'modules/project/sequence';
 
 import { toVU } from 'ui/typography';
 import { ButtonRaw } from 'ui/common/ButtonRaw';
-import { Table, TableItem } from 'ui/common/Table';
+import { Table, TableItem, TableRow } from 'ui/common/Table';
 import { createSelectOptions, SelectRaw } from 'ui/common/SelectRaw';
 
 const Repeat = styled.span`
@@ -50,7 +50,7 @@ export const SongUI: React.FC = () => {
     return (
         <Table headers={headers}>
             {song.sequences.map(({ sequence, repeat }, i) => (
-                <tr key={i}>
+                <TableRow key={i}>
                     <TableItem $align="center">
                         {i + 1}
                     </TableItem>
@@ -118,10 +118,10 @@ export const SongUI: React.FC = () => {
                             onClick={() => deleteSequence(i)}
                         />
                     </TableItem>
-                </tr>
+                </TableRow>
             ))}
 
-            <tr>
+            <TableRow $footer>
                 <TableItem $align="center">
                     +
                 </TableItem>
@@ -135,7 +135,7 @@ export const SongUI: React.FC = () => {
 
                 <TableItem />
                 <TableItem />
-            </tr>
+            </TableRow>
         </Table>
     );
 };
