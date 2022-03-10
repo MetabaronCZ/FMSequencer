@@ -1,5 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit';
+
 import { ProjectReducer } from 'store/project';
+import { createSequenceData } from 'modules/project/sequence';
 
 interface SequenceActionPayload<T> {
     readonly sequence: number;
@@ -16,14 +18,21 @@ interface RemoveTrackPatternActionPayload {
     readonly track: number;
     readonly bar: number;
 }
+type ClearSequenceAction = PayloadAction<number>;
 type SetSequenceLengthAction = PayloadAction<SequenceActionPayload<number>>;
 type SetSequenceTrackPatternAction = PayloadAction<SetTrackPatternActionPayload>;
 type RemoveTrackPatternAction = PayloadAction<RemoveTrackPatternActionPayload>;
 
 export type SequencesActions =
+    ClearSequenceAction |
     SetSequenceLengthAction |
     SetSequenceTrackPatternAction |
     RemoveTrackPatternAction;
+
+const clearSequence: ProjectReducer<ClearSequenceAction> = (state, action) => {
+    const sequence = action.payload;
+    state.sequences[sequence] = createSequenceData(sequence);
+};
 
 const setSequenceLength: ProjectReducer<SetSequenceLengthAction> = (state, action) => {
     const { sequence, data } = action.payload;
@@ -56,6 +65,7 @@ const removeSequenceTrackPattern: ProjectReducer<RemoveTrackPatternAction> = (st
 };
 
 export const sequencesReducer = {
+    clearSequence,
     setSequenceLength,
     setSequenceTrackPattern,
     removeSequenceTrackPattern,

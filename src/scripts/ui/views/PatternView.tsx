@@ -21,11 +21,11 @@ export const PatternView: React.FC = () => {
     const pattern = patternId ? parseInt(patternId, 10) : 0;
 
     const trackOptions = createSelectOptions(tracks, (track, i) => ({
-        label: `${t('track')} ${i + 1}`,
+        label: track.name,
         value: `${i}`,
     }));
 
-    const patternOptions = createSelectOptions(patterns, (track, i) => ({
+    const patternOptions = createSelectOptions(patterns, (pattern, i) => ({
         label: `${t('pattern')} ${i + 1}`,
         value: `${i}`,
     }));

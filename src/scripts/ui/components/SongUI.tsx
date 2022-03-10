@@ -5,8 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { projectSlice } from 'store/project';
 import { useAppDispatch, useAppSelector } from 'store';
 
-import { getSequenceName } from 'modules/project/sequence';
-
 import { toVU } from 'ui/typography';
 import { ButtonRaw } from 'ui/common/ButtonRaw';
 import { Table, TableItem, TableRow } from 'ui/common/Table';
@@ -31,7 +29,7 @@ export const SongUI: React.FC = () => {
     const headers = [t('nr'), t('name'), t('repeat'), ''];
 
     const seqOptions = createSelectOptions(sequences, (seq, i) => ({
-        label: getSequenceName(t, i),
+        label: seq.name,
         value: `${i}`,
     }));
 

@@ -3,6 +3,8 @@ export const PROJECT_DESCRIPTION_LENGTH = 256;
 export const TEMPO_MIN = 40;
 export const TEMPO_MAX = 300;
 
+export const SEQUENCE_COUNT = 128;
+
 export const SEQUENCE_LENGTH_MIN = 1;
 export const SEQUENCE_LENGTH_MAX = 16;
 

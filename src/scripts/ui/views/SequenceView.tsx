@@ -5,7 +5,6 @@ import { useNavigate, useParams } from 'react-router';
 import { projectSlice } from 'store/project';
 import { useAppDispatch, useAppSelector } from 'store';
 
-import { getSequenceName } from 'modules/project/sequence';
 import { SEQUENCE_LENGTH_MAX, SEQUENCE_LENGTH_MIN } from 'modules/project/config';
 
 import { paths } from 'ui/paths';
@@ -21,6 +20,7 @@ export const SequenceView: React.FC = () => {
     const dispatch = useAppDispatch();
     const sequences = useAppSelector((state) => state.project.sequences);
     const { setSequenceLength } = projectSlice.actions;
+
     const sequence = id ? parseInt(id, 10) : 0;
     const { bars } = sequences[sequence];
 
@@ -28,7 +28,7 @@ export const SequenceView: React.FC = () => {
         .map((bar, i) => SEQUENCE_LENGTH_MIN + i);
 
     const seqOptions = createSelectOptions(sequences, (seq, i) => ({
-        label: getSequenceName(t, i),
+        label: seq.name,
         value: `${i}`,
     }));
 

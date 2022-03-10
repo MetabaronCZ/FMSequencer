@@ -1,5 +1,4 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 
 import { useAppSelector } from 'store';
@@ -13,15 +12,14 @@ import { createSelectOptions, SelectRaw } from 'ui/common/SelectRaw';
 
 export const InstrumentView: React.FC = () => {
     const { id } = useParams();
-    const { t } = useTranslation();
     const navigate = useNavigate();
     const tracks = useAppSelector((state) => state.project.tracks);
 
     const track = id ? parseInt(id, 10) : 0;
     const { instrument } = tracks[track];
 
-    const instOptions = createSelectOptions(tracks, (inst, i) => ({
-        label: `${t('track')} ${i + 1}`,
+    const instOptions = createSelectOptions(tracks, (track, i) => ({
+        label: track.name,
         value: `${i}`,
     }));
 

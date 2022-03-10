@@ -1,28 +1,25 @@
-import { TFunction } from 'react-i18next';
-
 import { TRACK_COUNT } from 'modules/engine/config';
 import {
     createSequenceTrackData, SequenceTrackConfig, SequenceTrackData,
 } from 'modules/project/sequence/track';
 
 export interface SequenceData {
-    readonly bars: number; // length in bars
+    readonly name: string;
     readonly tracks: SequenceTrackData[];
+    readonly bars: number; // length in bars
 }
 
 export interface SequenceConfig {
-    readonly bars?: number;
+    readonly name?: string;
     readonly tracks?: SequenceTrackConfig[];
+    readonly bars?: number;
 }
 
-export const createSequenceData = (config: SequenceConfig = {}): SequenceData => {
+export const createSequenceData = (id: number, config: SequenceConfig = {}): SequenceData => {
     const tracks = config.tracks ?? [];
     return {
-        bars: config.bars ?? 4,
+        name: config.name ?? `Sequence ${id + 1}`,
         tracks: Array(TRACK_COUNT).fill(0).map((item, i) => createSequenceTrackData(tracks[i])),
+        bars: config.bars ?? 4,
     };
-};
-
-export const getSequenceName = (t: TFunction, id: number): string => {
-    return `${t('sequence')} ${id + 1}`;
 };
