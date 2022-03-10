@@ -10,6 +10,7 @@ import { SEQUENCE_LENGTH_MAX, SEQUENCE_LENGTH_MIN } from 'modules/project/config
 import { paths } from 'ui/paths';
 import { Page } from 'ui/layout/Page';
 import { Heading } from 'ui/common/Heading';
+import { ButtonRaw } from 'ui/common/ButtonRaw';
 import { SequenceUI } from 'ui/components/sequence/SequenceUI';
 import { createSelectOptions, SelectRaw } from 'ui/common/SelectRaw';
 
@@ -19,7 +20,7 @@ export const SequenceView: React.FC = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const sequences = useAppSelector((state) => state.project.sequences);
-    const { setSequenceLength } = projectSlice.actions;
+    const { setSequenceLength, clearSequence } = projectSlice.actions;
 
     const sequence = id ? parseInt(id, 10) : 0;
     const { bars } = sequences[sequence];
@@ -49,6 +50,13 @@ export const SequenceView: React.FC = () => {
         }));
     };
 
+    const clear = (): void => {
+        if (!window.confirm(t('confirmSequenceDelete'))) {
+            return;
+        }
+        dispatch(clearSequence(sequence));
+    };
+
     return (
         <Page>
             <Heading tag="h2" size="default">
@@ -64,6 +72,11 @@ export const SequenceView: React.FC = () => {
                     value={`${bars}`}
                     options={barOptions}
                     onChange={setLength}
+                />
+
+                <ButtonRaw
+                    text={t('clear')}
+                    onClick={clear}
                 />
             </Heading>
 

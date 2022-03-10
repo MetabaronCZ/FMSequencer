@@ -10,6 +10,7 @@ const StyledButton = styled.button`
     display: inline-block;
     padding: 0 ${toVU(1)};
     background: ${({ theme }) => theme.color.white};
+    font-size: inherit;
     border: none;
     outline: none;
     cursor: pointer;
