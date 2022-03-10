@@ -8,6 +8,7 @@ const color = {
     black: '#000',
     greyLightest: '#f0f0f0',
     grey: '#ccc',
+    greyDarkest: '#444',
 };
 
 declare module 'styled-components' {

@@ -17,7 +17,7 @@ export const InstrumentView: React.FC = () => {
     const navigate = useNavigate();
     const tracks = useAppSelector((state) => state.project.tracks);
 
-    const track = id ? parseInt(id) : 0;
+    const track = id ? parseInt(id, 10) : 0;
     const { instrument } = tracks[track];
 
     const instOptions = createSelectOptions(tracks, (inst, i) => ({

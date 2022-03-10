@@ -24,7 +24,7 @@ export type ProjectActions =
     SetProjectNameAction | SetProjectDescriptionAction | SetProjectTempoAction |
     MasterActions | TracksActions | SequencesActions | SongActions;
 
-export type ProjectReducer<T extends PayloadAction<unknown>> = (state: WritableDraft<ProjectData>, action: T) => void
+export type ProjectReducer<T extends PayloadAction<unknown>> = (state: WritableDraft<ProjectData>, action: T) => void;
 
 export const projectSlice = createSlice({
     name: 'project',

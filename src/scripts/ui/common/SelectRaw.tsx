@@ -13,7 +13,10 @@ export const createSelectOptions = <T, U extends string>(data: T[], cb: (item: T
     return data.map(cb);
 };
 
-const StyledSelect = styled.select`
+interface StyledProps {
+    readonly $inverted: boolean;
+}
+const StyledSelect = styled.select<StyledProps>`
     ${Text.Default};
     display: inline-block;
     height: ${toVU(3)};
@@ -33,25 +36,34 @@ const StyledSelect = styled.select`
         font-size: inherit;
         background: ${({ theme }) => theme.color.white};
     }
+
+    ${({ $inverted, theme }) => $inverted && `
+        color: ${theme.color.white};
+        background-color: ${theme.color.black};
+
+        &:hover {
+            background-color: ${theme.color.greyDarkest};
+        }
+    `}
 `;
 
 interface Props<T extends string> {
     readonly value: T;
     readonly options: SelectOption<T>[];
+    readonly inverted?: boolean;
     readonly onChange: OnChange<T>;
 }
 
-export const SelectRaw = <T extends string>({ value, options, onChange }: Props<T>): JSX.Element => {
-    return (
-        <StyledSelect
-            value={value}
-            onChange={change(onChange)}
-        >
-            {options.map(({ label, value }) => (
-                <option value={value} key={value}>
-                    {label}
-                </option>
-            ))}
-        </StyledSelect>
-    );
-};
+export const SelectRaw = <T extends string>({ value, options, inverted, onChange }: Props<T>): JSX.Element => (
+    <StyledSelect
+        $inverted={!!inverted}
+        value={value}
+        onChange={change(onChange)}
+    >
+        {options.map(({ label, value }) => (
+            <option value={value} key={value}>
+                {label}
+            </option>
+        ))}
+    </StyledSelect>
+);

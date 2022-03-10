@@ -16,9 +16,9 @@ export const PatternView: React.FC = () => {
     const { trackId, patternId } = useParams();
     const tracks = useAppSelector((state) => state.project.tracks);
 
-    const track = trackId ? parseInt(trackId) : 0;
+    const track = trackId ? parseInt(trackId, 10) : 0;
     const { patterns } = tracks[track];
-    const pattern = patternId ? parseInt(patternId) : 0;
+    const pattern = patternId ? parseInt(patternId, 10) : 0;
 
     const trackOptions = createSelectOptions(tracks, (track, i) => ({
         label: `${t('track')} ${i + 1}`,

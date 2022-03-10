@@ -1,4 +1,4 @@
-import { createSongSequenceData, SongSequenceConfig, SongSequenceData } from 'modules/project/song-sequence';
+import { createSongSequenceData, SongSequenceConfig, SongSequenceData } from 'modules/project/song/sequence';
 
 export interface SongData {
     readonly sequences: SongSequenceData[];

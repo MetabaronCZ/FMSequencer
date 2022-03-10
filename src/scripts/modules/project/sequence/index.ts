@@ -1,7 +1,9 @@
 import { TFunction } from 'react-i18next';
 
 import { TRACK_COUNT } from 'modules/engine/config';
-import { createSequenceTrackData, SequenceTrackConfig, SequenceTrackData } from 'modules/project/sequence-track';
+import {
+    createSequenceTrackData, SequenceTrackConfig, SequenceTrackData,
+} from 'modules/project/sequence/track';
 
 export interface SequenceData {
     readonly bars: number; // length in bars

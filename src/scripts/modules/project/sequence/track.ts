@@ -1,4 +1,4 @@
-import { createSequencePatternData, SequencePatternConfig, SequencePatternData } from 'modules/project/sequence-pattern';
+import { createSequencePatternData, SequencePatternConfig, SequencePatternData } from 'modules/project/sequence/pattern';
 
 export interface SequenceTrackData {
     readonly patterns: SequencePatternData[];

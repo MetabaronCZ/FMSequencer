@@ -3,7 +3,7 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { ProjectReducer } from 'store/project';
 
 import { limitNumber } from 'modules/core/number';
-import { createSongSequenceData } from 'modules/project/song-sequence';
+import { createSongSequenceData } from 'modules/project/song/sequence';
 import {
     SEQUENCE_REPEAT_MAX, SEQUENCE_REPEAT_MIN,
     SONG_LENGTH_MAX, SONG_LENGTH_MIN,

@@ -21,7 +21,7 @@ export const SequenceView: React.FC = () => {
     const dispatch = useAppDispatch();
     const sequences = useAppSelector((state) => state.project.sequences);
     const { setSequenceLength } = projectSlice.actions;
-    const sequence = id ? parseInt(id) : 0;
+    const sequence = id ? parseInt(id, 10) : 0;
     const { bars } = sequences[sequence];
 
     const barValues = Array(SEQUENCE_LENGTH_MAX).fill(0)
@@ -67,7 +67,10 @@ export const SequenceView: React.FC = () => {
                 />
             </Heading>
 
-            <SequenceUI sequence={sequences[sequence]} />
+            <SequenceUI
+                sequence={sequence}
+                data={sequences[sequence]}
+            />
         </Page>
     );
 };
