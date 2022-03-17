@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from 'store';
 import { SEQUENCE_LENGTH_MAX, SEQUENCE_LENGTH_MIN } from 'modules/project/config';
 
 import { paths } from 'ui/paths';
+import { confirm } from 'ui/dialog';
 import { Page } from 'ui/layout/Page';
 import { Heading } from 'ui/common/Heading';
 import { ButtonRaw } from 'ui/common/ButtonRaw';
@@ -39,24 +40,27 @@ export const SequenceView: React.FC = () => {
         value: `${i}`,
     }));
 
-    const setLength = (value: string): void => {
-        const newLength = parseInt(value, 10);
-
-        if (newLength < bars && !window.confirm(t('confirmSequenceLengthChange'))) {
-            return;
-        }
+    const setLength = (len: number): void => {
         dispatch(setSequenceLength({
             sequence,
-            data: newLength,
+            data: len,
         }));
     };
 
-    const clear = (): void => {
-        if (!window.confirm(t('confirmSequenceDelete'))) {
-            return;
+    const askLength = (value: string): void => {
+        const newLength = parseInt(value, 10);
+
+        if (newLength < bars) {
+            const ask = confirm(t('confirmSequenceLengthChange'), () => setLength(newLength));
+            ask();
+        } else {
+            setLength(newLength);
         }
-        dispatch(clearSequence(sequence));
     };
+
+    const clear = confirm(t('confirmSequenceDelete'), () => dispatch(
+        clearSequence(sequence)
+    ));
 
     return (
         <Page>
@@ -74,7 +78,7 @@ export const SequenceView: React.FC = () => {
                 <SelectRaw
                     value={`${bars}`}
                     options={barOptions}
-                    onChange={setLength}
+                    onChange={askLength}
                 />
 
                 {' '}

@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from 'store';
 
 import { SEQUENCE_LENGTH_MIN, SEQUENCE_REPEAT_MAX, SONG_LENGTH_MAX } from 'modules/project/config';
 
+import { confirm } from 'ui/dialog';
 import { ButtonRaw } from 'ui/common/ButtonRaw';
 import { Table, TableItem, TableRow } from 'ui/common/Table';
 import { getSelectorValues, Selector } from 'ui/common/Selector';
@@ -37,17 +38,12 @@ export const SongUI: React.FC = () => {
         value: `${i}`,
     }));
 
-    const deleteSequence = (id: number): void => {
-        if (!window.confirm(t('confirmSongSequenceDelete'))) {
-            return;
-        }
-        dispatch(
-            removeSongSequence({
-                slot: id,
-                data: null,
-            })
-        );
-    };
+    const deleteSequence = confirm(t('confirmSongSequenceDelete'), (id: number) => dispatch(
+        removeSongSequence({
+            slot: id,
+            data: null,
+        })
+    ));
 
     return (
         <Table headers={headers}>

@@ -15,6 +15,7 @@ import { Heading } from 'ui/common/Heading';
 import { ButtonRaw } from 'ui/common/ButtonRaw';
 import { PatternUI } from 'ui/components/PatternUI';
 import { createSelectOptions, SelectRaw } from 'ui/common/SelectRaw';
+import { confirm } from 'ui/dialog';
 
 const barValues = createRange(PATTERN_LENGTH_MIN, PATTERN_LENGTH_MAX);
 
@@ -51,41 +52,39 @@ export const PatternView: React.FC = () => {
         value: `${i}`,
     }));
 
-    const setLength = (value: string): void => {
-        const newLength = parseInt(value, 10);
-
-        if (newLength < data.bars && !window.confirm(t('confirmPatternLengthChange'))) {
-            return;
-        }
+    const setLength = (len: number): void => {
         dispatch(setTrackPatternLength({
             track,
             pattern,
-            data: newLength,
+            data: len,
         }));
     };
 
-    const setDivision = (value: string): void => {
-        const div = parseInt(value, 10) as PatternDivisionID;
+    const askLength = (value: string): void => {
+        const newLength = parseInt(value, 10);
 
-        if (!window.confirm(t('confirmPatternDivisionChange'))) {
-            return;
+        if (newLength < data.bars) {
+            const ask = confirm(t('confirmPatternLengthChange'), () => setLength(newLength));
+            ask();
+        } else {
+            setLength(newLength);
         }
+    };
+
+    const setDivision = confirm(t('confirmPatternDivisionChange'), (value: string) => {
         dispatch(setTrackPatternDivision({
             track,
             pattern,
-            data: div,
+            data: parseInt(value, 10) as PatternDivisionID,
         }));
-    };
+    });
 
-    const clear = (): void => {
-        if (!window.confirm(t('confirmPatternDelete'))) {
-            return;
-        }
-        dispatch(clearTrackPattern({
+    const clear = confirm(t('confirmPatternDelete'), () => dispatch(
+        clearTrackPattern({
             track,
             data: pattern,
-        }));
-    };
+        })
+    ));
 
     return (
         <Page>
@@ -113,7 +112,7 @@ export const PatternView: React.FC = () => {
                 <SelectRaw
                     value={`${data.bars}`}
                     options={barOptions}
-                    onChange={setLength}
+                    onChange={askLength}
                 />
 
                 {' '}

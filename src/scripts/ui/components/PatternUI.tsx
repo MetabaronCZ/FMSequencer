@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { createRange } from 'core/array';
-import { getNoteName } from 'core/pitch';
 
 import { useAppDispatch } from 'store';
 import { projectSlice } from 'store/project';
 
+import { getNoteName } from 'modules/engine/pitch';
 import { getPatternSteps, PatternData } from 'modules/project/pattern';
 import { PITCH_MAX, PITCH_MIN, VELOCITY_MAX, VELOCITY_MIN } from 'modules/engine/config';
 

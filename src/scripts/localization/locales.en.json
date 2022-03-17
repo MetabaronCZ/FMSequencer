@@ -36,12 +36,14 @@
     "confirmSequenceDelete": "Do you want to clear sequence?",
     "confirmPatternDelete": "Do you want to clear pattern?",
     "confirmPatternDivisionChange": "This will realocate / delete currently set notes. Confirm?",
+    "confirmInstrumentReset": "Do you want to reset instrument do default values?",
     "name": "Name",
     "tempo": "Tempo",
     "bpm": "BPM",
     "description": "Description",
     "nr": "Nr.",
     "clear": "Clear",
+    "reset": "Reset",
     "repeat": "Repeat",
     "perBar": "per bar"
 }
