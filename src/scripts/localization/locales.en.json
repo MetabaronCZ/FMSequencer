@@ -30,14 +30,18 @@
     "solo": "Solo",
     "bar_one": "Bar",
     "bar_other": "Bars",
-    "confirmSequenceLengthChange": "Do you want to delete bars with allocated patterns?",
+    "confirmSequenceLengthChange": "This will also delete allocated patterns. Confirm?",
+    "confirmPatternLengthChange": "This will also delete allocated notes. Confirm?",
     "confirmSongSequenceDelete": "Do you want to delete this song slot?",
     "confirmSequenceDelete": "Do you want to clear sequence?",
+    "confirmPatternDelete": "Do you want to clear pattern?",
+    "confirmPatternDivisionChange": "This will realocate / delete currently set notes. Confirm?",
     "name": "Name",
     "tempo": "Tempo",
     "bpm": "BPM",
     "description": "Description",
     "nr": "Nr.",
     "clear": "Clear",
-    "repeat": "Repeat"
+    "repeat": "Repeat",
+    "perBar": "per bar"
 }

@@ -1,14 +1,15 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 
-import { TrackActionPayload } from 'store/track';
+import { limitNumber } from 'core/number';
+
 import { ProjectReducer } from 'store/project';
+import { TrackActionPayload } from 'store/track';
 
 import {
     FilterTypeID,
     FREQUENCY_MAX, FREQUENCY_MIN, RESONANCE_MAX, RESONANCE_MIN,
 } from 'modules/engine/config';
 import { AudioEngine } from 'modules/engine';
-import { limitNumber } from 'modules/core/number';
 
 type SetInstrumentFilterTypeAction = PayloadAction<TrackActionPayload<FilterTypeID>>;
 type SetInstrumentFilterCutoffAction = PayloadAction<TrackActionPayload<number>>;

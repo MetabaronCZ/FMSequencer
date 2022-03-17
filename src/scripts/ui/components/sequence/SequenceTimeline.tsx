@@ -38,7 +38,7 @@ interface StyledProps {
 const TimelineItem = styled.div<StyledProps>`
     ${Text.Default};
     flex: 1;
-    width: ${toVU(4)};
+    width: ${toVU(6)};
     line-height: ${toVU(4)};
     border-right: ${({ theme }) => theme.border.white};
     color: ${({ $filled, theme }) => $filled ? theme.color.white : ''};
@@ -94,7 +94,7 @@ export const SequenceTimeline: React.FC<Props> = ({ sequence, data }) => {
 
                 patternOptions = [
                     {
-                        label: '-',
+                        label: '—',
                         value: deletePtnOption,
                     },
                     ...patternOptions,

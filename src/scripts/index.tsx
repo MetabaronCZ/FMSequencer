@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-import { Logger } from 'modules/core/logger';
+import { Logger } from 'core/logger';
 
 import { App } from 'ui/components/App';
 import { i18n } from 'ui/localization';

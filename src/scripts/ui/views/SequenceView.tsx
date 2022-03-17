@@ -2,6 +2,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 
+import { createRange } from 'core/array';
+
 import { projectSlice } from 'store/project';
 import { useAppDispatch, useAppSelector } from 'store';
 
@@ -14,6 +16,8 @@ import { ButtonRaw } from 'ui/common/ButtonRaw';
 import { SequenceUI } from 'ui/components/sequence/SequenceUI';
 import { createSelectOptions, SelectRaw } from 'ui/common/SelectRaw';
 
+const barValues = createRange(SEQUENCE_LENGTH_MIN, SEQUENCE_LENGTH_MAX);
+
 export const SequenceView: React.FC = () => {
     const { id } = useParams();
     const { t } = useTranslation();
@@ -24,9 +28,6 @@ export const SequenceView: React.FC = () => {
 
     const sequence = id ? parseInt(id, 10) : 0;
     const { bars } = sequences[sequence];
-
-    const barValues = Array(SEQUENCE_LENGTH_MAX).fill(0)
-        .map((bar, i) => SEQUENCE_LENGTH_MIN + i);
 
     const seqOptions = createSelectOptions(sequences, (seq, i) => ({
         label: seq.name,
@@ -67,12 +68,16 @@ export const SequenceView: React.FC = () => {
                         navigate(paths.SEQUENCE(value));
                     }}
                 />
-                {' '}
+
+                {' | '}
+
                 <SelectRaw
                     value={`${bars}`}
                     options={barOptions}
                     onChange={setLength}
                 />
+
+                {' '}
 
                 <ButtonRaw
                     text={t('clear')}

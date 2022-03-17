@@ -1,6 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { WritableDraft } from 'immer/dist/internal';
 
+import { limitNumber } from 'core/number';
+
 import { SongActions, songReducer } from 'store/song';
 import { TracksActions, tracksReducer } from 'store/track';
 import { MasterActions, masterReducer } from 'store/master';
@@ -11,7 +13,6 @@ import {
     TEMPO_MAX, TEMPO_MIN,
 } from 'modules/project/config';
 import { AudioEngine } from 'modules/engine';
-import { limitNumber } from 'modules/core/number';
 import { createProjectData, ProjectConfig, ProjectData } from 'modules/project';
 
 type LoadProjectAction = PayloadAction<ProjectConfig>;

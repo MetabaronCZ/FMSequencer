@@ -1,9 +1,9 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
 
-import { toVU } from 'ui/typography';
-import { getSign, limitNumber } from 'modules/core/number';
+import { getSign, limitNumber } from 'core/number';
 
+import { toVU } from 'ui/typography';
 import { Text } from 'ui/common/Text';
 import { Field } from 'ui/common/Field';
 

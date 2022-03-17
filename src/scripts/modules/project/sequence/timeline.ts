@@ -14,7 +14,7 @@ interface TimelineItem {
 }
 
 const getTimelineBars = (seqPatterns: SequencePatternData[], patterns: PatternData[], bars: number): TimelineBar[] => {
-    const timeline = Array(bars).fill(null);
+    const timeline: TimelineBar[] = Array(bars).fill(null);
     const data = [...seqPatterns].sort((a, b) => a.bar - b.bar);
 
     // fill timeline with pattern IDs

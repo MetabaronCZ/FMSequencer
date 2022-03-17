@@ -1,3 +1,5 @@
+import { fillArray } from 'core/array';
+
 import {
     AlgorithmID, FREQUENCY_BASE, VELOCITY_MAX,
     MODULATOR_LEVEL_MULTIPLIER, OPERATOR_COUNT,
@@ -30,7 +32,7 @@ export class Voice extends Bus<Filter, Pan> {
         this.level = level;
         this.filter = filter;
         this.analyser = analyser;
-        this.operators = Array(OPERATOR_COUNT).fill(0).map(() => new Operator(ctx));
+        this.operators = fillArray(OPERATOR_COUNT, () => new Operator(ctx));
 
         filter.connect(level);
         level.connect(analyser);

@@ -1,3 +1,5 @@
+import { fillArray } from 'core/array';
+
 import { TRACK_COUNT } from 'modules/engine/config';
 import { SEQUENCE_COUNT } from 'modules/project/config';
 import { createSongData, SongConfig, SongData } from 'modules/project/song';
@@ -33,8 +35,8 @@ export const createProjectData = (config: ProjectConfig = {}): ProjectData => {
         description: config.description ?? '',
         tempo: config.tempo ?? 130,
         master: createMasterData(config.master),
-        tracks: Array(TRACK_COUNT).fill(0).map((item, i) => createTrackData(i, tracks[i])),
-        sequences: Array(SEQUENCE_COUNT).fill(0).map((item, i) => createSequenceData(i, seqs[i])),
+        tracks: fillArray(TRACK_COUNT, (i) => createTrackData(i, tracks[i])),
+        sequences: fillArray(SEQUENCE_COUNT, (i) => createSequenceData(i, seqs[i])),
         song: createSongData(config.song),
     };
 };

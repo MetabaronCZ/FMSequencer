@@ -1,11 +1,12 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 
+import { limitNumber } from 'core/number';
+
 import { TrackActionPayload } from 'store/track';
 import { ProjectReducer } from 'store/project';
 
-import { LEVEL_MAX, LEVEL_MIN, OscillatorTypeID, RatioID } from 'modules/engine/config';
-import { limitNumber } from 'modules/core/number';
 import { AudioEngine } from 'modules/engine';
+import { LEVEL_MAX, LEVEL_MIN, OscillatorTypeID, RatioID } from 'modules/engine/config';
 
 export interface OperatorActionPayload<T> extends TrackActionPayload<T> {
     readonly operator: number;

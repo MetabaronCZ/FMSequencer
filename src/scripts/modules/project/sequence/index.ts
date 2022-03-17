@@ -1,3 +1,5 @@
+import { fillArray } from 'core/array';
+
 import { TRACK_COUNT } from 'modules/engine/config';
 import {
     createSequenceTrackData, SequenceTrackConfig, SequenceTrackData,
@@ -19,7 +21,7 @@ export const createSequenceData = (id: number, config: SequenceConfig = {}): Seq
     const tracks = config.tracks ?? [];
     return {
         name: config.name ?? `Sequence ${id + 1}`,
-        tracks: Array(TRACK_COUNT).fill(0).map((item, i) => createSequenceTrackData(tracks[i])),
+        tracks: fillArray(TRACK_COUNT, (i) => createSequenceTrackData(tracks[i])),
         bars: config.bars ?? 4,
     };
 };

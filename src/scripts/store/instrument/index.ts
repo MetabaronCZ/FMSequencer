@@ -1,5 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 
+import { limitNumber } from 'core/number';
+
 import { ProjectReducer } from 'store/project';
 import { TrackActionPayload } from 'store/track';
 import { InstrumentFilterActions, instrumentFilterReducer } from 'store/instrument/filter';
@@ -12,7 +14,6 @@ import {
     LEVEL_MAX, LEVEL_MIN, PAN_MAX, PAN_MIN,
 } from 'modules/engine/config';
 import { AudioEngine } from 'modules/engine';
-import { limitNumber } from 'modules/core/number';
 import { isAlgorithm } from 'modules/project/instrument/algorithm';
 import { createInstrumentData, InstrumentConfig } from 'modules/project/instrument';
 

@@ -1,3 +1,6 @@
+import { fillArray } from 'core/array';
+
+import { PATTERN_COUNT } from 'modules/project/config';
 import { createPatternData, PatternConfig, PatternData } from 'modules/project/pattern';
 import { createInstrumentData, InstrumentConfig, InstrumentData } from 'modules/project/instrument';
 
@@ -14,10 +17,10 @@ export interface TrackConfig {
 }
 
 export const createTrackData = (id: number, config: TrackConfig = {}): TrackData => {
-    const patterns = config.patterns ?? [{}];
+    const patterns = config.patterns ?? [];
     return {
         name: config.name ?? `Track ${id + 1}`,
-        patterns: patterns.map((item) => createPatternData(item)),
+        patterns: fillArray(PATTERN_COUNT, (i) => createPatternData(patterns[i])),
         instrument: createInstrumentData(id, config.instrument),
     };
 };

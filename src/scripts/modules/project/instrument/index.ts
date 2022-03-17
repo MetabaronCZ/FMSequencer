@@ -1,3 +1,5 @@
+import { fillArray } from 'core/array';
+
 import { AlgorithmID, LEVEL_MAX, OPERATOR_COUNT } from 'modules/engine/config';
 import { createFilterData, FilterData, FilterConfig } from 'modules/project/instrument/filter';
 import { createOperatorData, OperatorData, OperatorConfig } from 'modules/project/instrument/operator';
@@ -27,7 +29,7 @@ export const createInstrumentData = (id: number, config: InstrumentConfig = {}):
         level: config.level ?? LEVEL_MAX,
         pan: config.pan ?? 0,
         algorithm: config.algorithm ?? 8,
-        operators: Array(OPERATOR_COUNT).fill(0).map((item, i) => createOperatorData(operators[i])),
+        operators: fillArray(OPERATOR_COUNT, (i) => createOperatorData(operators[i])),
         filter: createFilterData(config.filter),
     };
 };

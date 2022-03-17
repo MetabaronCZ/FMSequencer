@@ -1,5 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 
+import { limitNumber } from 'core/number';
+
 import { ProjectReducer } from 'store/project';
 import { OperatorActionPayload } from 'store/instrument/operator';
 
@@ -9,7 +11,6 @@ import {
     ENVELOPE_RELEASE_MAX, ENVELOPE_RELEASE_MIN,
     ENVELOPE_SUSTAIN_MAX, ENVELOPE_SUSTAIN_MIN,
 } from 'modules/engine/config';
-import { limitNumber } from 'modules/core/number';
 
 type SetInstrumentEnvelopeActionAction = PayloadAction<OperatorActionPayload<number>>;
 type SetInstrumentEnvelopeDecayAction = PayloadAction<OperatorActionPayload<number>>;

@@ -1,20 +1,24 @@
 import React from 'react';
-import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
+
+import { createRange } from 'core/array';
 
 import { projectSlice } from 'store/project';
 import { useAppDispatch, useAppSelector } from 'store';
 
-import { toVU } from 'ui/typography';
+import { SEQUENCE_LENGTH_MIN, SEQUENCE_REPEAT_MAX, SONG_LENGTH_MAX } from 'modules/project/config';
+
 import { ButtonRaw } from 'ui/common/ButtonRaw';
 import { Table, TableItem, TableRow } from 'ui/common/Table';
+import { getSelectorValues, Selector } from 'ui/common/Selector';
 import { createSelectOptions, SelectRaw } from 'ui/common/SelectRaw';
 
-const Repeat = styled.span`
-    display: inline-block;
-    width: ${toVU(4)};
-    text-align: center;
-`;
+const repeats = createRange(SEQUENCE_LENGTH_MIN, SEQUENCE_REPEAT_MAX);
+
+const repeatValues = getSelectorValues(repeats, (val) => ({
+    label: ('000' + val).slice(-3),
+    value: val,
+}));
 
 export const SongUI: React.FC = () => {
     const { t } = useTranslation();
@@ -66,25 +70,14 @@ export const SongUI: React.FC = () => {
                         />
                     </TableItem>
 
-                    <TableItem>
-                        <ButtonRaw
-                            text="❮"
-                            onClick={() => dispatch(
+                    <TableItem $align="right">
+                        <Selector
+                            value={repeat}
+                            values={repeatValues}
+                            onChange={(value) => dispatch(
                                 setSongSequenceRepeat({
                                     slot: i,
-                                    data: repeat - 1,
-                                })
-                            )}
-                        />
-
-                        <Repeat>{repeat}</Repeat>
-
-                        <ButtonRaw
-                            text="❯"
-                            onClick={() => dispatch(
-                                setSongSequenceRepeat({
-                                    slot: i,
-                                    data: repeat + 1,
+                                    data: value,
                                 })
                             )}
                         />
@@ -119,21 +112,23 @@ export const SongUI: React.FC = () => {
                 </TableRow>
             ))}
 
-            <TableRow $footer>
-                <TableItem $align="center">
-                    +
-                </TableItem>
+            {song.sequences.length < SONG_LENGTH_MAX && (
+                <TableRow $footer>
+                    <TableItem $align="center">
+                        +
+                    </TableItem>
 
-                <TableItem>
-                    <ButtonRaw
-                        text={t('sequenceAdd')}
-                        onClick={() => dispatch(addSongSequence())}
-                    />
-                </TableItem>
+                    <TableItem>
+                        <ButtonRaw
+                            text={t('sequenceAdd')}
+                            onClick={() => dispatch(addSongSequence())}
+                        />
+                    </TableItem>
 
-                <TableItem />
-                <TableItem />
-            </TableRow>
+                    <TableItem />
+                    <TableItem />
+                </TableRow>
+            )}
         </Table>
     );
 };

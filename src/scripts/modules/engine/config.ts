@@ -1,11 +1,15 @@
+import { fillArray } from 'core/array';
+
 // general
 export const SAMPLE_RATE = 44100;
 export const TRACK_COUNT = 8;
 
-// note / velocity
+// pitch / velocity
 export const VELOCITY_MIN = 0;
 export const VELOCITY_MAX = 100;
 export const PITCH_BASE = 72;
+export const PITCH_MIN = 21;
+export const PITCH_MAX = 127;
 
 // FM / algorithm
 export const algorithmIds = [1, 2, 3, 4, 5, 6, 7, 8] as const;
@@ -25,8 +29,8 @@ export const oscillatorTypes = ['SIN', 'TRI', 'SAW', 'SQR'] as const;
 export type OscillatorTypeID = typeof oscillatorTypes[number];
 
 // OSC ratio
-const arr1 = Array(127).fill(0).map((val, i) => `1/${i + 2}`).reverse();
-const arr2 = Array(32).fill(0).map((val, i) => `${i + 1}`);
+const arr1 = fillArray(127, (i) => `1/${i + 2}`).reverse();
+const arr2 = fillArray(32, (i) => `${i + 1}`);
 
 export const ratios = [...arr1.concat(arr2)] as const;
 export type RatioID = typeof ratios[number];
