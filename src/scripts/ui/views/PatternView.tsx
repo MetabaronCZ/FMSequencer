@@ -7,15 +7,18 @@ import { createRange } from 'core/array';
 import { projectSlice } from 'store/project';
 import { useAppDispatch, useAppSelector } from 'store';
 
-import { PatternDivisionID, patternDivisions, PATTERN_LENGTH_MAX, PATTERN_LENGTH_MIN } from 'modules/project/config';
+import {
+    PatternDivisionID, patternDivisions,
+    PATTERN_LENGTH_MAX, PATTERN_LENGTH_MIN,
+} from 'modules/project/config';
 
 import { paths } from 'ui/paths';
+import { confirm } from 'ui/dialog';
 import { Page } from 'ui/layout/Page';
 import { Heading } from 'ui/common/Heading';
 import { ButtonRaw } from 'ui/common/ButtonRaw';
 import { PatternUI } from 'ui/components/PatternUI';
 import { createSelectOptions, SelectRaw } from 'ui/common/SelectRaw';
-import { confirm } from 'ui/dialog';
 
 const barValues = createRange(PATTERN_LENGTH_MIN, PATTERN_LENGTH_MAX);
 

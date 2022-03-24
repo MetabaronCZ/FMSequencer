@@ -17,6 +17,8 @@ import { EnvelopeUI } from 'ui/components/instrument/EnvelopeUI';
 import { EnvelopeCanvas } from 'ui/components/instrument/EnvelopeCanvas';
 import { DataGrid, DataGridColumn, DataGridRow } from 'ui/common/DataGrid';
 
+const minRatioIndex = 0;
+const maxRatioIndex = ratios.length - 1;
 const oscTypeValues = oscillatorTypes.slice(0) as OscillatorTypeID[];
 
 const options = createSelectOptions(oscTypeValues, (item) => ({
@@ -39,8 +41,6 @@ export const OperatorUI: React.FC<Props> = ({ track, operator, data }) => {
         setInstrumentOperatorLevel, setInstrumentOperatorRatio,
     } = projectSlice.actions;
 
-    const minRatioIndex = 0;
-    const maxRatioIndex = ratios.length - 1;
     return (
         <DataGrid>
             <DataGridColumn isVertical>

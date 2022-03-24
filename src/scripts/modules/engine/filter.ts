@@ -1,6 +1,6 @@
+import { Node } from 'modules/engine/node';
 import { FilterTypeID } from 'modules/engine/config';
 import { FilterData, getFilterType } from 'modules/project/instrument/filter';
-import { Node } from 'modules/engine/node';
 
 export class Filter extends Node<BiquadFilterNode> {
     constructor(ctx: AudioContext) {

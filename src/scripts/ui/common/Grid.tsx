@@ -11,7 +11,7 @@ export const GridRow = styled.div`
     flex-direction: row;
     margin-bottom: ${toVU(1)};
 
-    &: last-child {
+    &:last-child {
         margin-bottom: 0;
     }
 `;

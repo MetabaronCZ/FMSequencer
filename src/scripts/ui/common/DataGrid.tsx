@@ -9,7 +9,7 @@ export const DataGrid = styled.div`
 export const DataGridRow = styled.div`
     margin-bottom: ${toVU(1)};
 
-    &: last-child {
+    &:last-child {
         margin-bottom: 0;
     }
 

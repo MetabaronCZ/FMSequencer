@@ -5,10 +5,10 @@ import { HomeView } from 'ui/views/HomeView';
 import { SongView } from 'ui/views/SongView';
 import { ErrorView } from 'ui/views/ErrorView';
 import { MasterView } from 'ui/views/MasterView';
+import { ProjectView } from 'ui/views/ProjectView';
 import { PatternView } from 'ui/views/PatternView';
 import { SequenceView } from 'ui/views/SequenceView';
 import { InstrumentView } from 'ui/views/InstrumentView';
-import { ProjectView } from 'ui/views/ProjectView';
 
 interface Route {
     readonly path: string;

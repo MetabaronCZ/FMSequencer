@@ -2,17 +2,10 @@ import React, { useEffect } from 'react';
 
 import { useAppSelector } from 'store';
 
-import { VELOCITY_MAX } from 'modules/engine/config';
-import { InstrumentData } from 'modules/project/instrument';
 import { AudioEngine } from 'modules/engine';
-
-interface KeyboardMapping {
-    readonly [key: string]: number;
-}
-
-const keyboardMapping: KeyboardMapping = {
-    a: 72, w: 73, s: 74, e: 75, d: 76, f: 77, t: 78, g: 79, z: 80, h: 81, u: 82, j: 83, k: 84,
-};
+import { VELOCITY_MAX } from 'modules/engine/config';
+import { keyboardMapping } from 'modules/project/keyboard';
+import { InstrumentData } from 'modules/project/instrument';
 
 const onKeyDownFn = (instrument: InstrumentData, track: number) => (e: KeyboardEvent): void => {
     const { key } = e;

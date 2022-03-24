@@ -2,17 +2,18 @@ import { PayloadAction } from '@reduxjs/toolkit';
 
 import { limitNumber } from 'core/number';
 
+import {
+    INSTRUMENT_NAME_LENGTH,
+    AlgorithmID, ALGORITHM_MAX, ALGORITHM_MIN,
+    LEVEL_MAX, LEVEL_MIN, PAN_MAX, PAN_MIN,
+} from 'modules/engine/config';
+
 import { ProjectReducer } from 'store/project';
 import { TrackActionPayload } from 'store/track';
 import { InstrumentFilterActions, instrumentFilterReducer } from 'store/instrument/filter';
 import { InstrumentOperatorActions, instrumentOperatorReducer } from 'store/instrument/operator';
 import { InstrumentEnvelopeActions, instrumentEnvelopeReducer } from 'store/instrument/envelope';
 
-import {
-    INSTRUMENT_NAME_LENGTH,
-    AlgorithmID, ALGORITHM_MAX, ALGORITHM_MIN,
-    LEVEL_MAX, LEVEL_MIN, PAN_MAX, PAN_MIN,
-} from 'modules/engine/config';
 import { AudioEngine } from 'modules/engine';
 import { isAlgorithm } from 'modules/project/instrument/algorithm';
 import { createInstrumentData, InstrumentConfig } from 'modules/project/instrument';

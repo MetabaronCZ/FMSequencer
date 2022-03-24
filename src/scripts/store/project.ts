@@ -3,15 +3,16 @@ import { WritableDraft } from 'immer/dist/internal';
 
 import { limitNumber } from 'core/number';
 
+import {
+    PROJECT_DESCRIPTION_LENGTH, PROJECT_NAME_LENGTH,
+    TEMPO_MAX, TEMPO_MIN,
+} from 'modules/project/config';
+
 import { SongActions, songReducer } from 'store/song';
 import { TracksActions, tracksReducer } from 'store/track';
 import { MasterActions, masterReducer } from 'store/master';
 import { SequencesActions, sequencesReducer } from 'store/sequences';
 
-import {
-    PROJECT_DESCRIPTION_LENGTH, PROJECT_NAME_LENGTH,
-    TEMPO_MAX, TEMPO_MIN,
-} from 'modules/project/config';
 import { AudioEngine } from 'modules/engine';
 import { createProjectData, ProjectConfig, ProjectData } from 'modules/project';
 

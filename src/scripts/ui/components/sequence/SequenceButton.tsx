@@ -31,15 +31,13 @@ interface Props {
     readonly onClick: OnClick;
 }
 
-export const SequenceButton: React.FC<Props> = ({ text, title, isActive, onClick }) => {
-    return (
-        <StyledButton
-            $isActive={isActive}
-            type="button"
-            title={title}
-            onClick={clickOnly(onClick)}
-        >
-            {text}
-        </StyledButton>
-    );
-};
+export const SequenceButton: React.FC<Props> = ({ text, title, isActive, onClick }) => (
+    <StyledButton
+        $isActive={isActive}
+        type="button"
+        title={title}
+        onClick={clickOnly(onClick)}
+    >
+        {text}
+    </StyledButton>
+);
