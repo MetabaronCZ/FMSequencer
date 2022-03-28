@@ -19,7 +19,7 @@ import { Selector } from 'ui/common/Selector';
 const paternIds = createArray(PATTERN_COUNT);
 
 const patternValues = getSelection(paternIds, (p) => ({
-    label: toFixedLength(p, 3),
+    label: toFixedLength(p, 3, '0'),
     value: p,
 }));
 

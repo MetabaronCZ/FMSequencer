@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { createRange } from 'core/array';
 import { toFixedLength } from 'core/format';
 
+import { useAppDispatch } from 'store';
 import { projectSlice } from 'store/project';
-import { useAppDispatch, useAppSelector } from 'store';
 
 import { SEQUENCE_LENGTH_MIN, SEQUENCE_REPEAT_MAX, SONG_LENGTH_MAX } from 'modules/project/config';
 
@@ -15,6 +15,8 @@ import { Select } from 'ui/common/Select';
 import { Selector } from 'ui/common/Selector';
 import { ButtonRaw } from 'ui/common/ButtonRaw';
 import { Table, TableItem, TableRow } from 'ui/common/Table';
+import { SongData } from 'modules/project/song';
+import { SequenceData } from 'modules/project/sequence';
 
 const repeats = createRange(SEQUENCE_LENGTH_MIN, SEQUENCE_REPEAT_MAX);
 
@@ -23,10 +25,14 @@ const repeatValues = getSelection(repeats, (val) => ({
     value: val,
 }));
 
-export const SongUI: React.FC = () => {
+interface Props {
+    readonly song: SongData;
+    readonly sequences: SequenceData[];
+}
+
+export const SongUI: React.FC<Props> = ({ song, sequences }) => {
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
-    const { song, sequences } = useAppSelector((state) => state.project);
 
     const {
         setSongSequence, setSongSequenceRepeat,

@@ -27,6 +27,6 @@ interface Props {
 
 export const Heading: React.FC<Props> = ({ tag, children }) => (
     <StyledHeading as={tag}>
-        {children}
+        &lt;{children}&gt;
     </StyledHeading>
 );

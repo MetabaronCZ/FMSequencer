@@ -8,7 +8,6 @@ interface MenuItem {
 export const getMenuItems = (t: TFunction): MenuItem[] => [
     { title: t('sequence'), path: paths.SEQUENCES },
     { title: t('pattern'), path: paths.PATTERNS },
-    { title: t('song'), path: paths.SONG },
     { title: t('instrument'), path: paths.INSTRUMENTS },
     { title: t('project'), path: paths.PROJECT },
 ];

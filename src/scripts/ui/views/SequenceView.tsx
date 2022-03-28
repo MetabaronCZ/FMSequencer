@@ -17,6 +17,8 @@ import { Select } from 'ui/common/Select';
 import { Toolkit } from 'ui/common/Toolkit';
 import { ButtonRaw } from 'ui/common/ButtonRaw';
 import { SequenceUI } from 'ui/components/sequence/SequenceUI';
+import { SongUI } from 'ui/components/SongUI';
+import { Heading } from 'ui/common/Heading';
 
 const barIds = createRange(SEQUENCE_LENGTH_MIN, SEQUENCE_LENGTH_MAX);
 
@@ -25,7 +27,7 @@ export const SequenceView: React.FC = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const sequences = useAppSelector((state) => state.project.sequences);
+    const { sequences, song } = useAppSelector((state) => state.project);
     const { setSequenceLength, clearSequence } = projectSlice.actions;
 
     const sequence = id ? parseInt(id, 10) : 0;
@@ -89,6 +91,15 @@ export const SequenceView: React.FC = () => {
             <SequenceUI
                 sequence={sequence}
                 data={sequences[sequence]}
+            />
+
+            <Heading tag="h2">
+                {t('song')}
+            </Heading>
+
+            <SongUI
+                song={song}
+                sequences={sequences}
             />
         </Page>
     );

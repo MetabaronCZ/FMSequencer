@@ -2,7 +2,6 @@ import { FunctionComponent } from 'react';
 
 import { paths } from 'ui/paths';
 import { HomeView } from 'ui/views/HomeView';
-import { SongView } from 'ui/views/SongView';
 import { ErrorView } from 'ui/views/ErrorView';
 import { ProjectView } from 'ui/views/ProjectView';
 import { PatternView } from 'ui/views/PatternView';
@@ -20,7 +19,6 @@ export const routes: Route[] = [
     { path: paths.SEQUENCE(':id'), component: SequenceView },
     { path: paths.PATTERNS, component: PatternView },
     { path: paths.PATTERN(':trackId', ':patternId'), component: PatternView },
-    { path: paths.SONG, component: SongView },
     { path: paths.INSTRUMENT(':id'), component: InstrumentView },
     { path: paths.INSTRUMENTS, component: InstrumentView },
     { path: paths.PROJECT, component: ProjectView },
