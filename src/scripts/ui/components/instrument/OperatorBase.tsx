@@ -18,9 +18,8 @@ import { SelectorField } from 'ui/common/SelectorField';
 import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
 
 const levels = createRange(LEVEL_MIN, LEVEL_MAX);
-const oscTypes = oscillatorTypes.slice(0) as OscillatorTypeID[];
 
-const shapeValues = getSelectorValues(oscTypes, (item) => ({
+const shapeValues = getSelectorValues([...oscillatorTypes], (item) => ({
     label: item,
     value: item,
 }));

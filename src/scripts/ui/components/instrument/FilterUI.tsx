@@ -7,21 +7,20 @@ import { toFixedLength } from 'core/format';
 import { useAppDispatch } from 'store';
 import { projectSlice } from 'store/project';
 
+import { FilterData } from 'modules/project/instrument/filter';
 import {
-    filterTypes, FilterTypeID,
+    filterTypes,
     FREQUENCY_MAX, FREQUENCY_MIN, RESONANCE_MIN, RESONANCE_MAX,
 } from 'modules/engine/config';
-import { FilterData } from 'modules/project/instrument/filter';
 
 import { getSelectorValues } from 'ui/common/Selector';
 import { SelectorField } from 'ui/common/SelectorField';
 import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
 
-const fTypes = filterTypes.slice(0) as FilterTypeID[];
 const freqs = createRange(FREQUENCY_MIN, FREQUENCY_MAX);
 const resos = createRange(RESONANCE_MIN, RESONANCE_MAX, 10);
 
-const filterTypeValues = getSelectorValues(fTypes, (item) => ({
+const filterTypeValues = getSelectorValues([...filterTypes], (item) => ({
     label: item,
     value: item,
 }));
