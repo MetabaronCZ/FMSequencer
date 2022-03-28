@@ -13,24 +13,24 @@ import {
     FREQUENCY_MAX, FREQUENCY_MIN, RESONANCE_MIN, RESONANCE_MAX,
 } from 'modules/engine/config';
 
-import { getSelectorValues } from 'ui/common/Selector';
+import { getSelection } from 'ui/event';
 import { SelectorField } from 'ui/common/SelectorField';
 import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
 
 const freqs = createRange(FREQUENCY_MIN, FREQUENCY_MAX);
 const resos = createRange(RESONANCE_MIN, RESONANCE_MAX, 10);
 
-const filterTypeValues = getSelectorValues([...filterTypes], (item) => ({
+const filterTypeValues = getSelection([...filterTypes], (item) => ({
     label: item,
     value: item,
 }));
 
-const frequencyValues = getSelectorValues(freqs, (item) => ({
+const frequencyValues = getSelection(freqs, (item) => ({
     label: toFixedLength(item, 5),
     value: item,
 }));
 
-const resonanceValues = getSelectorValues(resos, (item) => ({
+const resonanceValues = getSelection(resos, (item) => ({
     label: item.toFixed(1),
     value: item,
 }));

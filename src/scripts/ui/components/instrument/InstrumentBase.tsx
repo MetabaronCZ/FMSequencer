@@ -13,7 +13,7 @@ import {
     LEVEL_MAX, LEVEL_MIN, PAN_MAX, PAN_MIN,
 } from 'modules/engine/config';
 
-import { getSelectorValues } from 'ui/common/Selector';
+import { getSelection } from 'ui/event';
 import { SelectorField } from 'ui/common/SelectorField';
 import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
 
@@ -21,17 +21,17 @@ const algos = createRange(ALGORITHM_MIN, ALGORITHM_MAX);
 const levels = createRange(LEVEL_MIN, LEVEL_MAX);
 const pans = createRange(PAN_MIN, PAN_MAX);
 
-const algoValues = getSelectorValues(algos, (algo) => ({
+const algoValues = getSelection(algos, (algo) => ({
     label: `${algo}`,
     value: algo,
 }));
 
-const levelValues = getSelectorValues(levels, (val) => ({
+const levelValues = getSelection(levels, (val) => ({
     label: toFixedLength(val, 3),
     value: val,
 }));
 
-const panValues = getSelectorValues(pans, (val) => ({
+const panValues = getSelection(pans, (val) => ({
     label: getPanLabel(val),
     value: val,
 }));

@@ -12,10 +12,11 @@ import { SEQUENCE_LENGTH_MAX, SEQUENCE_LENGTH_MIN } from 'modules/project/config
 import { paths } from 'ui/paths';
 import { confirm } from 'ui/dialog';
 import { Page } from 'ui/layout/Page';
+import { getSelection } from 'ui/event';
+import { Select } from 'ui/common/Select';
 import { Toolkit } from 'ui/common/Toolkit';
 import { ButtonRaw } from 'ui/common/ButtonRaw';
 import { SequenceUI } from 'ui/components/sequence/SequenceUI';
-import { getSelectorValues, Selector } from 'ui/common/Selector';
 
 const barIds = createRange(SEQUENCE_LENGTH_MIN, SEQUENCE_LENGTH_MAX);
 
@@ -30,12 +31,12 @@ export const SequenceView: React.FC = () => {
     const sequence = id ? parseInt(id, 10) : 0;
     const { bars } = sequences[sequence];
 
-    const seqValues = getSelectorValues(sequences, (seq, i) => ({
+    const seqValues = getSelection(sequences, (seq, i) => ({
         label: seq.name,
         value: i,
     }));
 
-    const barValues = getSelectorValues(barIds, (i) => ({
+    const barValues = getSelection(barIds, (i) => ({
         label: `${i} ${t('bar', { count: i })}`,
         value: i,
     }));
@@ -63,7 +64,7 @@ export const SequenceView: React.FC = () => {
     return (
         <Page>
             <Toolkit>
-                <Selector
+                <Select
                     value={sequence}
                     values={seqValues}
                     onChange={(value) => {
@@ -71,7 +72,7 @@ export const SequenceView: React.FC = () => {
                     }}
                 />
 
-                <Selector
+                <Select
                     value={bars}
                     values={barValues}
                     onChange={askLength}

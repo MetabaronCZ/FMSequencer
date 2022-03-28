@@ -10,10 +10,11 @@ import { paths } from 'ui/paths';
 import { confirm } from 'ui/dialog';
 import { Text } from 'ui/common/Text';
 import { Page } from 'ui/layout/Page';
+import { getSelection } from 'ui/event';
+import { Select } from 'ui/common/Select';
 import { Toolkit } from 'ui/common/Toolkit';
 import { ButtonRaw } from 'ui/common/ButtonRaw';
 import { Keyboard } from 'ui/components/Keyboard';
-import { getSelectorValues, Selector } from 'ui/common/Selector';
 import { InstrumentUI } from 'ui/components/instrument/InstrumentUI';
 
 const InstrumentName = styled.span`
@@ -31,7 +32,7 @@ export const InstrumentView: React.FC = () => {
     const track = id ? parseInt(id, 10) : 0;
     const { instrument } = tracks[track];
 
-    const trackValues = getSelectorValues(tracks, (track, i) => ({
+    const trackValues = getSelection(tracks, (track, i) => ({
         label: track.name,
         value: i,
     }));
@@ -46,7 +47,7 @@ export const InstrumentView: React.FC = () => {
     return (
         <Page>
             <Toolkit>
-                <Selector
+                <Select
                     value={track}
                     values={trackValues}
                     onChange={(value) => {

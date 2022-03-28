@@ -24,7 +24,7 @@ export const createTrackData = (id: number, config: TrackConfig = {}): TrackData
     const patterns = config.patterns ?? [];
     return {
         name: config.name ?? getTrackName(id),
-        patterns: fillArray(PATTERN_COUNT, (i) => createPatternData(patterns[i])),
+        patterns: fillArray(PATTERN_COUNT, (i) => createPatternData(i, patterns[i])),
         instrument: createInstrumentData(id, config.instrument),
     };
 };

@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 
 import { createRange } from 'core/array';
-import { toFixedLength } from 'core/format';
 
 import { projectSlice } from 'store/project';
 import { useAppDispatch, useAppSelector } from 'store';
@@ -16,10 +15,11 @@ import {
 import { paths } from 'ui/paths';
 import { confirm } from 'ui/dialog';
 import { Page } from 'ui/layout/Page';
+import { getSelection } from 'ui/event';
+import { Select } from 'ui/common/Select';
 import { Toolkit } from 'ui/common/Toolkit';
 import { ButtonRaw } from 'ui/common/ButtonRaw';
 import { PatternUI } from 'ui/components/PatternUI';
-import { getSelectorValues, Selector } from 'ui/common/Selector';
 
 const barIds = createRange(PATTERN_LENGTH_MIN, PATTERN_LENGTH_MAX);
 
@@ -36,22 +36,22 @@ export const PatternView: React.FC = () => {
     const { patterns } = tracks[track];
     const data = patterns[pattern];
 
-    const trackValues = getSelectorValues(tracks, (track, i) => ({
+    const trackValues = getSelection(tracks, (track, i) => ({
         label: track.name,
         value: i,
     }));
 
-    const patternValues = getSelectorValues(patterns, (pattern, i) => ({
-        label: `${t('pattern')} ${toFixedLength(i + 1, 3, '0')}`,
+    const patternValues = getSelection(patterns, (pattern, i) => ({
+        label: pattern.name,
         value: i,
     }));
 
-    const barValues = getSelectorValues(barIds, (i) => ({
+    const barValues = getSelection(barIds, (i) => ({
         label: `${i} ${t('bar', { count: i })}`,
         value: i,
     }));
 
-    const divisionValues = getSelectorValues([...patternDivisions], (i) => ({
+    const divisionValues = getSelection([...patternDivisions], (i) => ({
         label: `${i} ${t('perBar')}`,
         value: i,
     }));
@@ -91,7 +91,7 @@ export const PatternView: React.FC = () => {
     return (
         <Page>
             <Toolkit>
-                <Selector
+                <Select
                     value={track}
                     values={trackValues}
                     onChange={(value) => {
@@ -99,7 +99,7 @@ export const PatternView: React.FC = () => {
                     }}
                 />
 
-                <Selector
+                <Select
                     value={pattern}
                     values={patternValues}
                     onChange={(value) => {
@@ -109,13 +109,13 @@ export const PatternView: React.FC = () => {
 
                 {'|'}
 
-                <Selector
+                <Select
                     value={data.bars}
                     values={barValues}
                     onChange={askLength}
                 />
 
-                <Selector
+                <Select
                     value={data.division}
                     values={divisionValues}
                     onChange={setDivision}

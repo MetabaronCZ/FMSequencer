@@ -13,17 +13,18 @@ import { PITCH_MAX, PITCH_MIN, VELOCITY_MAX, VELOCITY_MIN } from 'modules/engine
 
 import { toVU } from 'ui/typography';
 import { Text } from 'ui/common/Text';
-import { getSelectorValues, Selector } from 'ui/common/Selector';
+import { getSelection } from 'ui/event';
+import { Selector } from 'ui/common/Selector';
 
 const pitches = createRange(PITCH_MIN, PITCH_MAX);
 const velocities = createRange(VELOCITY_MIN, VELOCITY_MAX);
 
-const pitchValues = getSelectorValues(pitches, (val) => ({
+const pitchValues = getSelection(pitches, (val) => ({
     label: getNoteName(val),
     value: val,
 }));
 
-const velocityValues = getSelectorValues(velocities, (val) => ({
+const velocityValues = getSelection(velocities, (val) => ({
     label: toFixedLength(val, 3),
     value: val,
 }));

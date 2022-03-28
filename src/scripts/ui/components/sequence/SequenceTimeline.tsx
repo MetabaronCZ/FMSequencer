@@ -13,11 +13,12 @@ import { getTrackTimeline } from 'modules/project/sequence/timeline';
 
 import { toVU } from 'ui/typography';
 import { Text } from 'ui/common/Text';
-import { getSelectorValues, Selector } from 'ui/common/Selector';
+import { getSelection } from 'ui/event';
+import { Selector } from 'ui/common/Selector';
 
 const paternIds = createArray(PATTERN_COUNT);
 
-const patternValues = getSelectorValues(paternIds, (p) => ({
+const patternValues = getSelection(paternIds, (p) => ({
     label: toFixedLength(p, 3),
     value: p,
 }));

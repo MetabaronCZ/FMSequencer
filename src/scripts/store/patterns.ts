@@ -56,7 +56,7 @@ const setTrackPatternDivision: ProjectReducer<SetTrackPatternDivisionAction> = (
 
 const clearTrackPattern: ProjectReducer<ClearTrackPatternAction> = (state, action) => {
     const { track, data } = action.payload;
-    state.tracks[track].patterns[data] = createPatternData();
+    state.tracks[track].patterns[data] = createPatternData(data);
 };
 
 const setTrackPatternNotePitch: ProjectReducer<SetTrackPatternNotePitchAction> = (state, action) => {

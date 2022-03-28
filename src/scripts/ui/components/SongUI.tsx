@@ -10,13 +10,15 @@ import { useAppDispatch, useAppSelector } from 'store';
 import { SEQUENCE_LENGTH_MIN, SEQUENCE_REPEAT_MAX, SONG_LENGTH_MAX } from 'modules/project/config';
 
 import { confirm } from 'ui/dialog';
+import { getSelection } from 'ui/event';
+import { Select } from 'ui/common/Select';
+import { Selector } from 'ui/common/Selector';
 import { ButtonRaw } from 'ui/common/ButtonRaw';
 import { Table, TableItem, TableRow } from 'ui/common/Table';
-import { getSelectorValues, Selector } from 'ui/common/Selector';
 
 const repeats = createRange(SEQUENCE_LENGTH_MIN, SEQUENCE_REPEAT_MAX);
 
-const repeatValues = getSelectorValues(repeats, (val) => ({
+const repeatValues = getSelection(repeats, (val) => ({
     label: toFixedLength(val, 3),
     value: val,
 }));
@@ -31,7 +33,7 @@ export const SongUI: React.FC = () => {
         addSongSequence, removeSongSequence, moveSongSequence,
     } = projectSlice.actions;
 
-    const sequenceValues = getSelectorValues(sequences, (seq, i) => ({
+    const sequenceValues = getSelection(sequences, (seq, i) => ({
         label: seq.name,
         value: i,
     }));
@@ -64,7 +66,7 @@ export const SongUI: React.FC = () => {
                         </TableItem>
 
                         <TableItem>
-                            <Selector
+                            <Select
                                 value={sequence}
                                 values={sequenceValues}
                                 onChange={(value) => {

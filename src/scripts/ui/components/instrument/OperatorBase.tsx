@@ -12,24 +12,24 @@ import {
     LEVEL_MAX, LEVEL_MIN, RatioID,
 } from 'modules/engine/config';
 
+import { getSelection } from 'ui/event';
 import { Heading } from 'ui/common/Heading';
-import { getSelectorValues } from 'ui/common/Selector';
 import { SelectorField } from 'ui/common/SelectorField';
 import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
 
 const levels = createRange(LEVEL_MIN, LEVEL_MAX);
 
-const shapeValues = getSelectorValues([...oscillatorTypes], (item) => ({
+const shapeValues = getSelection([...oscillatorTypes], (item) => ({
     label: item,
     value: item,
 }));
 
-const levelValues = getSelectorValues(levels, (val) => ({
+const levelValues = getSelection(levels, (val) => ({
     label: toFixedLength(val, 3),
     value: val,
 }));
 
-const ratioValues = getSelectorValues([...ratios], (val) => ({
+const ratioValues = getSelection([...ratios], (val) => ({
     label: toFixedLength(val, 5),
     value: val,
 }));

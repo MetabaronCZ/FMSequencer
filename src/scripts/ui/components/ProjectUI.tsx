@@ -10,20 +10,20 @@ import { useAppDispatch, useAppSelector } from 'store';
 import { LEVEL_MAX, LEVEL_MIN } from 'modules/engine/config';
 import { TEMPO_MAX, TEMPO_MIN } from 'modules/project/config';
 
+import { getSelection } from 'ui/event';
 import { TextField } from 'ui/common/TextField';
-import { getSelectorValues } from 'ui/common/Selector';
 import { SelectorField } from 'ui/common/SelectorField';
 import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
 
 const tempos = createRange(TEMPO_MIN, TEMPO_MAX);
 const levels = createRange(LEVEL_MIN, LEVEL_MAX);
 
-const tempoValues = getSelectorValues(tempos, (val) => ({
+const tempoValues = getSelection(tempos, (val) => ({
     label: toFixedLength(val, 3),
     value: val,
 }));
 
-const levelValues = getSelectorValues(levels, (val) => ({
+const levelValues = getSelection(levels, (val) => ({
     label: toFixedLength(val, 3),
     value: val,
 }));
