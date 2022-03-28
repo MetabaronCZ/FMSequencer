@@ -12,7 +12,7 @@ import { SEQUENCE_LENGTH_MAX, SEQUENCE_LENGTH_MIN } from 'modules/project/config
 import { paths } from 'ui/paths';
 import { confirm } from 'ui/dialog';
 import { Page } from 'ui/layout/Page';
-import { Heading } from 'ui/common/Heading';
+import { Toolkit } from 'ui/common/Toolkit';
 import { ButtonRaw } from 'ui/common/ButtonRaw';
 import { SequenceUI } from 'ui/components/sequence/SequenceUI';
 import { createSelectOptions, SelectRaw } from 'ui/common/SelectRaw';
@@ -64,7 +64,7 @@ export const SequenceView: React.FC = () => {
 
     return (
         <Page>
-            <Heading tag="h2" size="default">
+            <Toolkit>
                 <SelectRaw
                     value={`${sequence}`}
                     options={seqOptions}
@@ -73,21 +73,17 @@ export const SequenceView: React.FC = () => {
                     }}
                 />
 
-                {' | '}
-
                 <SelectRaw
                     value={`${bars}`}
                     options={barOptions}
                     onChange={askLength}
                 />
 
-                {' '}
-
                 <ButtonRaw
                     text={t('clear')}
                     onClick={clear}
                 />
-            </Heading>
+            </Toolkit>
 
             <SequenceUI
                 sequence={sequence}

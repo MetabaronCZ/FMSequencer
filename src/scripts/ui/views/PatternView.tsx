@@ -15,7 +15,7 @@ import {
 import { paths } from 'ui/paths';
 import { confirm } from 'ui/dialog';
 import { Page } from 'ui/layout/Page';
-import { Heading } from 'ui/common/Heading';
+import { Toolkit } from 'ui/common/Toolkit';
 import { ButtonRaw } from 'ui/common/ButtonRaw';
 import { PatternUI } from 'ui/components/PatternUI';
 import { createSelectOptions, SelectRaw } from 'ui/common/SelectRaw';
@@ -91,7 +91,7 @@ export const PatternView: React.FC = () => {
 
     return (
         <Page>
-            <Heading tag="h2" size="default">
+            <Toolkit>
                 <SelectRaw
                     value={`${track}`}
                     options={trackOptions}
@@ -99,8 +99,6 @@ export const PatternView: React.FC = () => {
                         navigate(paths.PATTERN(value, '0'));
                     }}
                 />
-
-                {' '}
 
                 <SelectRaw
                     value={`${pattern}`}
@@ -110,15 +108,11 @@ export const PatternView: React.FC = () => {
                     }}
                 />
 
-                {' | '}
-
                 <SelectRaw
                     value={`${data.bars}`}
                     options={barOptions}
                     onChange={askLength}
                 />
-
-                {' '}
 
                 <SelectRaw
                     value={`${data.division}`}
@@ -126,13 +120,11 @@ export const PatternView: React.FC = () => {
                     onChange={setDivision}
                 />
 
-                {' '}
-
                 <ButtonRaw
                     text={t('clear')}
                     onClick={clear}
                 />
-            </Heading>
+            </Toolkit>
 
             <PatternUI
                 track={track}

@@ -58,7 +58,7 @@ declare module 'styled-components' {
 export const defaultTheme: DefaultTheme = {
     color,
     font: {
-        default: 'Roboto, Tahoma, Verdana, Arial, sans-serif',
+        default: 'RobotoMono, Tahoma, Verdana, Arial, sans-serif',
     },
     fontSize: {
         largest: '32px',

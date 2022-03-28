@@ -67,7 +67,7 @@ export const PatternUI: React.FC<Props> = ({ track, pattern, data }) => {
                 {steps.map((step, i) => (
                     <tr key={i}>
                         <Step $highlighted={0 === i % division}>
-                            {`000${i + 1}`.slice(-3)}
+                            {`000${i}`.slice(-3)}
                         </Step>
 
                         <Cell $highlighted={!!step}>
@@ -75,7 +75,7 @@ export const PatternUI: React.FC<Props> = ({ track, pattern, data }) => {
                                 value={step ? step.note.pitch : null}
                                 values={pitchValues}
                                 defaultValue={60}
-                                placeholder="—"
+                                placeholder="&nbsp;&mdash;&nbsp;"
                                 onChange={(value) => dispatch(
                                     setTrackPatternNotePitch({
                                         track,
@@ -110,7 +110,7 @@ export const PatternUI: React.FC<Props> = ({ track, pattern, data }) => {
                                         )}
                                     />
                                 )
-                                : '—'
+                                : <>&nbsp;&mdash;&nbsp;</>
                             }
                         </Cell>
                     </tr>

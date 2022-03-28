@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 
@@ -7,12 +8,17 @@ import { useAppDispatch, useAppSelector } from 'store';
 
 import { paths } from 'ui/paths';
 import { confirm } from 'ui/dialog';
+import { Text } from 'ui/common/Text';
 import { Page } from 'ui/layout/Page';
-import { Heading } from 'ui/common/Heading';
+import { Toolkit } from 'ui/common/Toolkit';
 import { ButtonRaw } from 'ui/common/ButtonRaw';
 import { Keyboard } from 'ui/components/Keyboard';
 import { InstrumentUI } from 'ui/components/instrument/InstrumentUI';
 import { createSelectOptions, SelectRaw } from 'ui/common/SelectRaw';
+
+const InstrumentName = styled.span`
+    ${Text.Default};
+`;
 
 export const InstrumentView: React.FC = () => {
     const { id } = useParams();
@@ -39,7 +45,7 @@ export const InstrumentView: React.FC = () => {
 
     return (
         <Page>
-            <Heading tag="h2" size="default">
+            <Toolkit>
                 <SelectRaw
                     value={`${track}`}
                     options={instOptions}
@@ -48,17 +54,13 @@ export const InstrumentView: React.FC = () => {
                     }}
                 />
 
-                {' '}
-
-                ({instrument.name})
-
-                {' '}
+                <InstrumentName>({instrument.name})</InstrumentName>
 
                 <ButtonRaw
                     text={t('reset')}
                     onClick={reset}
                 />
-            </Heading>
+            </Toolkit>
 
             <InstrumentUI
                 track={track}

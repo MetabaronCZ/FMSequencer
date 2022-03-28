@@ -17,7 +17,7 @@ export const GlobalStyles = createGlobalStyle`
     }
 
     @font-face {
-        font-family: 'Roboto';
-        src: url('/fonts/Roboto-Regular.woff2') format('woff2');
+        font-family: 'RobotoMono';
+        src: url('/fonts/RobotoMono-Regular.woff') format('woff');
     }
 `;
