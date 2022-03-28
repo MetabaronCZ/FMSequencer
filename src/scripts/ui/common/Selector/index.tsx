@@ -12,8 +12,8 @@ export type SelectorOnDelete = () => void;
 
 interface StyledProps {
     readonly $plain: boolean;
-    readonly $inverted: boolean;
 }
+
 const Container = styled.output<StyledProps>`
     ${SelectBaseStyles};
 
@@ -26,15 +26,6 @@ const Container = styled.output<StyledProps>`
             background-color: ${theme.color.greyLightest};
         }
     `}
-    ${({ theme, $inverted }) => $inverted && `
-        background-color: black;
-        color: white;
-
-        &:hover,
-        &:focus {
-            background-color: ${theme.color.greyDarkest};
-        }
-    `}
 `;
 
 export interface SelectorProps<T extends string | number> {
@@ -44,15 +35,13 @@ export interface SelectorProps<T extends string | number> {
     readonly values: SelectionValue<T>[];
     readonly placeholder?: string;
     readonly plain?: boolean; // simpler UI theme
-    readonly inverted?: boolean; // inverted colors UI theme
     readonly onChange: SelectorOnChange<T>;
     readonly onDelete?: SelectorOnDelete;
 }
 
 export const Selector = <T extends string | number>(props: SelectorProps<T>): JSX.Element => {
     const {
-        id, value, values,
-        defaultValue = null, placeholder = '', plain, inverted,
+        id, value, values, defaultValue = null, placeholder = '', plain,
         onChange, onDelete = () => null,
     } = props;
 
@@ -65,7 +54,6 @@ export const Selector = <T extends string | number>(props: SelectorProps<T>): JS
             ref={contElm}
             tabIndex={0}
             $plain={!!plain}
-            $inverted={!!inverted}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
             onKeyUp={keyup(value, values, defaultValue, onChange, onDelete)}

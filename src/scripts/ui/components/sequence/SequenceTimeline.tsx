@@ -19,7 +19,7 @@ import { Selector } from 'ui/common/Selector';
 const paternIds = createArray(PATTERN_COUNT);
 
 const patternValues = getSelection(paternIds, (p) => ({
-    label: toFixedLength(p, 3, '0'),
+    label: toFixedLength(p + 1, 3, '0'),
     value: p,
 }));
 
@@ -32,6 +32,7 @@ const Track = styled.li`
     display: flex;
     flex-direction: row;
     align-items: center;
+    padding: ${toVU(0.5)} 0;
     margin-bottom: 1px;
 
     &:last-child {
@@ -48,11 +49,15 @@ interface StyledProps {
 const TimelineItem = styled.div<StyledProps>`
     ${Text.Default};
     flex: 1;
-    padding: ${toVU(0.5)};
     border-right: ${({ theme }) => theme.border.white};
-    color: ${({ $filled, theme }) => $filled ? theme.color.white : ''};
-    background: ${({ $filled, theme }) => $filled ? theme.color.black : ''};
-    border-right-color: ${({ $last, $filled, theme }) => $filled && !$last ? theme.color.black : theme.color.white};
+    border-right-color: ${({ $last, $filled, theme }) => (
+        $filled
+            ? !$last
+                ? theme.color.grey
+                : theme.color.black
+            : theme.color.white
+    )};
+    background-color: ${({ $filled, theme }) => $filled ? theme.color.grey : ''};
     text-align: center;
 
     &:last-child {
@@ -87,7 +92,6 @@ export const SequenceTimeline: React.FC<Props> = ({ sequence, data }) => {
                                     values={patternValues}
                                     placeholder="&nbsp;&mdash;&nbsp;"
                                     plain
-                                    inverted={null !== pattern}
                                     onChange={(value) => dispatch(
                                         setSequenceTrackPattern({
                                             sequence,
