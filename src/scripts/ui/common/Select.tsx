@@ -37,7 +37,7 @@ interface StyledProps {
     readonly $opened: boolean;
 }
 
-const Container = styled.div<StyledProps>`
+const Container = styled.output<StyledProps>`
     ${SelectBaseStyles};
 
     &::after {

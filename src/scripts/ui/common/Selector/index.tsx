@@ -14,7 +14,7 @@ interface StyledProps {
     readonly $plain: boolean;
     readonly $inverted: boolean;
 }
-const Container = styled.div<StyledProps>`
+const Container = styled.output<StyledProps>`
     ${SelectBaseStyles};
 
     ${({ theme, $plain }) => $plain && `
