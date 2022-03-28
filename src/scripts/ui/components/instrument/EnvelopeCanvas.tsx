@@ -7,8 +7,8 @@ import {
 } from 'modules/engine/config';
 import { EnvelopeData } from 'modules/project/instrument/envelope';
 
-const canvasWidth = 300;
-const canvasHeight = 150;
+const canvasWidth = 200;
+const canvasHeight = 100;
 const padding = 10;
 const lineColor = '#fff';
 
@@ -67,7 +67,7 @@ export const EnvelopeCanvas: React.FC<Props> = ({ envelope }) => {
 
         ctx.strokeStyle = lineColor;
         ctx.lineCap = 'butt';
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 1;
 
         ctx.moveTo(startX, startY);
         ctx.lineTo(attackX, attackY);

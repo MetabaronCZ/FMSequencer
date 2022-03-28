@@ -1,17 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { createArray } from 'core/array';
+import { toFixedLength } from 'core/format';
+
 import { projectSlice } from 'store/project';
 import { useAppDispatch, useAppSelector } from 'store';
 
+import { PATTERN_COUNT } from 'modules/project/config';
 import { SequenceData } from 'modules/project/sequence';
 import { getTrackTimeline } from 'modules/project/sequence/timeline';
 
 import { toVU } from 'ui/typography';
 import { Text } from 'ui/common/Text';
-import { createSelectOptions, SelectRaw } from 'ui/common/SelectRaw';
+import { getSelectorValues, Selector } from 'ui/common/Selector';
 
-const deletePtnOption = '-1';
+const paternIds = createArray(PATTERN_COUNT);
+
+const patternValues = getSelectorValues(paternIds, (p) => ({
+    label: toFixedLength(p, 3),
+    value: p,
+}));
 
 const Container = styled.ul`
     list-style-type: none;
@@ -38,14 +47,10 @@ interface StyledProps {
 const TimelineItem = styled.div<StyledProps>`
     ${Text.Default};
     flex: 1;
-    line-height: ${toVU(4)};
+    padding: ${toVU(0.5)};
     border-right: ${({ theme }) => theme.border.white};
     color: ${({ $filled, theme }) => $filled ? theme.color.white : ''};
     background: ${({ $filled, theme }) => $filled ? theme.color.black : ''};
-    border-top-left-radius: ${({ $first, theme }) => $first ? theme.radius.default : 0};
-    border-bottom-left-radius: ${({ $first, theme }) => $first ? theme.radius.default : 0};
-    border-top-right-radius: ${({ $last, theme }) => $last ? theme.radius.default : 0};
-    border-bottom-right-radius: ${({ $last, theme }) => $last ? theme.radius.default : 0};
     border-right-color: ${({ $last, $filled, theme }) => $filled && !$last ? theme.color.black : theme.color.white};
     text-align: center;
 
@@ -63,42 +68,10 @@ export const SequenceTimeline: React.FC<Props> = ({ sequence, data }) => {
     const dispatch = useAppDispatch();
     const tracks = useAppSelector((state) => state.project.tracks);
     const { setSequenceTrackPattern, removeSequenceTrackPattern } = projectSlice.actions;
-
-    const setPattern = (track: number, bar: number, value: string): void => {
-        dispatch(
-            deletePtnOption === value
-                ? removeSequenceTrackPattern({
-                    sequence,
-                    track,
-                    bar,
-                })
-                : setSequenceTrackPattern({
-                    sequence,
-                    track,
-                    bar,
-                    pattern: parseInt(value, 10),
-                })
-        );
-    };
-
     return (
         <Container>
             {data.tracks.map((track, i) => {
                 const timeline = getTrackTimeline(track.patterns, tracks[i].patterns, data.bars);
-
-                let patternOptions = createSelectOptions(tracks[i].patterns, (ptn, p) => ({
-                    label: `${p}`,
-                    value: `${p}`,
-                }));
-
-                patternOptions = [
-                    {
-                        label: '—',
-                        value: deletePtnOption,
-                    },
-                    ...patternOptions,
-                ];
-
                 return (
                     <Track key={i}>
                         {timeline.map(({ pattern, first, last }, j) => (
@@ -108,11 +81,27 @@ export const SequenceTimeline: React.FC<Props> = ({ sequence, data }) => {
                                 $last={!!last}
                                 key={j}
                             >
-                                <SelectRaw
-                                    value={first ? `${pattern}` : deletePtnOption}
-                                    options={patternOptions}
-                                    onChange={(value) => setPattern(i, j, value)}
+                                <Selector
+                                    value={first ? pattern : null}
+                                    values={patternValues}
+                                    placeholder="&nbsp;&mdash;&nbsp;"
+                                    plain
                                     inverted={null !== pattern}
+                                    onChange={(value) => dispatch(
+                                        setSequenceTrackPattern({
+                                            sequence,
+                                            track: i,
+                                            bar: j,
+                                            pattern: value,
+                                        })
+                                    )}
+                                    onDelete={() => dispatch(
+                                        removeSequenceTrackPattern({
+                                            sequence,
+                                            track: i,
+                                            bar: j,
+                                        })
+                                    )}
                                 />
                             </TimelineItem>
                         ))}

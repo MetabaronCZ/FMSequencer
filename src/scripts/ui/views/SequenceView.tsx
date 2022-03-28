@@ -15,9 +15,9 @@ import { Page } from 'ui/layout/Page';
 import { Toolkit } from 'ui/common/Toolkit';
 import { ButtonRaw } from 'ui/common/ButtonRaw';
 import { SequenceUI } from 'ui/components/sequence/SequenceUI';
-import { createSelectOptions, SelectRaw } from 'ui/common/SelectRaw';
+import { getSelectorValues, Selector } from 'ui/common/Selector';
 
-const barValues = createRange(SEQUENCE_LENGTH_MIN, SEQUENCE_LENGTH_MAX);
+const barIds = createRange(SEQUENCE_LENGTH_MIN, SEQUENCE_LENGTH_MAX);
 
 export const SequenceView: React.FC = () => {
     const { id } = useParams();
@@ -30,14 +30,14 @@ export const SequenceView: React.FC = () => {
     const sequence = id ? parseInt(id, 10) : 0;
     const { bars } = sequences[sequence];
 
-    const seqOptions = createSelectOptions(sequences, (seq, i) => ({
+    const seqValues = getSelectorValues(sequences, (seq, i) => ({
         label: seq.name,
-        value: `${i}`,
+        value: i,
     }));
 
-    const barOptions = createSelectOptions(barValues, (i) => ({
+    const barValues = getSelectorValues(barIds, (i) => ({
         label: `${i} ${t('bar', { count: i })}`,
-        value: `${i}`,
+        value: i,
     }));
 
     const setLength = (len: number): void => {
@@ -47,14 +47,12 @@ export const SequenceView: React.FC = () => {
         }));
     };
 
-    const askLength = (value: string): void => {
-        const newLength = parseInt(value, 10);
-
-        if (newLength < bars) {
-            const ask = confirm(t('confirmSequenceLengthChange'), () => setLength(newLength));
+    const askLength = (value: number): void => {
+        if (value < bars) {
+            const ask = confirm(t('confirmSequenceLengthChange'), () => setLength(value));
             ask();
         } else {
-            setLength(newLength);
+            setLength(value);
         }
     };
 
@@ -65,19 +63,21 @@ export const SequenceView: React.FC = () => {
     return (
         <Page>
             <Toolkit>
-                <SelectRaw
-                    value={`${sequence}`}
-                    options={seqOptions}
+                <Selector
+                    value={sequence}
+                    values={seqValues}
                     onChange={(value) => {
-                        navigate(paths.SEQUENCE(value));
+                        navigate(paths.SEQUENCE(`${value}`));
                     }}
                 />
 
-                <SelectRaw
-                    value={`${bars}`}
-                    options={barOptions}
+                <Selector
+                    value={bars}
+                    values={barValues}
                     onChange={askLength}
                 />
+
+                {'|'}
 
                 <ButtonRaw
                     text={t('clear')}

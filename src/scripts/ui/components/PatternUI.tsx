@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { createRange } from 'core/array';
+import { toFixedLength } from 'core/format';
 
 import { useAppDispatch } from 'store';
 import { projectSlice } from 'store/project';
@@ -23,7 +24,7 @@ const pitchValues = getSelectorValues(pitches, (val) => ({
 }));
 
 const velocityValues = getSelectorValues(velocities, (val) => ({
-    label: ('000' + val).slice(-3),
+    label: toFixedLength(val, 3),
     value: val,
 }));
 
@@ -37,13 +38,17 @@ interface CellProps {
 const Cell = styled.td<CellProps>`
     ${Text.Default};
     color: ${({ $highlighted, theme }) => $highlighted ? theme.color.black : theme.color.grey};
-    padding: 0 ${toVU(0.5)};
+    padding-right: ${toVU(0.5)};
     text-align: center;
+
+    &:last-child {
+        padding-right: 0;
+    }
 `;
 
 const Step = styled(Cell)`
-    padding-right: ${toVU(1.5)};
     text-align: right;
+    padding-right: ${toVU(1)};
 `;
 
 interface Props {
@@ -67,7 +72,7 @@ export const PatternUI: React.FC<Props> = ({ track, pattern, data }) => {
                 {steps.map((step, i) => (
                     <tr key={i}>
                         <Step $highlighted={0 === i % division}>
-                            {`000${i}`.slice(-3)}
+                            {toFixedLength(i, 3, '0')}
                         </Step>
 
                         <Cell $highlighted={!!step}>
@@ -76,6 +81,7 @@ export const PatternUI: React.FC<Props> = ({ track, pattern, data }) => {
                                 values={pitchValues}
                                 defaultValue={60}
                                 placeholder="&nbsp;&mdash;&nbsp;"
+                                plain
                                 onChange={(value) => dispatch(
                                     setTrackPatternNotePitch({
                                         track,
@@ -100,6 +106,7 @@ export const PatternUI: React.FC<Props> = ({ track, pattern, data }) => {
                                     <Selector
                                         value={step.note.velocity}
                                         values={velocityValues}
+                                        plain
                                         onChange={(value) => dispatch(
                                             setTrackPatternNoteVelocity({
                                                 track,

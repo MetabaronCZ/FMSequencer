@@ -4,9 +4,9 @@ type FilterTypeData = {
     readonly [id in FilterTypeID]: BiquadFilterType;
 };
 const filterTypeData: FilterTypeData = {
-    LOWPASS: 'lowpass',
-    HIGHPASS: 'highpass',
-    BANDPASS: 'bandpass',
+    LP: 'lowpass',
+    HP: 'highpass',
+    BP: 'bandpass',
 };
 
 export const getFilterType = (id: FilterTypeID): BiquadFilterType => {
@@ -27,7 +27,7 @@ export interface FilterConfig {
 
 export const createFilterData = (config: FilterConfig = {}): FilterData => {
     return {
-        type: config.type ?? 'LOWPASS',
+        type: config.type ?? 'LP',
         cutoff: config.cutoff ?? FREQUENCY_MAX,
         resonance: config.resonance ?? 1,
     };

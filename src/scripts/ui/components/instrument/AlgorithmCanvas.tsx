@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import { AlgorithmID, OPERATOR_COUNT } from 'modules/engine/config';
 import { algorithmConfig } from 'modules/project/instrument/algorithm';
 
-const opSize = 29;
-const opPadding = 10;
+const opSize = 15;
+const opPadding = 5;
 const canvasSize = OPERATOR_COUNT * (opSize + opPadding) + opPadding;
 const lineColor = '#fff';
 
@@ -44,9 +44,9 @@ export const AlgorithmCanvas: React.FC<Props> = ({ algorithm }) => {
 
         ctx.strokeStyle = lineColor;
         ctx.fillStyle = lineColor;
-        ctx.font = '14px sans-serif';
+        ctx.font = '12px "RobotoMono", sans-serif';
         ctx.textAlign = 'center';
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 1;
         ctx.lineCap = 'butt';
 
         const algoLineTips: [[number, number], [number, number]][] = [];
@@ -66,7 +66,7 @@ export const AlgorithmCanvas: React.FC<Props> = ({ algorithm }) => {
             ctx.fillText(`${i + 1}`, x0 + opSize / 2, y0 + opSize / 2 + 5);
         });
 
-        ctx.lineWidth = 1.5;
+        ctx.lineWidth = 1;
 
         algo.lines.forEach(([from, to]) => {
             const fromBottom = algoLineTips[from][1];

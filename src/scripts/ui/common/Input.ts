@@ -5,11 +5,14 @@ import { Text } from 'ui/common/Text';
 
 export const InputStyles = css`
     ${Text.Default};
-    display: block;
-    width: 100%;
-    height: ${toVU(3)};
-    padding: 0 ${toVU(1)};
+    height: ${({ theme }) => theme.lineHeight.default};
+    padding: 0 ${toVU(0.5)};
     border: none;
     outline: none;
-    background: ${({ theme }) => theme.color.white};
+    border-bottom: ${({ theme }) => theme.border.grey};
+    background-color: ${({ theme }) => theme.color.greyLightest};
+
+    &:focus {
+        border-color: ${({ theme }) => theme.color.black};
+    }
 `;

@@ -1,4 +1,5 @@
 import { fillArray } from 'core/array';
+import { toFixedLength } from 'core/format';
 
 import { AlgorithmID, LEVEL_MAX, OPERATOR_COUNT } from 'modules/engine/config';
 import { createFilterData, FilterData, FilterConfig } from 'modules/project/instrument/filter';
@@ -32,4 +33,16 @@ export const createInstrumentData = (id: number, config: InstrumentConfig = {}):
         operators: fillArray(OPERATOR_COUNT, (i) => createOperatorData(operators[i])),
         filter: createFilterData(config.filter),
     };
+};
+
+export const getPanLabel = (value: number): string => {
+    const formattedValue = toFixedLength(Math.abs(value), 2, '0');
+    let pan = 'C';
+
+    if (value < 0) {
+        pan = 'L';
+    } else if (value > 0) {
+        pan = 'R';
+    }
+    return `${pan}${formattedValue}`;
 };

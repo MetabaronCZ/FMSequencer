@@ -44,10 +44,10 @@ export const PAN_MIN = -50;
 export const PAN_MAX = +50;
 
 // filter
-export const filterTypes = ['LOWPASS', 'HIGHPASS', 'BANDPASS'] as const;
+export const filterTypes = ['LP', 'HP', 'BP'] as const;
 export type FilterTypeID = typeof filterTypes[number];
 
-export const RESONANCE_MIN = 0.01;
+export const RESONANCE_MIN = 0.1;
 export const RESONANCE_MAX = 100;
 
 export const FREQUENCY_BASE = 440;

@@ -4,7 +4,6 @@ import { paths } from 'ui/paths';
 import { HomeView } from 'ui/views/HomeView';
 import { SongView } from 'ui/views/SongView';
 import { ErrorView } from 'ui/views/ErrorView';
-import { MasterView } from 'ui/views/MasterView';
 import { ProjectView } from 'ui/views/ProjectView';
 import { PatternView } from 'ui/views/PatternView';
 import { SequenceView } from 'ui/views/SequenceView';
@@ -24,7 +23,6 @@ export const routes: Route[] = [
     { path: paths.SONG, component: SongView },
     { path: paths.INSTRUMENT(':id'), component: InstrumentView },
     { path: paths.INSTRUMENTS, component: InstrumentView },
-    { path: paths.MASTER, component: MasterView },
     { path: paths.PROJECT, component: ProjectView },
     { path: '*', component: ErrorView },
 ];

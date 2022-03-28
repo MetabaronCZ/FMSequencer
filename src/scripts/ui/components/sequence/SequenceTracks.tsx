@@ -48,15 +48,15 @@ export const SequenceTracks: React.FC<Props> = ({ tracks }) => {
                         isActive={mutedTracks.includes(i)}
                         onClick={() => dispatch(trackMute(i))}
                     />
-                    {' '}
+
                     <SequenceButton
                         text="S"
                         title={t('solo')}
                         isActive={i === soloedTrack}
                         onClick={() => dispatch(trackSolo(i))}
                     />
-                    {' '}
-                    {t('track')} {i + 1}
+
+                    {track.name}
                 </Item>
             ))}
         </Container>

@@ -1,5 +1,5 @@
-export const createRange = (min: number, max: number): number[] => {
-    return Array(max - min + 1).fill(0).map((item, i) => min + i);
+export const createRange = (min: number, max: number, mag = 1): number[] => {
+    return Array(mag * (max - min + 1)).fill(0).map((item, i) => min + i / mag);
 };
 
 export const createArray = (size: number): number[] => {

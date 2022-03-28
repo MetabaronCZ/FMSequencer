@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 import { AudioEngine } from 'modules/engine';
 
-const canvasWidth = 300;
-const canvasHeight = 150;
+const canvasWidth = 160;
+const canvasHeight = 80;
 const lineColor = '#fff';
 
 const Container = styled.div`
@@ -45,7 +45,7 @@ export const AnalyserCanvas: React.FC<Props> = ({ track }) => {
         ctx.translate(0.5, 0.5);
         ctx.strokeStyle = lineColor;
         ctx.lineCap = 'butt';
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 1;
 
         const draw = (): void => {
             const data = analyser.getData();

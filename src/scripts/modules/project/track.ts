@@ -16,10 +16,14 @@ export interface TrackConfig {
     readonly instrument?: InstrumentConfig;
 }
 
+export const getTrackName = (id: number): string => {
+    return `Track ${id + 1}`;
+};
+
 export const createTrackData = (id: number, config: TrackConfig = {}): TrackData => {
     const patterns = config.patterns ?? [];
     return {
-        name: config.name ?? `Track ${id + 1}`,
+        name: config.name ?? getTrackName(id),
         patterns: fillArray(PATTERN_COUNT, (i) => createPatternData(patterns[i])),
         instrument: createInstrumentData(id, config.instrument),
     };

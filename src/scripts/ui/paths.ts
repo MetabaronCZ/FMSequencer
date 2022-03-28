@@ -7,7 +7,6 @@ export const paths = {
     SONG: '/song',
     INSTRUMENTS: '/instrument',
     INSTRUMENT: (id: string) => `/instrument/${id}`,
-    MASTER: '/master',
     PROJECT: '/project',
 };
 export type PathID = keyof typeof paths;

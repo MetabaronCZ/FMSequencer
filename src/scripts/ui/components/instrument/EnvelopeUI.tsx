@@ -1,6 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { createRange } from 'core/array';
+
 import { useAppDispatch } from 'store';
 import { projectSlice } from 'store/project';
 
@@ -12,7 +14,35 @@ import {
 } from 'modules/engine/config';
 import { EnvelopeData } from 'modules/project/instrument/envelope';
 
-import { Slider } from 'ui/common/Slider';
+import { getSelectorValues } from 'ui/common/Selector';
+import { SelectorField } from 'ui/common/SelectorField';
+import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
+import { toFixedLength } from 'core/format';
+
+const attacks = createRange(ENVELOPE_ATTACK_MIN, ENVELOPE_ATTACK_MAX, 10);
+const decays = createRange(ENVELOPE_DECAY_MIN, ENVELOPE_DECAY_MAX, 10);
+const sustains = createRange(ENVELOPE_SUSTAIN_MIN, ENVELOPE_SUSTAIN_MAX);
+const releases = createRange(ENVELOPE_RELEASE_MIN, ENVELOPE_RELEASE_MAX, 10);
+
+const attackValues = getSelectorValues(attacks, (item) => ({
+    label: toFixedLength(item.toFixed(1), 4),
+    value: item,
+}));
+
+const decayValues = getSelectorValues(decays, (item) => ({
+    label: toFixedLength(item.toFixed(1), 4),
+    value: item,
+}));
+
+const sustainValues = getSelectorValues(sustains, (item) => ({
+    label: toFixedLength(item, 3),
+    value: item,
+}));
+
+const releaseValues = getSelectorValues(releases, (item) => ({
+    label: toFixedLength(item.toFixed(1), 4),
+    value: item,
+}));
 
 interface Props {
     readonly track: number;
@@ -30,69 +60,77 @@ export const EnvelopeUI: React.FC<Props> = ({ track, operator, data }) => {
     } = projectSlice.actions;
 
     return (
-        <div>
-            <Slider
-                label={`${t('envelopeAttack')}: ${attack}`}
-                value={attack}
-                min={ENVELOPE_ATTACK_MIN}
-                max={ENVELOPE_ATTACK_MAX}
-                step={0.01}
-                vertical
-                onChange={(value) => dispatch(
-                    setInstrumentOperatorEnvelopeAction({
-                        track,
-                        operator,
-                        data: value,
-                    })
-                )}
-            />
+        <Grid>
+            <GridRow>
+                <GridColumn>
+                    <SelectorField
+                        label={t('envelopeAttack')}
+                        unit={t('sec')}
+                        value={attack}
+                        values={attackValues}
+                        onChange={(value) => dispatch(
+                            setInstrumentOperatorEnvelopeAction({
+                                track,
+                                operator,
+                                data: value,
+                            })
+                        )}
+                    />
+                </GridColumn>
+            </GridRow>
 
-            <Slider
-                label={`${t('envelopeDecay')}: ${decay}`}
-                value={decay}
-                min={ENVELOPE_DECAY_MIN}
-                max={ENVELOPE_DECAY_MAX}
-                step={0.1}
-                vertical
-                onChange={(value) => dispatch(
-                    setInstrumentOperatorEnvelopeDecay({
-                        track,
-                        operator,
-                        data: value,
-                    })
-                )}
-            />
+            <GridRow>
+                <GridColumn>
+                    <SelectorField
+                        label={t('envelopeDecay')}
+                        unit={t('sec')}
+                        value={decay}
+                        values={decayValues}
+                        onChange={(value) => dispatch(
+                            setInstrumentOperatorEnvelopeDecay({
+                                track,
+                                operator,
+                                data: value,
+                            })
+                        )}
+                    />
+                </GridColumn>
+            </GridRow>
 
-            <Slider
-                label={`${t('envelopeSustain')}: ${sustain}`}
-                value={sustain}
-                min={ENVELOPE_SUSTAIN_MIN}
-                max={ENVELOPE_SUSTAIN_MAX}
-                vertical
-                onChange={(value) => dispatch(
-                    setInstrumentOperatorEnvelopeSustain({
-                        track,
-                        operator,
-                        data: value,
-                    })
-                )}
-            />
+            <GridRow>
+                <GridColumn>
+                    <SelectorField
+                        label={t('envelopeSustain')}
+                        value={sustain}
+                        values={sustainValues}
+                        onChange={(value) => dispatch(
+                            setInstrumentOperatorEnvelopeSustain({
+                                track,
+                                operator,
+                                data: value,
+                            })
+                        )}
+                    />
+                </GridColumn>
+            </GridRow>
 
-            <Slider
-                label={`${t('envelopeRelease')}: ${release}`}
-                value={release}
-                min={ENVELOPE_RELEASE_MIN}
-                max={ENVELOPE_RELEASE_MAX}
-                step={0.1}
-                vertical
-                onChange={(value) => dispatch(
-                    setInstrumentOperatorEnvelopeRelease({
-                        track,
-                        operator,
-                        data: value,
-                    })
-                )}
-            />
-        </div>
+            <GridRow>
+                <GridColumn>
+                    <SelectorField
+                        label={t('envelopeRelease')}
+                        unit={t('sec')}
+                        value={release}
+                        values={releaseValues}
+                        onChange={(value) => dispatch(
+                            setInstrumentOperatorEnvelopeRelease({
+                                track,
+                                operator,
+                                data: value,
+                            })
+                        )}
+                    />
+                </GridColumn>
+            </GridRow>
+        </Grid>
     );
 };

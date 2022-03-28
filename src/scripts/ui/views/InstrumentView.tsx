@@ -13,8 +13,8 @@ import { Page } from 'ui/layout/Page';
 import { Toolkit } from 'ui/common/Toolkit';
 import { ButtonRaw } from 'ui/common/ButtonRaw';
 import { Keyboard } from 'ui/components/Keyboard';
+import { getSelectorValues, Selector } from 'ui/common/Selector';
 import { InstrumentUI } from 'ui/components/instrument/InstrumentUI';
-import { createSelectOptions, SelectRaw } from 'ui/common/SelectRaw';
 
 const InstrumentName = styled.span`
     ${Text.Default};
@@ -31,9 +31,9 @@ export const InstrumentView: React.FC = () => {
     const track = id ? parseInt(id, 10) : 0;
     const { instrument } = tracks[track];
 
-    const instOptions = createSelectOptions(tracks, (track, i) => ({
+    const trackValues = getSelectorValues(tracks, (track, i) => ({
         label: track.name,
-        value: `${i}`,
+        value: i,
     }));
 
     const reset = confirm(t('confirmInstrumentReset'), () => dispatch(
@@ -46,15 +46,19 @@ export const InstrumentView: React.FC = () => {
     return (
         <Page>
             <Toolkit>
-                <SelectRaw
-                    value={`${track}`}
-                    options={instOptions}
+                <Selector
+                    value={track}
+                    values={trackValues}
                     onChange={(value) => {
-                        navigate(paths.INSTRUMENT(value));
+                        navigate(paths.INSTRUMENT(`${value}`));
                     }}
                 />
 
-                <InstrumentName>({instrument.name})</InstrumentName>
+                <InstrumentName>
+                    ({instrument.name})
+                </InstrumentName>
+
+                {'|'}
 
                 <ButtonRaw
                     text={t('reset')}

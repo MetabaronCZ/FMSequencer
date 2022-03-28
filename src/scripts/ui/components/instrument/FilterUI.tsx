@@ -1,6 +1,9 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { createRange } from 'core/array';
+import { toFixedLength } from 'core/format';
+
 import { useAppDispatch } from 'store';
 import { projectSlice } from 'store/project';
 
@@ -10,14 +13,26 @@ import {
 } from 'modules/engine/config';
 import { FilterData } from 'modules/project/instrument/filter';
 
-import { Slider } from 'ui/common/Slider';
-import { createSelectOptions, Select } from 'ui/common/Select';
-import { DataGridColumn, DataGridRow } from 'ui/common/DataGrid';
+import { getSelectorValues } from 'ui/common/Selector';
+import { SelectorField } from 'ui/common/SelectorField';
+import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
 
-const filterTypeValues = filterTypes.slice(0) as FilterTypeID[];
+const fTypes = filterTypes.slice(0) as FilterTypeID[];
+const freqs = createRange(FREQUENCY_MIN, FREQUENCY_MAX);
+const resos = createRange(RESONANCE_MIN, RESONANCE_MAX, 10);
 
-const options = createSelectOptions(filterTypeValues, (item) => ({
+const filterTypeValues = getSelectorValues(fTypes, (item) => ({
     label: item,
+    value: item,
+}));
+
+const frequencyValues = getSelectorValues(freqs, (item) => ({
+    label: toFixedLength(item, 5),
+    value: item,
+}));
+
+const resonanceValues = getSelectorValues(resos, (item) => ({
+    label: item.toFixed(1),
     value: item,
 }));
 
@@ -34,43 +49,48 @@ export const FilterUI: React.FC<Props> = ({ track, data }) => {
         setInstrumentFilterType, setInstrumentFilterCutoff,
         setInstrumentFilterResonance,
     } = projectSlice.actions;
+
     return (
-        <DataGridColumn>
-            <DataGridRow>
-                <Select
-                    label={t('filterType')}
-                    value={type}
-                    options={options}
-                    onChange={(value) => dispatch(
-                        setInstrumentFilterType({ track, data: value })
-                    )}
-                />
-            </DataGridRow>
+        <Grid>
+            <GridRow>
+                <GridColumn>
+                    <SelectorField
+                        label={t('filter')}
+                        value={type}
+                        values={filterTypeValues}
+                        onChange={(value) => dispatch(
+                            setInstrumentFilterType({ track, data: value })
+                        )}
+                    />
+                </GridColumn>
+            </GridRow>
 
-            <DataGridRow>
-                <Slider
-                    label={`${t('filterCutoff')}: ${cutoff}`}
-                    value={cutoff}
-                    min={FREQUENCY_MIN}
-                    max={FREQUENCY_MAX}
-                    onChange={(value) => dispatch(
-                        setInstrumentFilterCutoff({ track, data: value })
-                    )}
-                />
-            </DataGridRow>
+            <GridRow>
+                <GridColumn>
+                    <SelectorField
+                        label={t('filterCutoff')}
+                        unit={t('hz')}
+                        value={cutoff}
+                        values={frequencyValues}
+                        onChange={(value) => dispatch(
+                            setInstrumentFilterCutoff({ track, data: value })
+                        )}
+                    />
+                </GridColumn>
+            </GridRow>
 
-            <DataGridRow>
-                <Slider
-                    label={`${t('filterResonance')}: ${resonance}`}
-                    value={resonance}
-                    min={RESONANCE_MIN}
-                    max={RESONANCE_MAX}
-                    step={RESONANCE_MIN}
-                    onChange={(value) => dispatch(
-                        setInstrumentFilterResonance({ track, data: value })
-                    )}
-                />
-            </DataGridRow>
-        </DataGridColumn>
+            <GridRow>
+                <GridColumn>
+                    <SelectorField
+                        label={t('filterResonance')}
+                        value={resonance}
+                        values={resonanceValues}
+                        onChange={(value) => dispatch(
+                            setInstrumentFilterResonance({ track, data: value })
+                        )}
+                    />
+                </GridColumn>
+            </GridRow>
+        </Grid>
     );
 };

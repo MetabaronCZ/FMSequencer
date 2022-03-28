@@ -14,31 +14,24 @@ const Layout = styled.div`
     margin: 0 auto;
 `;
 
-const LayoutHeader = styled.header`
-    padding: 0 0 ${toVU(2)};
-`;
-
 const LayoutContent = styled.main`
     flex: 1;
     overflow-y: auto;
-`;
-
-const LayoutFooter = styled.footer`
-    padding: ${toVU(2)} 0;
+    padding: ${toVU(2)};
 `;
 
 export const Page: React.FC = ({ children }) => (
     <Layout>
-        <LayoutHeader>
+        <header>
             <Header />
-        </LayoutHeader>
+        </header>
 
         <LayoutContent>
             {children}
         </LayoutContent>
 
-        <LayoutFooter>
+        <footer>
             <Footer />
-        </LayoutFooter>
+        </footer>
     </Layout>
 );

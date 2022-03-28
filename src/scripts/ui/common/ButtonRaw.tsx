@@ -8,26 +8,28 @@ import { clickOnly, OnClick } from 'ui/event';
 const StyledButton = styled.button`
     ${Text.Default};
     display: inline-block;
-    padding: 0 ${toVU(1)};
-    background: ${({ theme }) => theme.color.white};
-    font-size: inherit;
+    padding: 0 ${toVU(0.5)};
+    background: ${({ theme }) => theme.color.greyLightest};
     border: none;
     outline: none;
     cursor: pointer;
 
-    &:hover {
-        background: ${({ theme }) => theme.color.greyLightest};
+    &:hover,
+    &:focus {
+        outline: ${({ theme }) => theme.outline.black};
     }
 `;
 
 interface Props {
     readonly text: string;
+    readonly title?: string;
     readonly onClick: OnClick;
 }
 
-export const ButtonRaw: React.FC<Props> = ({ text, onClick }) => (
+export const ButtonRaw: React.FC<Props> = ({ text, title, onClick }) => (
     <StyledButton
         type="button"
+        title={title}
         onClick={clickOnly(onClick)}
     >
         {text}

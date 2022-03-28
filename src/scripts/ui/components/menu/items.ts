@@ -10,6 +10,5 @@ export const getMenuItems = (t: TFunction): MenuItem[] => [
     { title: t('pattern'), path: paths.PATTERNS },
     { title: t('song'), path: paths.SONG },
     { title: t('instrument'), path: paths.INSTRUMENTS },
-    { title: t('master'), path: paths.MASTER },
     { title: t('project'), path: paths.PROJECT },
 ];

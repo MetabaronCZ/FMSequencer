@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 
-import { Text } from 'ui/common/Text';
+import { InputStyles } from 'ui/common/Input';
 
 const defaultStepMultiplier = 1;
 const shiftStepMultiplier = 10;
@@ -14,9 +14,9 @@ interface SelectorValue<T extends string | number> {
     readonly label: string;
     readonly value: T;
 }
-type SelectorCallback<T extends string | number> = (item: T, i: number) => SelectorValue<T>;
+type SelectorCallback<T extends string | number, U> = (item: U, i: number) => SelectorValue<T>;
 
-export const getSelectorValues = <T extends string | number>(items: T[], cb: SelectorCallback<T>): SelectorValue<T>[] => {
+export const getSelectorValues = <T extends string | number, U>(items: U[], cb: SelectorCallback<T, U>): SelectorValue<T>[] => {
     return items.map(cb);
 };
 
@@ -113,39 +113,66 @@ const wheel = <T extends string | number>(value: T | null, values: SelectorValue
     }
 };
 
-const Container = styled.div`
-    ${Text.Default};
+interface StyledProps {
+    readonly $plain: boolean;
+    readonly $inverted: boolean;
+}
+const Container = styled.div<StyledProps>`
+    ${InputStyles};
     display: inline-block;
-    background: ${({ theme }) => theme.color.white};
     user-select: none;
-    outline: none;
     text-align: right;
     cursor: pointer;
 
-    &:hover,
-    &:focus {
-        background: ${({ theme }) => theme.color.greyLightest};
-    }
+    ${({ theme, $plain }) => $plain && `
+        border: none;
+        background-color: transparent;
+
+        &:hover,
+        &:focus {
+            background-color: ${theme.color.greyLightest};
+        }
+    `}
+    ${({ theme, $inverted }) => $inverted && `
+        background-color: black;
+        color: white;
+
+        &:hover,
+        &:focus {
+            background-color: ${theme.color.greyDarkest};
+        }
+    `}
 `;
 
-interface Props<T extends string | number> {
+export interface SelectorProps<T extends string | number> {
+    readonly id?: string;
     readonly value: T | null;
     readonly defaultValue?: T;
     readonly values: SelectorValue<T>[];
     readonly placeholder?: string;
+    readonly plain?: boolean; // simpler UI theme
+    readonly inverted?: boolean; // inverted colors UI theme
     readonly onChange: OnChange<T>;
     readonly onDelete?: OnDelete;
 }
 
-export const Selector = <T extends string | number>(props: Props<T>): JSX.Element => {
-    const { value, values, defaultValue = null, placeholder = '', onChange, onDelete = () => null } = props;
+export const Selector = <T extends string | number>(props: SelectorProps<T>): JSX.Element => {
+    const {
+        id, value, values,
+        defaultValue = null, placeholder = '', plain, inverted,
+        onChange, onDelete = () => null,
+    } = props;
+
     const [focused, setFocused] = useState(false);
     const contElm = useRef<HTMLDivElement>(null);
     const selected = values.find((val) => val.value === value);
     return (
         <Container
+            id={id}
             ref={contElm}
             tabIndex={0}
+            $plain={!!plain}
+            $inverted={!!inverted}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
             onKeyUp={keyup(value, values, defaultValue, onChange, onDelete)}

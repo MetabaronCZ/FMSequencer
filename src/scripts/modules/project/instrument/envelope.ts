@@ -16,7 +16,7 @@ export interface EnvelopeConfig {
 
 export const createEnvelopeData = (config: EnvelopeConfig = {}): EnvelopeData => {
     return {
-        attack: config.attack ?? 0.01,
+        attack: config.attack ?? 0.1,
         decay: config.decay ?? 0.1,
         sustain: config.sustain ?? ENVELOPE_SUSTAIN_MAX,
         release: config.release ?? 0.5,

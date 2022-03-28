@@ -19,9 +19,10 @@ const StyledLink = styled(Link)<StyledProps>`
     background: ${({ theme, $isActive }) => $isActive ? theme.color.white : 'transparent'};
     text-transform: uppercase;
     text-decoration: none;
+    outline: none;
 
     &:focus {
-        outline: ${({ theme }) => theme.outline.default};
+        outline: ${({ theme }) => theme.outline.black};
     }
 `;
 

@@ -10,11 +10,10 @@ interface StyledProps {
 
 const StyledButton = styled.button<StyledProps>`
     display: inline-block;
-    height: ${toVU(3)};
-    width: ${toVU(3)};
+    height: ${toVU(2)};
+    width: ${toVU(2)};
     background: transparent;
     border: ${({ theme }) => theme.border.default};
-    border-radius: ${({ theme }) => theme.radius.default};
     vertical-align: middle;
     cursor: pointer;
 

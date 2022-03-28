@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 
 import { createRange } from 'core/array';
+import { toFixedLength } from 'core/format';
 
 import { projectSlice } from 'store/project';
 import { useAppDispatch, useAppSelector } from 'store';
@@ -18,9 +19,9 @@ import { Page } from 'ui/layout/Page';
 import { Toolkit } from 'ui/common/Toolkit';
 import { ButtonRaw } from 'ui/common/ButtonRaw';
 import { PatternUI } from 'ui/components/PatternUI';
-import { createSelectOptions, SelectRaw } from 'ui/common/SelectRaw';
+import { getSelectorValues, Selector } from 'ui/common/Selector';
 
-const barValues = createRange(PATTERN_LENGTH_MIN, PATTERN_LENGTH_MAX);
+const barIds = createRange(PATTERN_LENGTH_MIN, PATTERN_LENGTH_MAX);
 
 export const PatternView: React.FC = () => {
     const { t } = useTranslation();
@@ -35,24 +36,24 @@ export const PatternView: React.FC = () => {
     const { patterns } = tracks[track];
     const data = patterns[pattern];
 
-    const trackOptions = createSelectOptions(tracks, (track, i) => ({
+    const trackValues = getSelectorValues(tracks, (track, i) => ({
         label: track.name,
-        value: `${i}`,
+        value: i,
     }));
 
-    const patternOptions = createSelectOptions(patterns, (pattern, i) => ({
-        label: `${t('pattern')} ${i + 1}`,
-        value: `${i}`,
+    const patternValues = getSelectorValues(patterns, (pattern, i) => ({
+        label: `${t('pattern')} ${toFixedLength(i + 1, 3, '0')}`,
+        value: i,
     }));
 
-    const barOptions = createSelectOptions(barValues, (i) => ({
+    const barValues = getSelectorValues(barIds, (i) => ({
         label: `${i} ${t('bar', { count: i })}`,
-        value: `${i}`,
+        value: i,
     }));
 
-    const divisionOptions = createSelectOptions([...patternDivisions], (i) => ({
+    const divisionValues = getSelectorValues([...patternDivisions], (i) => ({
         label: `${i} ${t('perBar')}`,
-        value: `${i}`,
+        value: i,
     }));
 
     const setLength = (len: number): void => {
@@ -63,22 +64,20 @@ export const PatternView: React.FC = () => {
         }));
     };
 
-    const askLength = (value: string): void => {
-        const newLength = parseInt(value, 10);
-
-        if (newLength < data.bars) {
-            const ask = confirm(t('confirmPatternLengthChange'), () => setLength(newLength));
+    const askLength = (value: number): void => {
+        if (value < data.bars) {
+            const ask = confirm(t('confirmPatternLengthChange'), () => setLength(value));
             ask();
         } else {
-            setLength(newLength);
+            setLength(value);
         }
     };
 
-    const setDivision = confirm(t('confirmPatternDivisionChange'), (value: string) => {
+    const setDivision = confirm(t('confirmPatternDivisionChange'), (value: PatternDivisionID) => {
         dispatch(setTrackPatternDivision({
             track,
             pattern,
-            data: parseInt(value, 10) as PatternDivisionID,
+            data: value,
         }));
     });
 
@@ -92,33 +91,37 @@ export const PatternView: React.FC = () => {
     return (
         <Page>
             <Toolkit>
-                <SelectRaw
-                    value={`${track}`}
-                    options={trackOptions}
+                <Selector
+                    value={track}
+                    values={trackValues}
                     onChange={(value) => {
-                        navigate(paths.PATTERN(value, '0'));
+                        navigate(paths.PATTERN(`${value}`, '0'));
                     }}
                 />
 
-                <SelectRaw
-                    value={`${pattern}`}
-                    options={patternOptions}
+                <Selector
+                    value={pattern}
+                    values={patternValues}
                     onChange={(value) => {
-                        navigate(paths.PATTERN(`${track}`, value));
+                        navigate(paths.PATTERN(`${track}`, `${value}`));
                     }}
                 />
 
-                <SelectRaw
-                    value={`${data.bars}`}
-                    options={barOptions}
+                {'|'}
+
+                <Selector
+                    value={data.bars}
+                    values={barValues}
                     onChange={askLength}
                 />
 
-                <SelectRaw
-                    value={`${data.division}`}
-                    options={divisionOptions}
+                <Selector
+                    value={data.division}
+                    values={divisionValues}
                     onChange={setDivision}
                 />
+
+                {'|'}
 
                 <ButtonRaw
                     text={t('clear')}
