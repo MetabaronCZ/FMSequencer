@@ -43,7 +43,7 @@ export const projectSlice = createSlice({
         return state;
     },
     reducers: {
-        load: (state, action: LoadProjectAction) => {
+        loadProject: (state, action: LoadProjectAction) => {
             return createProjectData(action.payload);
         },
         setName: (state, action: SetProjectNameAction) => {

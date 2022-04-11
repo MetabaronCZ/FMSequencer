@@ -53,10 +53,10 @@ const List = styled.ul`
     top: 100%;
     left: 0;
     z-index: 1000;
-    overflow-y: auto;
-    min-width: ${toVU(15)};
+    min-width: 100%;
     max-height: ${toVU(25)};
     padding: 0 ${toVU(0.5)};
+    overflow-y: auto;
     border-top: ${({ theme }) => theme.border.grey};
     background-color: ${({ theme }) => theme.color.greyLightest};
 `;
@@ -91,11 +91,11 @@ interface Props<T extends string | number> {
 export const Select = <T extends string | number>(props: Props<T>): JSX.Element => {
     const { id, value, values, placeholder = '', onChange } = props;
     const [focused, setFocused] = useState(false);
-    const listElm = useRef<HTMLDivElement | null>(null);
+    const contElm = useRef<HTMLDivElement | null>(null);
     const selected = values.find((val) => val.value === value);
 
     const onClose = (): void => setFocused(false);
-    const close = closeFn(listElm, onClose);
+    const close = closeFn(contElm, onClose);
 
     useEffect(() => {
         document.addEventListener('click', close);
@@ -108,7 +108,7 @@ export const Select = <T extends string | number>(props: Props<T>): JSX.Element 
     return (
         <Container
             id={id}
-            ref={listElm}
+            ref={contElm}
             tabIndex={0}
             $opened={focused}
             onFocus={() => setFocused(true)}

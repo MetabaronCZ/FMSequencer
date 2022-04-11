@@ -13,10 +13,10 @@ import { confirm } from 'ui/dialog';
 import { getSelection } from 'ui/event';
 import { Select } from 'ui/common/Select';
 import { Selector } from 'ui/common/Selector';
-import { ButtonRaw } from 'ui/common/ButtonRaw';
-import { Table, TableItem, TableRow } from 'ui/common/Table';
 import { SongData } from 'modules/project/song';
+import { ButtonRaw } from 'ui/common/ButtonRaw';
 import { SequenceData } from 'modules/project/sequence';
+import { Table, TableItem, TableRow } from 'ui/common/Table';
 
 const repeats = createRange(SEQUENCE_LENGTH_MIN, SEQUENCE_REPEAT_MAX);
 
@@ -64,66 +64,68 @@ export const SongUI: React.FC<Props> = ({ song, sequences }) => {
 
     return (
         <>
-            <Table>
-                {song.sequences.map(({ sequence, repeat }, i) => (
-                    <TableRow key={i}>
-                        <TableItem>
-                            {toFixedLength(i + 1, 3, '0')}
-                        </TableItem>
+            {song.sequences.length > 0 && (
+                <Table>
+                    {song.sequences.map(({ sequence, repeat }, i) => (
+                        <TableRow key={i}>
+                            <TableItem>
+                                {toFixedLength(i + 1, 3, '0')}
+                            </TableItem>
 
-                        <TableItem>
-                            <Select
-                                value={sequence}
-                                values={sequenceValues}
-                                onChange={(value) => {
-                                    dispatch(setSongSequence({
-                                        slot: i,
-                                        data: value,
-                                    }));
-                                }}
-                            />
-                        </TableItem>
+                            <TableItem>
+                                <Select
+                                    value={sequence}
+                                    values={sequenceValues}
+                                    onChange={(value) => {
+                                        dispatch(setSongSequence({
+                                            slot: i,
+                                            data: value,
+                                        }));
+                                    }}
+                                />
+                            </TableItem>
 
-                        <TableItem>
-                            {'×'}
+                            <TableItem>
+                                {'×'}
 
-                            <Selector
-                                value={repeat}
-                                values={repeatValues}
-                                onChange={(value) => dispatch(
-                                    setSongSequenceRepeat({
-                                        slot: i,
-                                        data: value,
-                                    })
-                                )}
-                            />
-                        </TableItem>
+                                <Selector
+                                    value={repeat}
+                                    values={repeatValues}
+                                    onChange={(value) => dispatch(
+                                        setSongSequenceRepeat({
+                                            slot: i,
+                                            data: value,
+                                        })
+                                    )}
+                                />
+                            </TableItem>
 
-                        <TableItem>
-                            <ButtonRaw
-                                text="▲"
-                                title={t('moveUp')}
-                                onClick={() => moveSequence(i, -1)}
-                            />
-                        </TableItem>
+                            <TableItem>
+                                <ButtonRaw
+                                    text="▲"
+                                    title={t('moveUp')}
+                                    onClick={() => moveSequence(i, -1)}
+                                />
+                            </TableItem>
 
-                        <TableItem>
-                            <ButtonRaw
-                                text="▼"
-                                title={t('moveDown')}
-                                onClick={() => moveSequence(i, +1)}
-                            />
-                        </TableItem>
+                            <TableItem>
+                                <ButtonRaw
+                                    text="▼"
+                                    title={t('moveDown')}
+                                    onClick={() => moveSequence(i, +1)}
+                                />
+                            </TableItem>
 
-                        <TableItem>
-                            <ButtonRaw
-                                text={t('sequenceDelete')}
-                                onClick={() => deleteSequence(i)}
-                            />
-                        </TableItem>
-                    </TableRow>
-                ))}
-            </Table>
+                            <TableItem>
+                                <ButtonRaw
+                                    text={t('sequenceDelete')}
+                                    onClick={() => deleteSequence(i)}
+                                />
+                            </TableItem>
+                        </TableRow>
+                    ))}
+                </Table>
+            )}
 
             {song.sequences.length < SONG_LENGTH_MAX && (
                 <ButtonRaw

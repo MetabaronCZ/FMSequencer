@@ -31,7 +31,7 @@ export const createProjectData = (config: ProjectConfig = {}): ProjectData => {
     const tracks = config.tracks ?? [];
     const seqs = config.sequences ?? [];
     return {
-        name: config.name ?? 'Project new',
+        name: config.name ?? 'New project',
         description: config.description ?? '',
         tempo: config.tempo ?? 130,
         master: createMasterData(config.master),

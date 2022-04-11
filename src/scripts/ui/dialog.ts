@@ -4,3 +4,7 @@ export const confirm = <T>(text: string, cb: (...args: T[]) => void) => (...args
     }
     cb(...args);
 };
+
+export const alert = (text: string): void => {
+    window.alert(text);
+};

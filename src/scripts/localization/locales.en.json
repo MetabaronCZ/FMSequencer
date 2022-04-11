@@ -18,8 +18,11 @@
     "envelopeSustain": "Sus.",
     "envelopeRelease": "Rel.",
     "project": "Project",
+    "projectCreate": "Create",
+    "projectLoad": "Load",
+    "projectSave": "Save",
     "sequence": "Sequence",
-    "sequenceAdd": "+ Add sequence",
+    "sequenceAdd": "+ Add Sequence",
     "sequenceDelete": "Delete",
     "pattern": "Pattern",
     "track": "Track",
@@ -28,6 +31,7 @@
     "solo": "Solo",
     "bar_one": "Bar",
     "bar_other": "Bars",
+    "alertInvalidFileSelected": "Could not load file: Invalid data!",
     "confirmSequenceLengthChange": "This will also delete allocated patterns. Confirm?",
     "confirmPatternLengthChange": "This will also delete allocated notes. Confirm?",
     "confirmSongSequenceDelete": "Do you want to delete this song slot?",
@@ -35,6 +39,7 @@
     "confirmPatternDelete": "Do you want to clear pattern?",
     "confirmPatternDivisionChange": "This will realocate / delete currently set notes. Confirm?",
     "confirmInstrumentReset": "Do you want to reset instrument do default values?",
+    "confirmProjectChange": "Changing project will destroy all unused changes. Confirm?",
     "name": "Name",
     "tempo": "Tempo",
     "bpm": "BPM",
@@ -45,5 +50,8 @@
     "moveUp": "Move up",
     "moveDown": "Move down",
     "hz": "Hz",
-    "sec": "s"
+    "sec": "s",
+    "saveToDisk1": "Save",
+    "saveToDisk2": "Project file",
+    "saveToDisk3": "to disk"
 }
