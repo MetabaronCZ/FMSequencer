@@ -11,7 +11,7 @@ import { ProjectConfig } from 'modules/project';
 import { Page } from 'ui/layout/Page';
 import { Link } from 'ui/common/Link';
 import { alert, confirm } from 'ui/dialog';
-import { Toolkit } from 'ui/common/Toolkit';
+import { Toolbar } from 'ui/common/Toolbar';
 import { InfoBox } from 'ui/common/InfoBox';
 import { ButtonRaw } from 'ui/common/ButtonRaw';
 import { ProjectUI } from 'ui/components/ProjectUI';
@@ -62,7 +62,7 @@ export const ProjectView: React.FC = () => {
 
     return (
         <Page>
-            <Toolkit>
+            <Toolbar>
                 <ButtonRaw
                     text={t('projectCreate')}
                     onClick={create}
@@ -77,7 +77,7 @@ export const ProjectView: React.FC = () => {
                     text={t('projectSave')}
                     onClick={save}
                 />
-            </Toolkit>
+            </Toolbar>
 
             {!!saveData && (
                 <InfoBox>

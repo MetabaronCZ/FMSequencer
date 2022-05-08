@@ -22,7 +22,7 @@ export const createSequenceData = (id: number, config: SequenceConfig = {}): Seq
     const tracks = config.tracks ?? [];
     return {
         name: config.name ?? `Sequence ${toFixedLength(id + 1, 3, '0')}`,
-        tracks: fillArray(TRACK_COUNT, (i) => createSequenceTrackData(i, tracks[i])),
+        tracks: fillArray(TRACK_COUNT, (i) => createSequenceTrackData(id, i, tracks[i])),
         bars: config.bars ?? 4,
     };
 };

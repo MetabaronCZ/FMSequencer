@@ -11,12 +11,11 @@ import { SEQUENCE_LENGTH_MIN, SEQUENCE_REPEAT_MAX, SONG_LENGTH_MAX } from 'modul
 
 import { confirm } from 'ui/dialog';
 import { getSelection } from 'ui/event';
-import { Select } from 'ui/common/Select';
 import { Selector } from 'ui/common/Selector';
 import { SongData } from 'modules/project/song';
 import { ButtonRaw } from 'ui/common/ButtonRaw';
-import { SequenceData } from 'modules/project/sequence';
 import { Table, TableItem, TableRow } from 'ui/common/Table';
+import { SequenceSelector } from 'ui/components/selector/SequenceSelector';
 
 const repeats = createRange(SEQUENCE_LENGTH_MIN, SEQUENCE_REPEAT_MAX);
 
@@ -27,10 +26,9 @@ const repeatValues = getSelection(repeats, (val) => ({
 
 interface Props {
     readonly song: SongData;
-    readonly sequences: SequenceData[];
 }
 
-export const SongUI: React.FC<Props> = ({ song, sequences }) => {
+export const SongUI: React.FC<Props> = ({ song }) => {
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
 
@@ -38,11 +36,6 @@ export const SongUI: React.FC<Props> = ({ song, sequences }) => {
         setSongSequence, setSongSequenceRepeat,
         addSongSequence, removeSongSequence, moveSongSequence,
     } = projectSlice.actions;
-
-    const sequenceValues = getSelection(sequences, (seq, i) => ({
-        label: seq.name,
-        value: i,
-    }));
 
     const moveSequence = (id: number, dir: 1 | -1): void => {
         dispatch(
@@ -73,9 +66,8 @@ export const SongUI: React.FC<Props> = ({ song, sequences }) => {
                             </TableItem>
 
                             <TableItem>
-                                <Select
+                                <SequenceSelector
                                     value={sequence}
-                                    values={sequenceValues}
                                     onChange={(value) => {
                                         dispatch(setSongSequence({
                                             slot: i,

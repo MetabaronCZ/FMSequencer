@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 
@@ -8,18 +7,12 @@ import { useAppDispatch, useAppSelector } from 'store';
 
 import { paths } from 'ui/paths';
 import { confirm } from 'ui/dialog';
-import { Text } from 'ui/common/Text';
 import { Page } from 'ui/layout/Page';
-import { getSelection } from 'ui/event';
-import { Select } from 'ui/common/Select';
-import { Toolkit } from 'ui/common/Toolkit';
+import { Toolbar } from 'ui/common/Toolbar';
 import { ButtonRaw } from 'ui/common/ButtonRaw';
 import { Keyboard } from 'ui/components/Keyboard';
 import { InstrumentUI } from 'ui/components/instrument/InstrumentUI';
-
-const InstrumentName = styled.span`
-    ${Text.Default};
-`;
+import { TrackSelector } from 'ui/components/selector/TrackSelector';
 
 export const InstrumentView: React.FC = () => {
     const { id } = useParams();
@@ -32,11 +25,6 @@ export const InstrumentView: React.FC = () => {
     const track = id ? parseInt(id, 10) : 0;
     const { instrument } = tracks[track];
 
-    const trackValues = getSelection(tracks, (track, i) => ({
-        label: track.name,
-        value: i,
-    }));
-
     const reset = confirm(t('confirmInstrumentReset'), () => dispatch(
         resetInstrument({
             track,
@@ -46,26 +34,23 @@ export const InstrumentView: React.FC = () => {
 
     return (
         <Page>
-            <Toolkit>
-                <Select
+            <Toolbar>
+                <TrackSelector
                     value={track}
-                    values={trackValues}
                     onChange={(value) => {
                         navigate(paths.INSTRUMENT(`${value}`));
                     }}
                 />
 
-                <InstrumentName>
-                    ({instrument.name})
-                </InstrumentName>
+                ({instrument.name})
 
-                {'|'}
+                {' | '}
 
                 <ButtonRaw
                     text={t('reset')}
                     onClick={reset}
                 />
-            </Toolkit>
+            </Toolbar>
 
             <InstrumentUI
                 track={track}

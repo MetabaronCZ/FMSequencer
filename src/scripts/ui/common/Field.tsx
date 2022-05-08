@@ -25,7 +25,7 @@ interface Props {
 export const Field: React.FC<Props> = ({ id, label, unit, children }) => (
     <Container>
         <Label htmlFor={id}>
-            {label}:
+            {label}
         </Label>
 
         <div>

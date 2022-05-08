@@ -2,26 +2,21 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 
-import { createRange } from 'core/array';
-
 import { projectSlice } from 'store/project';
 import { useAppDispatch, useAppSelector } from 'store';
 
-import {
-    PatternDivisionID, patternDivisions,
-    PATTERN_LENGTH_MAX, PATTERN_LENGTH_MIN,
-} from 'modules/project/config';
+import { PatternDivisionID } from 'modules/project/config';
 
 import { paths } from 'ui/paths';
 import { confirm } from 'ui/dialog';
 import { Page } from 'ui/layout/Page';
-import { getSelection } from 'ui/event';
-import { Select } from 'ui/common/Select';
-import { Toolkit } from 'ui/common/Toolkit';
+import { Toolbar } from 'ui/common/Toolbar';
 import { ButtonRaw } from 'ui/common/ButtonRaw';
 import { PatternUI } from 'ui/components/PatternUI';
-
-const barIds = createRange(PATTERN_LENGTH_MIN, PATTERN_LENGTH_MAX);
+import { BarSelector } from 'ui/components/selector/BarSelector';
+import { StepSelector } from 'ui/components/selector/StepSelector';
+import { TrackSelector } from 'ui/components/selector/TrackSelector';
+import { PatternSelector } from 'ui/components/selector/PatternSelector';
 
 export const PatternView: React.FC = () => {
     const { t } = useTranslation();
@@ -35,26 +30,6 @@ export const PatternView: React.FC = () => {
     const pattern = parseInt(patternId ?? '0', 10);
     const { patterns } = tracks[track];
     const data = patterns[pattern];
-
-    const trackValues = getSelection(tracks, (track, i) => ({
-        label: track.name,
-        value: i,
-    }));
-
-    const patternValues = getSelection(patterns, (pattern, i) => ({
-        label: pattern.name,
-        value: i,
-    }));
-
-    const barValues = getSelection(barIds, (i) => ({
-        label: `${i} ${t('bar', { count: i })}`,
-        value: i,
-    }));
-
-    const divisionValues = getSelection([...patternDivisions], (i) => ({
-        label: `${i} ${t('perBar')}`,
-        value: i,
-    }));
 
     const setLength = (len: number): void => {
         dispatch(setTrackPatternLength({
@@ -90,34 +65,30 @@ export const PatternView: React.FC = () => {
 
     return (
         <Page>
-            <Toolkit>
-                <Select
+            <Toolbar>
+                <TrackSelector
                     value={track}
-                    values={trackValues}
                     onChange={(value) => {
                         navigate(paths.PATTERN(`${value}`, '0'));
                     }}
                 />
 
-                <Select
+                <PatternSelector
                     value={pattern}
-                    values={patternValues}
                     onChange={(value) => {
                         navigate(paths.PATTERN(`${track}`, `${value}`));
                     }}
                 />
 
-                {'|'}
+                {' | '}
 
-                <Select
+                <BarSelector
                     value={data.bars}
-                    values={barValues}
                     onChange={askLength}
                 />
 
-                <Select
+                <StepSelector
                     value={data.division}
-                    values={divisionValues}
                     onChange={setDivision}
                 />
 
@@ -127,7 +98,7 @@ export const PatternView: React.FC = () => {
                     text={t('clear')}
                     onClick={clear}
                 />
-            </Toolkit>
+            </Toolbar>
 
             <PatternUI
                 track={track}

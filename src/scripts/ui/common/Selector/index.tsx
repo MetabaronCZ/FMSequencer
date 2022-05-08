@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import { SelectionValue } from 'ui/event';
-import { SelectBaseStyles } from 'ui/common/Select';
+import { InputStyles } from 'ui/common/Input';
 import { selectorEvents } from 'ui/common/Selector/events';
 
 const { setPreventScroll, releasePreventScroll, keyup, wheel } = selectorEvents;
@@ -15,7 +15,12 @@ interface StyledProps {
 }
 
 const Container = styled.output<StyledProps>`
-    ${SelectBaseStyles};
+    ${InputStyles};
+    position: relative;
+    display: inline-block;
+    user-select: none;
+    text-align: right;
+    cursor: pointer;
 
     ${({ theme, $plain }) => $plain && `
         border: none;

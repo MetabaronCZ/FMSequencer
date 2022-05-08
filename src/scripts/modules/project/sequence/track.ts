@@ -1,20 +1,18 @@
-import { createSequencePatternData, SequencePatternConfig, SequencePatternData } from 'modules/project/sequence/pattern';
 import { getTrackName } from 'modules/project/track';
 
 export interface SequenceTrackData {
     readonly name: string;
-    readonly patterns: SequencePatternData[];
+    readonly pattern: number;
 }
 
 export interface SequenceTrackConfig {
     readonly name?: string;
-    readonly patterns?: SequencePatternConfig[];
+    readonly pattern?: number;
 }
 
-export const createSequenceTrackData = (id: number, config: SequenceTrackConfig = {}): SequenceTrackData => {
-    const patterns = config.patterns ?? [{}];
+export const createSequenceTrackData = (seqId: number, trackId: number, config: SequenceTrackConfig = {}): SequenceTrackData => {
     return {
-        name: config.name ?? getTrackName(id),
-        patterns: patterns.map((item) => createSequencePatternData(item)),
+        name: config.name ?? getTrackName(trackId),
+        pattern: config.pattern ?? seqId,
     };
 };
