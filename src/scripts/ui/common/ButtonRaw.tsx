@@ -9,7 +9,7 @@ const StyledButton = styled.button`
     ${Text.Default};
     display: inline-block;
     padding: 0 ${toVU(0.5)};
-    background: ${({ theme }) => theme.color.greyLightest};
+    background: ${({ theme }) => theme.color.grey1};
     border: none;
     outline: none;
     cursor: pointer;

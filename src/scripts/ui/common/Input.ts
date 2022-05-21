@@ -10,7 +10,7 @@ export const InputStyles = css`
     border: none;
     outline: none;
     border-bottom: ${({ theme }) => theme.border.grey};
-    background-color: ${({ theme }) => theme.color.greyLightest};
+    background-color: ${({ theme }) => theme.color.grey1};
 
     &:focus {
         border-color: ${({ theme }) => theme.color.black};

@@ -14,7 +14,7 @@ const Item = styled.li`
     padding: ${toVU(1)};
 
     &:nth-child(2n - 1) {
-        background: ${({ theme }) => theme.color.greyLightest};
+        background: ${({ theme }) => theme.color.grey1};
     }
 `;
 

@@ -9,7 +9,7 @@ export const InfoBox = styled.div`
     padding: ${toVU(1)};
     padding-left: ${toVU(4)};
     margin-bottom: ${toVU(1)};
-    background: ${({ theme }) => theme.color.greyLightest};
+    background: ${({ theme }) => theme.color.grey1};
 
     &::before {
         position: absolute;
@@ -20,8 +20,8 @@ export const InfoBox = styled.div`
         font-weight: bold;
         text-align: center;
         border-radius: 100%;
-        color: ${({ theme }) => theme.color.greyLightest};
-        background: ${({ theme }) => theme.color.greyDarkest};
+        color: ${({ theme }) => theme.color.grey1};
+        background: ${({ theme }) => theme.color.black};
     }
 
     &:last-child {

@@ -6,9 +6,8 @@ const borderSize = 1;
 const color = {
     white: '#fff',
     black: '#000',
-    greyLightest: '#f0f0f0',
-    grey: '#ccc',
-    greyDarkest: '#444',
+    grey1: '#f0f0f0',
+    grey2: '#ccc',
 };
 
 declare module 'styled-components' {
@@ -66,7 +65,7 @@ export const defaultTheme: DefaultTheme = {
         size: borderSize,
         default: `${borderSize}px solid ${color.black}`,
         white: `${borderSize}px solid ${color.white}`,
-        grey: `${borderSize}px solid ${color.grey}`,
+        grey: `${borderSize}px solid ${color.grey2}`,
     },
     outline: {
         default: `${borderSize}px dotted ${color.white}`,

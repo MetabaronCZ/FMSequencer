@@ -48,7 +48,7 @@ interface CellProps {
 }
 const Cell = styled.td<CellProps>`
     ${Text.Default};
-    color: ${({ $highlighted, theme }) => $highlighted ? theme.color.black : theme.color.grey};
+    color: ${({ $highlighted, theme }) => $highlighted ? theme.color.black : theme.color.grey2};
     padding-right: ${toVU(0.5)};
     text-align: center;
 

@@ -28,7 +28,7 @@ const Container = styled.output<StyledProps>`
 
         &:hover,
         &:focus {
-            background-color: ${theme.color.greyLightest};
+            background-color: ${theme.color.grey1};
         }
     `}
 `;
