@@ -120,8 +120,6 @@ export const PatternUI: React.FC = () => {
                             onChange={(value) => dispatch(setPattern(value))}
                         />
 
-                        {' | '}
-
                         <BarSelector
                             value={data.bars}
                             onChange={askLength}
@@ -157,6 +155,7 @@ export const PatternUI: React.FC = () => {
                                             value={step ? step.note.pitch : null}
                                             values={pitchValues}
                                             defaultValue={60}
+                                            shiftStep={12}
                                             placeholder="&nbsp;&mdash;&nbsp;"
                                             plain
                                             onChange={(value) => dispatch(

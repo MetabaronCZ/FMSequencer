@@ -70,6 +70,7 @@ export const FilterUI: React.FC<Props> = ({ track, data }) => {
                         label={t('filterCutoff')}
                         value={cutoff}
                         values={frequencyValues}
+                        step={100}
                         onChange={(value) => dispatch(
                             setInstrumentFilterCutoff({ track, data: value })
                         )}

@@ -49,7 +49,7 @@ export const InstrumentUI: React.FC = () => {
                     <AlgorithmCanvas algorithm={algorithm} />
                 </GridColumn>
 
-                <GridColumn>
+                <GridColumn $size={2}>
                     <InstrumentBase
                         track={track}
                         algorithm={algorithm}
@@ -58,7 +58,7 @@ export const InstrumentUI: React.FC = () => {
                     />
                 </GridColumn>
 
-                <GridColumn>
+                <GridColumn $size={3}>
                     <FilterUI track={track} data={filter} />
                 </GridColumn>
             </GridRow>

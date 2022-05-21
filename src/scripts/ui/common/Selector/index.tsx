@@ -38,6 +38,8 @@ export interface SelectorProps<T extends string | number> {
     readonly value: T | null;
     readonly defaultValue?: T;
     readonly values: SelectionValue<T>[];
+    readonly step?: number;
+    readonly shiftStep?: number;
     readonly placeholder?: string;
     readonly plain?: boolean; // simpler UI theme
     readonly onChange: SelectorOnChange<T>;
@@ -46,7 +48,8 @@ export interface SelectorProps<T extends string | number> {
 
 export const Selector = <T extends string | number>(props: SelectorProps<T>): JSX.Element => {
     const {
-        id, value, values, defaultValue = null, placeholder = '', plain,
+        id, value, values, defaultValue = null,
+        placeholder = '', step = 1, shiftStep = 10, plain,
         onChange, onDelete = () => null,
     } = props;
 
@@ -61,8 +64,8 @@ export const Selector = <T extends string | number>(props: SelectorProps<T>): JS
             $plain={!!plain}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
-            onKeyUp={keyup(value, values, defaultValue, onChange, onDelete)}
-            onWheel={(e) => focused && wheel(value, values, defaultValue, onChange, onDelete)(e)}
+            onKeyUp={keyup(value, values, defaultValue, step, shiftStep, onChange, onDelete)}
+            onWheel={(e) => focused && wheel(value, values, defaultValue, step, shiftStep, onChange, onDelete)(e)}
             onMouseEnter={() => setPreventScroll(contElm.current)}
             onMouseLeave={() => releasePreventScroll(contElm.current)}
         >

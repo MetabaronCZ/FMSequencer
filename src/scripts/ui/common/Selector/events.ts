@@ -1,9 +1,6 @@
 import { SelectionValue } from 'ui/event';
 import { SelectorOnChange, SelectorOnDelete } from 'ui/common/Selector';
 
-const defaultStepMultiplier = 1;
-const shiftStepMultiplier = 10;
-
 type SelectorAction = 'UP' | 'DOWN' | 'DELETE';
 
 const preventScroll = (e: WheelEvent): void => {
@@ -24,12 +21,13 @@ const releasePreventScroll = (elm: HTMLElement | null): void => {
     }
 };
 
-const change = <T extends string | number>(value: T | null, values: SelectionValue<T>[], defaultValue: T | null, onChange: SelectorOnChange<T>, onDelete: SelectorOnDelete, action: SelectorAction, shiftKey: boolean): void => {
-    const step = shiftKey ? shiftStepMultiplier : defaultStepMultiplier;
+const change = <T extends string | number>(value: T | null, values: SelectionValue<T>[], defaultValue: T | null, step: number, shiftStep: number, onChange: SelectorOnChange<T>, onDelete: SelectorOnDelete, action: SelectorAction, shiftKey: boolean): void => {
     const index = values.findIndex((val) => val.value === value);
     const firstValue = values[0].value;
     const lastValue = values[values.length - 1].value;
     const startValue = defaultValue ?? firstValue; // first value when no value set
+
+    step *= shiftKey ? shiftStep : 1;
 
     switch (action) {
         case 'UP':
@@ -59,7 +57,7 @@ const change = <T extends string | number>(value: T | null, values: SelectionVal
     }
 };
 
-const keyup = <T extends string | number>(value: T | null, values: SelectionValue<T>[], defaultValue: T | null, onChange: SelectorOnChange<T>, onDelete: SelectorOnDelete) => (e: React.KeyboardEvent) => {
+const keyup = <T extends string | number>(value: T | null, values: SelectionValue<T>[], defaultValue: T | null, step: number, shiftStep: number, onChange: SelectorOnChange<T>, onDelete: SelectorOnDelete) => (e: React.KeyboardEvent) => {
     let action: SelectorAction | null = null;
     e.preventDefault();
 
@@ -82,11 +80,11 @@ const keyup = <T extends string | number>(value: T | null, values: SelectionValu
             // do nothing
     }
     if (action) {
-        change(value, values, defaultValue,onChange, onDelete, action, e.shiftKey);
+        change(value, values, defaultValue, step, shiftStep, onChange, onDelete, action, e.shiftKey);
     }
 };
 
-const wheel = <T extends string | number>(value: T | null, values: SelectionValue<T>[], defaultValue: T | null, onChange: SelectorOnChange<T>, onDelete: SelectorOnDelete) => (e: React.WheelEvent) => {
+const wheel = <T extends string | number>(value: T | null, values: SelectionValue<T>[], defaultValue: T | null, step: number, shiftStep: number, onChange: SelectorOnChange<T>, onDelete: SelectorOnDelete) => (e: React.WheelEvent) => {
     let action: SelectorAction | null = null;
 
     if (e.deltaY > 0) {
@@ -95,7 +93,7 @@ const wheel = <T extends string | number>(value: T | null, values: SelectionValu
         action = 'UP';
     }
     if (action) {
-        change(value, values, defaultValue, onChange, onDelete, action, e.shiftKey);
+        change(value, values, defaultValue, step, shiftStep, onChange, onDelete, action, e.shiftKey);
     }
 };
 
