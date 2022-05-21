@@ -30,7 +30,7 @@ interface Props {
     readonly onClick: OnClick;
 }
 
-export const SequenceButton: React.FC<Props> = ({ text, title, isActive, onClick }) => (
+export const ButtonSquare: React.FC<Props> = ({ text, title, isActive, onClick }) => (
     <StyledButton
         $isActive={isActive}
         type="button"

@@ -9,7 +9,6 @@ import { createSequenceData, SequenceConfig, SequenceData } from 'modules/projec
 
 export interface ProjectData {
     readonly name: string;
-    readonly description: string;
     readonly tempo: number;
     readonly master: MasterData;
     readonly tracks: TrackData[];
@@ -19,7 +18,6 @@ export interface ProjectData {
 
 export interface ProjectConfig {
     readonly name?: string;
-    readonly description?: string;
     readonly tempo?: number;
     readonly master?: MasterConfig;
     readonly tracks?: TrackConfig[];
@@ -32,7 +30,6 @@ export const createProjectData = (config: ProjectConfig = {}): ProjectData => {
     const seqs = config.sequences ?? [];
     return {
         name: config.name ?? 'New project',
-        description: config.description ?? '',
         tempo: config.tempo ?? 130,
         master: createMasterData(config.master),
         tracks: fillArray(TRACK_COUNT, (i) => createTrackData(i, tracks[i])),

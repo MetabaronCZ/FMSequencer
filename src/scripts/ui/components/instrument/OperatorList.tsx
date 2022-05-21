@@ -8,17 +8,12 @@ import { OperatorUI } from 'ui/components/instrument/OperatorUI';
 
 const Container = styled.ul`
     list-style-type: none;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
 `;
 
 const Item = styled.li`
-    width: 50%;
     padding: ${toVU(1)};
 
-    &:nth-child(4n - 3),
-    &:nth-child(4n - 4) {
+    &:nth-child(2n - 1) {
         background: ${({ theme }) => theme.color.greyLightest};
     }
 `;

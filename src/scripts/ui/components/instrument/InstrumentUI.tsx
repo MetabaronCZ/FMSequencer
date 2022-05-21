@@ -1,23 +1,51 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { InstrumentData } from 'modules/project/instrument';
+import { useAppDispatch, useAppSelector } from 'store';
+import { projectSlice } from 'store/project';
 
+import { confirm } from 'ui/dialog';
+import { Heading } from 'ui/common/Heading';
+import { Toolbar } from 'ui/common/Toolbar';
+import { ButtonRaw } from 'ui/common/ButtonRaw';
+import { Keyboard } from 'ui/components/Keyboard';
 import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
 import { FilterUI } from 'ui/components/instrument/FilterUI';
 import { OperatorList } from 'ui/components/instrument/OperatorList';
-import { AnalyserCanvas } from 'ui/components/instrument/AnalyserCanvas';
 import { InstrumentBase } from 'ui/components/instrument/InstrumentBase';
 import { AlgorithmCanvas } from 'ui/components/instrument/AlgorithmCanvas';
 
-interface Props {
-    readonly track: number;
-    readonly instrument: InstrumentData;
-}
+export const InstrumentUI: React.FC = () => {
+    const { t } = useTranslation();
+    const dispatch = useAppDispatch();
+    const { track } = useAppSelector((state) => state.session);
+    const { tracks } = useAppSelector((state) => state.project);
+    const { resetInstrument } = projectSlice.actions;
 
-export const InstrumentUI: React.FC<Props> = ({ track, instrument }) => {
-    const { algorithm, level, pan, filter, operators } = instrument;
+    const { name, algorithm, level, pan, filter, operators } = tracks[track].instrument;
+
+    const reset = confirm(t('confirmInstrumentReset'), () => dispatch(
+        resetInstrument({
+            track,
+            data: null,
+        })
+    ));
+
     return (
         <>
+            <Heading tag="h2">{t('instrument')}</Heading>
+
+            <Toolbar>
+                {name}
+
+                {' | '}
+
+                <ButtonRaw
+                    text={t('reset')}
+                    onClick={reset}
+                />
+            </Toolbar>
+
             <Grid>
                 <GridRow>
                     <GridColumn>
@@ -39,13 +67,6 @@ export const InstrumentUI: React.FC<Props> = ({ track, instrument }) => {
                             data={filter}
                         />
                     </GridColumn>
-
-                    <GridColumn>
-                        <AnalyserCanvas track={track} />
-                    </GridColumn>
-
-                    <GridColumn />
-                    <GridColumn />
                 </GridRow>
             </Grid>
 
@@ -53,6 +74,8 @@ export const InstrumentUI: React.FC<Props> = ({ track, instrument }) => {
                 track={track}
                 data={operators}
             />
+
+            <Keyboard track={track} />
         </>
     );
 };

@@ -7,7 +7,7 @@ import {
 } from 'modules/engine/config';
 import { EnvelopeData } from 'modules/project/instrument/envelope';
 
-const canvasWidth = 200;
+const canvasWidth = 150;
 const canvasHeight = 100;
 const padding = 10;
 const lineColor = '#fff';

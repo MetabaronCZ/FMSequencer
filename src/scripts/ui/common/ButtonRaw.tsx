@@ -18,18 +18,25 @@ const StyledButton = styled.button`
     &:focus {
         outline: ${({ theme }) => theme.outline.black};
     }
+
+    &:disabled {
+        color: ${({ theme }) => theme.color.white};
+        background-color: ${({ theme }) => theme.color.black};
+    }
 `;
 
 interface Props {
     readonly text: string;
     readonly title?: string;
+    readonly disabled?: boolean;
     readonly onClick: OnClick;
 }
 
-export const ButtonRaw: React.FC<Props> = ({ text, title, onClick }) => (
+export const ButtonRaw: React.FC<Props> = ({ text, title, disabled, onClick }) => (
     <StyledButton
         type="button"
         title={title}
+        disabled={disabled}
         onClick={clickOnly(onClick)}
     >
         {text}

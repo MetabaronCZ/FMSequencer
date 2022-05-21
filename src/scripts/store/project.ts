@@ -3,11 +3,6 @@ import { WritableDraft } from 'immer/dist/internal';
 
 import { limitNumber } from 'core/number';
 
-import {
-    PROJECT_DESCRIPTION_LENGTH, PROJECT_NAME_LENGTH,
-    TEMPO_MAX, TEMPO_MIN,
-} from 'modules/project/config';
-
 import { SongActions, songReducer } from 'store/song';
 import { TracksActions, tracksReducer } from 'store/track';
 import { MasterActions, masterReducer } from 'store/master';
@@ -15,15 +10,14 @@ import { SequencesActions, sequencesReducer } from 'store/sequences';
 
 import { AudioEngine } from 'modules/engine';
 import { createProjectData, ProjectConfig, ProjectData } from 'modules/project';
+import { PROJECT_NAME_LENGTH, TEMPO_MAX, TEMPO_MIN } from 'modules/project/config';
 
 type LoadProjectAction = PayloadAction<ProjectConfig>;
 type SetProjectNameAction = PayloadAction<string>;
-type SetProjectDescriptionAction = PayloadAction<string>;
 type SetProjectTempoAction = PayloadAction<number>;
 
 export type ProjectActions =
-    LoadProjectAction |
-    SetProjectNameAction | SetProjectDescriptionAction | SetProjectTempoAction |
+    LoadProjectAction | SetProjectNameAction | SetProjectTempoAction |
     MasterActions | TracksActions | SequencesActions | SongActions;
 
 export type ProjectReducer<T extends PayloadAction<unknown>> = (state: WritableDraft<ProjectData>, action: T) => void;
@@ -48,9 +42,6 @@ export const projectSlice = createSlice({
         },
         setName: (state, action: SetProjectNameAction) => {
             state.name = action.payload.substring(0, PROJECT_NAME_LENGTH);
-        },
-        setDescription: (state, action: SetProjectDescriptionAction) => {
-            state.description = action.payload.substring(0, PROJECT_DESCRIPTION_LENGTH);
         },
         setTempo: (state, action: SetProjectTempoAction) => {
             state.tempo = limitNumber(action.payload, TEMPO_MIN, TEMPO_MAX);
