@@ -18,9 +18,11 @@ declare module 'styled-components' {
         };
         readonly fontSize: {
             readonly default: string;
+            readonly small: string;
         };
         readonly lineHeight: {
             readonly default: string;
+            readonly small: string;
         };
         readonly breakpoint: {
             readonly small: string;
@@ -51,9 +53,11 @@ export const defaultTheme: DefaultTheme = {
     },
     fontSize: {
         default: '14px',
+        small: '12px',
     },
     lineHeight: {
         default: toVU(2),
+        small: toVU(2),
     },
     breakpoint: {
         small: 'screen and (min-width: 576px)',

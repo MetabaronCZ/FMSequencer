@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 
@@ -9,16 +9,23 @@ import { View } from 'ui/components/View';
 import { Layout } from 'ui/layout/Layout';
 import { GlobalStyles } from 'ui/components/GlobalStyles';
 
-export const App: React.FC = () => (
-    <React.StrictMode>
-        <Provider store={store}>
-            <ThemeProvider theme={defaultTheme}>
-                <GlobalStyles />
+export const App: React.FC = () => {
+    useEffect(() => {
+        // prevent unintentional page reloads
+        window.onbeforeunload = () => '';
+    }, []);
 
-                <Layout>
-                    <View />
-                </Layout>
-            </ThemeProvider>
-        </Provider>
-    </React.StrictMode>
-);
+    return (
+        <React.StrictMode>
+            <Provider store={store}>
+                <ThemeProvider theme={defaultTheme}>
+                    <GlobalStyles />
+
+                    <Layout>
+                        <View />
+                    </Layout>
+                </ThemeProvider>
+            </Provider>
+        </React.StrictMode>
+    );
+};

@@ -11,6 +11,13 @@ const TextDefault = css`
     line-height: ${({ theme }) => theme.lineHeight.default};
 `;
 
+const TextSmall = css`
+    ${TextBase};
+    font-size: ${({ theme }) => theme.fontSize.small};
+    line-height: ${({ theme }) => theme.lineHeight.small};
+`;
+
 export const Text = {
     Default: TextDefault,
+    Small: TextSmall,
 };
