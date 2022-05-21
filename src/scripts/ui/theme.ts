@@ -38,6 +38,11 @@ declare module 'styled-components' {
             readonly default: string;
             readonly black: string;
         };
+        readonly dimensions: {
+            readonly page: {
+                readonly width: string;
+            };
+        };
     }
 }
 
@@ -66,5 +71,10 @@ export const defaultTheme: DefaultTheme = {
     outline: {
         default: `${borderSize}px dotted ${color.white}`,
         black: `${borderSize}px dotted ${color.black}`,
+    },
+    dimensions: {
+        page: {
+            width: '1280px',
+        },
     },
 };

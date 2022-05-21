@@ -5,33 +5,41 @@ import { toVU } from 'ui/typography';
 
 import { Header } from 'ui/layout/Header';
 import { Footer } from 'ui/layout/Footer';
+import { Content } from 'ui/layout/Content';
 
 const Container = styled.div`
     display: flex;
     flex-direction: column;
     height: 100vh;
-    max-width: 1280px;
-    margin: 0 auto;
 `;
 
-const Content = styled.main`
+const LayoutHeader = styled.header`
+    padding: ${toVU(1)} 0;
+    background: ${({ theme }) => theme.color.black};
+`;
+
+const LayoutContent = styled.main`
     flex: 1;
-    overflow-y: auto;
-    padding: ${toVU(2)};
+    padding: ${toVU(2)} 0;
+`;
+
+const LayoutFooter = styled.footer`
+    padding: ${toVU(1)} 0;
+    background: ${({ theme }) => theme.color.black};
 `;
 
 export const Layout: React.FC = ({ children }) => (
     <Container>
-        <header>
+        <LayoutHeader>
             <Header />
-        </header>
+        </LayoutHeader>
 
-        <Content>
-            {children}
-        </Content>
+        <LayoutContent>
+            <Content>{children}</Content>
+        </LayoutContent>
 
-        <footer>
+        <LayoutFooter>
             <Footer />
-        </footer>
+        </LayoutFooter>
     </Container>
 );
