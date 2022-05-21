@@ -10,10 +10,9 @@ import { confirm } from 'ui/dialog';
 import { toVU } from 'ui/typography';
 import { Text } from 'ui/common/Text';
 import { Button } from 'ui/common/Button';
-import { Heading } from 'ui/common/Heading';
 import { Toolbar } from 'ui/common/Toolbar';
-import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
 import { ButtonSquare } from 'ui/common/ButtonSquare';
+import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
 import { BarSelector } from 'ui/components/selector/BarSelector';
 import { PatternSelector } from 'ui/components/selector/PatternSelector';
 import { SequenceSelector } from 'ui/components/selector/SequenceSelector';
@@ -54,12 +53,6 @@ export const SequenceUI: React.FC = () => {
 
     return (
         <Grid>
-            <GridRow>
-                <GridColumn>
-                    <Heading tag="h2">{t('sequence')}</Heading>
-                </GridColumn>
-            </GridRow>
-
             <GridRow>
                 <GridColumn>
                     <Toolbar>

@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 
 import { createRange } from 'core/array';
@@ -12,8 +13,8 @@ import {
     LEVEL_MAX, LEVEL_MIN, RatioID,
 } from 'modules/engine/config';
 
+import { Text } from 'ui/common/Text';
 import { getSelection } from 'ui/event';
-import { Heading } from 'ui/common/Heading';
 import { SelectorField } from 'ui/common/SelectorField';
 import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
 
@@ -33,6 +34,12 @@ const ratioValues = getSelection([...ratios], (val) => ({
     label: toFixedLength(val, 5),
     value: val,
 }));
+
+const OperatrName = styled.div`
+    ${Text.Default};
+    font-weight: bold;
+    text-transform: uppercase;
+`;
 
 interface Props {
     readonly track: number;
@@ -54,9 +61,9 @@ export const OperatorBase: React.FC<Props> = ({ track, operator, type, level, ra
         <Grid>
             <GridRow>
                 <GridColumn>
-                    <Heading tag="h2">
+                    <OperatrName>
                         {`${t('operator')} ${operator + 1}`}
-                    </Heading>
+                    </OperatrName>
                 </GridColumn>
             </GridRow>
 

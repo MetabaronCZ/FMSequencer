@@ -6,7 +6,6 @@ import { projectSlice } from 'store/project';
 
 import { confirm } from 'ui/dialog';
 import { Button } from 'ui/common/Button';
-import { Heading } from 'ui/common/Heading';
 import { Toolbar } from 'ui/common/Toolbar';
 import { Keyboard } from 'ui/components/Keyboard';
 import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
@@ -33,12 +32,6 @@ export const InstrumentUI: React.FC = () => {
 
     return (
         <Grid>
-            <GridRow>
-                <GridColumn>
-                    <Heading tag="h2">{t('instrument')}</Heading>
-                </GridColumn>
-            </GridRow>
-
             <GridRow>
                 <GridColumn>
                     <Toolbar>

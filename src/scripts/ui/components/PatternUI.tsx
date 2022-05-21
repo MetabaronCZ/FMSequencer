@@ -19,7 +19,6 @@ import { toVU } from 'ui/typography';
 import { Text } from 'ui/common/Text';
 import { getSelection } from 'ui/event';
 import { Button } from 'ui/common/Button';
-import { Heading } from 'ui/common/Heading';
 import { Toolbar } from 'ui/common/Toolbar';
 import { Selector } from 'ui/common/Selector';
 import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
@@ -113,12 +112,6 @@ export const PatternUI: React.FC = () => {
 
     return (
         <Grid>
-            <GridRow>
-                <GridColumn>
-                    <Heading tag="h2">{t('pattern')}</Heading>
-                </GridColumn>
-            </GridRow>
-
             <GridRow>
                 <GridColumn>
                     <Toolbar>

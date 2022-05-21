@@ -12,7 +12,7 @@ import { SEQUENCE_LENGTH_MIN, SEQUENCE_REPEAT_MAX, SONG_LENGTH_MAX } from 'modul
 import { confirm } from 'ui/dialog';
 import { getSelection } from 'ui/event';
 import { Button } from 'ui/common/Button';
-import { Heading } from 'ui/common/Heading';
+import { Toolbar } from 'ui/common/Toolbar';
 import { Selector } from 'ui/common/Selector';
 import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
 import { Table, TableItem, TableRow } from 'ui/common/Table';
@@ -31,7 +31,7 @@ export const SongUI: React.FC = () => {
     const { song } = useAppSelector((state) => state.project);
 
     const {
-        setSongSequence, setSongSequenceRepeat,
+        clearSong, setSongSequence, setSongSequenceRepeat,
         addSongSequence, removeSongSequence, moveSongSequence,
     } = projectSlice.actions;
 
@@ -53,11 +53,31 @@ export const SongUI: React.FC = () => {
         );
     });
 
+    const clear = confirm(t('confirmSongClear'), () => {
+        dispatch(clearSong());
+    });
+
     return (
         <Grid>
             <GridRow>
                 <GridColumn>
-                    <Heading tag="h2">{t('song')}</Heading>
+                    <Toolbar>
+                        {t('song')}
+
+                        {' | '}
+
+                        {song.sequences.length < SONG_LENGTH_MAX && (
+                            <Button
+                                text={t('insert')}
+                                onClick={() => dispatch(addSongSequence())}
+                            />
+                        )}
+
+                        <Button
+                            text={t('clear')}
+                            onClick={clear}
+                        />
+                    </Toolbar>
                 </GridColumn>
             </GridRow>
 
@@ -116,7 +136,7 @@ export const SongUI: React.FC = () => {
 
                                     <TableItem>
                                         <Button
-                                            text={t('sequenceDelete')}
+                                            text={t('delete')}
                                             onClick={() => deleteSequence(i)}
                                         />
                                     </TableItem>
@@ -126,17 +146,6 @@ export const SongUI: React.FC = () => {
                     )}
                 </GridColumn>
             </GridRow>
-
-            {song.sequences.length < SONG_LENGTH_MAX && (
-                <GridRow>
-                    <GridColumn>
-                        <Button
-                            text={t('sequenceAdd')}
-                            onClick={() => dispatch(addSongSequence())}
-                        />
-                    </GridColumn>
-                </GridRow>
-            )}
         </Grid>
     );
 };

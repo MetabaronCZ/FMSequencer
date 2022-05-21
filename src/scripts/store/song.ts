@@ -8,11 +8,13 @@ import {
     SEQUENCE_COUNT,
     SEQUENCE_REPEAT_MAX, SEQUENCE_REPEAT_MIN, SONG_LENGTH_MAX,
 } from 'modules/project/config';
+import { createSongData } from 'modules/project/song';
 
 interface SongPayload<T> {
     readonly slot: number;
     readonly data: T;
 }
+type ClearSongAction = PayloadAction;
 type AddSongSequenceAction = PayloadAction;
 type MoveSongSequenceRepeatAction = PayloadAction<SongPayload<number>>;
 type RemoveSongSequenceAction = PayloadAction<SongPayload<null>>;
@@ -20,11 +22,16 @@ type SetSongSequenceAction = PayloadAction<SongPayload<number>>;
 type SetSongSequenceRepeatAction = PayloadAction<SongPayload<number>>;
 
 export type SongActions =
+    ClearSongAction |
     AddSongSequenceAction |
     MoveSongSequenceRepeatAction |
     RemoveSongSequenceAction |
     SetSongSequenceAction |
     SetSongSequenceRepeatAction;
+
+const clearSong: ProjectReducer<ClearSongAction> = (state) => {
+    state.song = createSongData();
+};
 
 const addSongSequence: ProjectReducer<AddSongSequenceAction> = (state) => {
     if (state.song.sequences.length >= SONG_LENGTH_MAX) {
@@ -73,6 +80,7 @@ const setSongSequenceRepeat: ProjectReducer<SetSongSequenceRepeatAction> = (stat
 };
 
 export const songReducer = {
+    clearSong,
     addSongSequence,
     moveSongSequence,
     removeSongSequence,
