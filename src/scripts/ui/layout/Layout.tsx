@@ -6,7 +6,7 @@ import { toVU } from 'ui/typography';
 import { Header } from 'ui/layout/Header';
 import { Footer } from 'ui/layout/Footer';
 
-const Layout = styled.div`
+const Container = styled.div`
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -14,24 +14,24 @@ const Layout = styled.div`
     margin: 0 auto;
 `;
 
-const LayoutContent = styled.main`
+const Content = styled.main`
     flex: 1;
     overflow-y: auto;
     padding: ${toVU(2)};
 `;
 
-export const Page: React.FC = ({ children }) => (
-    <Layout>
+export const Layout: React.FC = ({ children }) => (
+    <Container>
         <header>
             <Header />
         </header>
 
-        <LayoutContent>
+        <Content>
             {children}
-        </LayoutContent>
+        </Content>
 
         <footer>
             <Footer />
         </footer>
-    </Layout>
+    </Container>
 );

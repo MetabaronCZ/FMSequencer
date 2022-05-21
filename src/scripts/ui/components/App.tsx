@@ -1,14 +1,13 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
-import { MemoryRouter, Routes, Route } from 'react-router-dom';
 
 import { store } from 'store';
 
-import { routes } from 'ui/routes';
 import { defaultTheme } from 'ui/theme';
+import { View } from 'ui/components/View';
+import { Layout } from 'ui/layout/Layout';
 import { GlobalStyles } from 'ui/components/GlobalStyles';
-import { NavigationScroll } from 'ui/components/NavigationScroll';
 
 export const App: React.FC = () => (
     <React.StrictMode>
@@ -16,19 +15,9 @@ export const App: React.FC = () => (
             <ThemeProvider theme={defaultTheme}>
                 <GlobalStyles />
 
-                <MemoryRouter>
-                    <NavigationScroll />
-
-                    <Routes>
-                        {routes.map((route, i) => (
-                            <Route
-                                path={route.path}
-                                element={<route.component />}
-                                key={i}
-                            />
-                        ))}
-                    </Routes>
-                </MemoryRouter>
+                <Layout>
+                    <View />
+                </Layout>
             </ThemeProvider>
         </Provider>
     </React.StrictMode>

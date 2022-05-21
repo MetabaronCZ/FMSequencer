@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 
-import { MenuLink } from 'ui/components/menu/MenuLink';
-import { getMenuItems } from 'ui/components/menu/items';
+import { toVU } from 'ui/typography';
+import { Text } from 'ui/common/Text';
 
 const MenuList = styled.ul`
     list-style-type: none;
@@ -13,22 +13,22 @@ const MenuList = styled.ul`
 `;
 
 const MenuListItem = styled.li`
-    border-right: ${({ theme }) => theme.border.white};
+    ${Text.Default};
+    position: relative;
+    padding: ${toVU(1)} ${toVU(2)};
+    color: ${({ theme }) => theme.color.white};
+    background: transparent;
+    text-transform: uppercase;
 `;
 
 export const Menu: React.FC = () => {
     const { t } = useTranslation();
-    const items = getMenuItems(t);
     return (
         <nav>
             <MenuList>
-                {items.map(({ title, path }, i) => (
-                    <MenuListItem key={i}>
-                        <MenuLink to={path}>
-                            {title}
-                        </MenuLink>
-                    </MenuListItem>
-                ))}
+                <MenuListItem>
+                    {t('home')}
+                </MenuListItem>
             </MenuList>
         </nav>
     );
