@@ -18,10 +18,10 @@ import { confirm } from 'ui/dialog';
 import { toVU } from 'ui/typography';
 import { Text } from 'ui/common/Text';
 import { getSelection } from 'ui/event';
+import { Button } from 'ui/common/Button';
 import { Heading } from 'ui/common/Heading';
 import { Toolbar } from 'ui/common/Toolbar';
 import { Selector } from 'ui/common/Selector';
-import { ButtonRaw } from 'ui/common/ButtonRaw';
 import { BarSelector } from 'ui/components/selector/BarSelector';
 import { StepSelector } from 'ui/components/selector/StepSelector';
 import { PatternSelector } from 'ui/components/selector/PatternSelector';
@@ -134,7 +134,7 @@ export const PatternUI: React.FC = () => {
 
                 {'|'}
 
-                <ButtonRaw
+                <Button
                     text={t('clear')}
                     onClick={clear}
                 />

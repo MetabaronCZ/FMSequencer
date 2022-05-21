@@ -17,10 +17,11 @@ interface Props {
     readonly label: string;
     readonly value: string;
     readonly placeholder?: string;
+    readonly inverse?: boolean;
     readonly onChange: OnChange<string>;
 }
 
-export const TextField: React.FC<Props> = ({ label, value, placeholder, onChange }) => {
+export const TextField: React.FC<Props> = ({ label, value, placeholder, inverse, onChange }) => {
     const id = `text-field-${textFieldCounter++}`;
 
     const props = {
@@ -30,7 +31,11 @@ export const TextField: React.FC<Props> = ({ label, value, placeholder, onChange
         onChange: change(onChange),
     };
     return (
-        <Field id={id} label={label}>
+        <Field
+            id={id}
+            label={label}
+            inverse={inverse}
+        >
             <StyledInput type="text" {...props} />
         </Field>
     );

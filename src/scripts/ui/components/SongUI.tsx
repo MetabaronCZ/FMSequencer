@@ -11,9 +11,9 @@ import { SEQUENCE_LENGTH_MIN, SEQUENCE_REPEAT_MAX, SONG_LENGTH_MAX } from 'modul
 
 import { confirm } from 'ui/dialog';
 import { getSelection } from 'ui/event';
+import { Button } from 'ui/common/Button';
 import { Heading } from 'ui/common/Heading';
 import { Selector } from 'ui/common/Selector';
-import { ButtonRaw } from 'ui/common/ButtonRaw';
 import { Table, TableItem, TableRow } from 'ui/common/Table';
 import { SequenceSelector } from 'ui/components/selector/SequenceSelector';
 
@@ -92,7 +92,7 @@ export const SongUI: React.FC = () => {
                             </TableItem>
 
                             <TableItem>
-                                <ButtonRaw
+                                <Button
                                     text="▲"
                                     title={t('moveUp')}
                                     onClick={() => moveSequence(i, -1)}
@@ -100,7 +100,7 @@ export const SongUI: React.FC = () => {
                             </TableItem>
 
                             <TableItem>
-                                <ButtonRaw
+                                <Button
                                     text="▼"
                                     title={t('moveDown')}
                                     onClick={() => moveSequence(i, +1)}
@@ -108,7 +108,7 @@ export const SongUI: React.FC = () => {
                             </TableItem>
 
                             <TableItem>
-                                <ButtonRaw
+                                <Button
                                     text={t('sequenceDelete')}
                                     onClick={() => deleteSequence(i)}
                                 />
@@ -119,7 +119,7 @@ export const SongUI: React.FC = () => {
             )}
 
             {song.sequences.length < SONG_LENGTH_MAX && (
-                <ButtonRaw
+                <Button
                     text={t('sequenceAdd')}
                     onClick={() => dispatch(addSongSequence())}
                 />

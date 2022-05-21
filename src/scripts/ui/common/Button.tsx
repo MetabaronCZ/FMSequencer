@@ -5,11 +5,15 @@ import { toVU } from 'ui/typography';
 import { Text } from 'ui/common/Text';
 import { clickOnly, OnClick } from 'ui/event';
 
-const StyledButton = styled.button`
+interface StyledProps {
+    readonly $inverse: boolean;
+}
+
+const StyledButton = styled.button<StyledProps>`
     ${Text.Default};
     display: inline-block;
     padding: 0 ${toVU(0.5)};
-    background: ${({ theme }) => theme.color.grey1};
+    background: ${({ theme, $inverse }) => $inverse ? theme.color.grey2 : theme.color.grey1};
     border: none;
     outline: none;
     cursor: pointer;
@@ -28,17 +32,22 @@ const StyledButton = styled.button`
 interface Props {
     readonly text: string;
     readonly title?: string;
+    readonly inverse?: boolean;
     readonly disabled?: boolean;
     readonly onClick: OnClick;
 }
 
-export const ButtonRaw: React.FC<Props> = ({ text, title, disabled, onClick }) => (
-    <StyledButton
-        type="button"
-        title={title}
-        disabled={disabled}
-        onClick={clickOnly(onClick)}
-    >
-        {text}
-    </StyledButton>
-);
+export const Button: React.FC<Props> = (props) => {
+    const { text, title, inverse = false, disabled = false, onClick } = props;
+    return (
+        <StyledButton
+            type="button"
+            title={title}
+            disabled={disabled}
+            onClick={clickOnly(onClick)}
+            $inverse={inverse}
+        >
+            {text}
+        </StyledButton>
+    );
+};

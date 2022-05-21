@@ -30,7 +30,6 @@ declare module 'styled-components' {
         readonly border: {
             readonly size: number;
             readonly default: string;
-            readonly white: string;
             readonly grey: string;
         };
         readonly outline: {
@@ -64,7 +63,6 @@ export const defaultTheme: DefaultTheme = {
     border: {
         size: borderSize,
         default: `${borderSize}px solid ${color.black}`,
-        white: `${borderSize}px solid ${color.white}`,
         grey: `${borderSize}px solid ${color.grey2}`,
     },
     outline: {

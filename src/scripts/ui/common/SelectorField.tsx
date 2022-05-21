@@ -8,21 +8,20 @@ let selectorFieldCounter = 0;
 interface Props<T extends string | number> extends SelectorProps<T> {
     readonly label: string;
     readonly unit?: string;
+    readonly inverse?: boolean;
 }
 
 export const SelectorField = <T extends string | number>(props: Props<T>): JSX.Element => {
-    const { label, unit, ...otherProps } = props;
+    const { label, unit, inverse, ...otherProps } = props;
     const id = `selector-${selectorFieldCounter++}`;
     return (
         <Field
             id={id}
             label={label}
             unit={unit}
+            inverse={inverse}
         >
-            <Selector
-                id={id}
-                {...otherProps}
-            />
+            <Selector id={id} {...otherProps} />
         </Field>
     );
 };

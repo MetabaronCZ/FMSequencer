@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { SongUI } from 'ui/components/SongUI';
-import { ProjectUI } from 'ui/components/ProjectUI';
 import { PatternUI } from 'ui/components/PatternUI';
 import { SequenceUI } from 'ui/components/SequenceUI';
 import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
@@ -31,19 +30,7 @@ export const View: React.FC = () => (
             </GridColumn>
 
             <GridColumn>
-                <Grid $gap={2}>
-                    <GridRow $gap={2}>
-                        <GridColumn>
-                            <ProjectUI />
-                        </GridColumn>
-                    </GridRow>
-
-                    <GridRow $gap={2}>
-                        <GridColumn>
-                            <InstrumentUI />
-                        </GridColumn>
-                    </GridRow>
-                </Grid>
+                <InstrumentUI />
             </GridColumn>
         </GridRow>
     </Grid>

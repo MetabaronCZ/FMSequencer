@@ -5,9 +5,9 @@ import { useAppDispatch, useAppSelector } from 'store';
 import { projectSlice } from 'store/project';
 
 import { confirm } from 'ui/dialog';
+import { Button } from 'ui/common/Button';
 import { Heading } from 'ui/common/Heading';
 import { Toolbar } from 'ui/common/Toolbar';
-import { ButtonRaw } from 'ui/common/ButtonRaw';
 import { Keyboard } from 'ui/components/Keyboard';
 import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
 import { FilterUI } from 'ui/components/instrument/FilterUI';
@@ -40,10 +40,7 @@ export const InstrumentUI: React.FC = () => {
 
                 {' | '}
 
-                <ButtonRaw
-                    text={t('reset')}
-                    onClick={reset}
-                />
+                <Button text={t('reset')} onClick={reset} />
             </Toolbar>
 
             <Grid>
@@ -62,19 +59,12 @@ export const InstrumentUI: React.FC = () => {
                     </GridColumn>
 
                     <GridColumn>
-                        <FilterUI
-                            track={track}
-                            data={filter}
-                        />
+                        <FilterUI track={track} data={filter} />
                     </GridColumn>
                 </GridRow>
             </Grid>
 
-            <OperatorList
-                track={track}
-                data={operators}
-            />
-
+            <OperatorList track={track} data={operators} />
             <Keyboard track={track} />
         </>
     );

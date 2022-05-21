@@ -41,7 +41,6 @@
     "confirmInstrumentReset": "Do you want to reset instrument do default values?",
     "confirmProjectChange": "Changing project will destroy all unused changes. Confirm?",
     "name": "Name",
-    "tempo": "Tempo",
     "bpm": "BPM",
     "description": "Description",
     "clear": "Clear",

@@ -9,6 +9,12 @@ import { InstrumentData } from 'modules/project/instrument';
 
 const onKeyDownFn = (instrument: InstrumentData, track: number) => (e: KeyboardEvent): void => {
     const { key } = e;
+    const focused = document.activeElement;
+
+    if (focused && focused instanceof HTMLInputElement) {
+        // prevent play when input is focused
+        return;
+    }
 
     if (e.repeat || !Object.prototype.hasOwnProperty.call(keyboardMapping, key)) {
         return;

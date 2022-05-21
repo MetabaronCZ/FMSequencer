@@ -9,9 +9,9 @@ import { useAppDispatch, useAppSelector } from 'store';
 import { confirm } from 'ui/dialog';
 import { toVU } from 'ui/typography';
 import { Text } from 'ui/common/Text';
+import { Button } from 'ui/common/Button';
 import { Heading } from 'ui/common/Heading';
 import { Toolbar } from 'ui/common/Toolbar';
-import { ButtonRaw } from 'ui/common/ButtonRaw';
 import { ButtonSquare } from 'ui/common/ButtonSquare';
 import { BarSelector } from 'ui/components/selector/BarSelector';
 import { PatternSelector } from 'ui/components/selector/PatternSelector';
@@ -78,7 +78,7 @@ export const SequenceUI: React.FC = () => {
 
                 {'|'}
 
-                <ButtonRaw
+                <Button
                     text={t('clear')}
                     onClick={clear}
                 />
@@ -101,7 +101,7 @@ export const SequenceUI: React.FC = () => {
                             onClick={() => dispatch(trackSolo(i))}
                         />
 
-                        <ButtonRaw
+                        <Button
                             text={name}
                             onClick={() => dispatch(
                                 setTrack({
