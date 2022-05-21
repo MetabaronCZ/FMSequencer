@@ -131,7 +131,7 @@ export const SequenceUI: React.FC = () => {
 
                                 {' '}
 
-                                {`(${projectTracks[i].patterns[pattern].bars})`}
+                                {`(${t('bars')}: ${projectTracks[i].patterns[pattern].bars})`}
                             </Item>
                         ))}
                     </List>

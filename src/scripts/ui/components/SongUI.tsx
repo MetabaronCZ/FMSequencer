@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 
 import { createRange } from 'core/array';
@@ -10,12 +11,13 @@ import { projectSlice } from 'store/project';
 import { SEQUENCE_LENGTH_MIN, SEQUENCE_REPEAT_MAX, SONG_LENGTH_MAX } from 'modules/project/config';
 
 import { confirm } from 'ui/dialog';
+import { toVU } from 'ui/typography';
+import { Text } from 'ui/common/Text';
 import { getSelection } from 'ui/event';
 import { Button } from 'ui/common/Button';
 import { Toolbar } from 'ui/common/Toolbar';
 import { Selector } from 'ui/common/Selector';
 import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
-import { Table, TableItem, TableRow } from 'ui/common/Table';
 import { SequenceSelector } from 'ui/components/selector/SequenceSelector';
 
 const repeats = createRange(SEQUENCE_LENGTH_MIN, SEQUENCE_REPEAT_MAX);
@@ -24,6 +26,24 @@ const repeatValues = getSelection(repeats, (val) => ({
     label: toFixedLength(val, 3),
     value: val,
 }));
+
+const Slots = styled.ul`
+    list-style-type: none;
+`;
+
+const SlotItem = styled.li`
+    display: flex;
+    flex-direction: row;
+    gap: ${toVU(1)};
+`;
+
+const SlotItemColumn = styled.div`
+    ${Text.Default};
+`;
+
+const SlotItemColumnFiller = styled.div`
+    flex: 1;
+`;
 
 export const SongUI: React.FC = () => {
     const { t } = useTranslation();
@@ -81,17 +101,17 @@ export const SongUI: React.FC = () => {
                 </GridColumn>
             </GridRow>
 
-            <GridRow $size={1}>
-                <GridColumn>
-                    {song.sequences.length > 0 && (
-                        <Table>
+            {song.sequences.length > 0 && (
+                <GridRow $size={1}>
+                    <GridColumn>
+                        <Slots>
                             {song.sequences.map(({ sequence, repeat }, i) => (
-                                <TableRow key={i}>
-                                    <TableItem>
+                                <SlotItem key={i}>
+                                    <SlotItemColumn>
                                         {toFixedLength(i + 1, 3, '0')}
-                                    </TableItem>
+                                    </SlotItemColumn>
 
-                                    <TableItem>
+                                    <SlotItemColumn>
                                         <SequenceSelector
                                             value={sequence}
                                             onChange={(value) => {
@@ -101,9 +121,9 @@ export const SongUI: React.FC = () => {
                                                 }));
                                             }}
                                         />
-                                    </TableItem>
+                                    </SlotItemColumn>
 
-                                    <TableItem>
+                                    <SlotItemColumn>
                                         {'×'}
 
                                         <Selector
@@ -116,36 +136,38 @@ export const SongUI: React.FC = () => {
                                                 })
                                             )}
                                         />
-                                    </TableItem>
+                                    </SlotItemColumn>
 
-                                    <TableItem>
+                                    <SlotItemColumnFiller />
+
+                                    <SlotItemColumn>
                                         <Button
                                             text="▲"
                                             title={t('moveUp')}
                                             onClick={() => moveSequence(i, -1)}
                                         />
-                                    </TableItem>
+                                    </SlotItemColumn>
 
-                                    <TableItem>
+                                    <SlotItemColumn>
                                         <Button
                                             text="▼"
                                             title={t('moveDown')}
                                             onClick={() => moveSequence(i, +1)}
                                         />
-                                    </TableItem>
+                                    </SlotItemColumn>
 
-                                    <TableItem>
+                                    <SlotItemColumn>
                                         <Button
                                             text={t('delete')}
                                             onClick={() => deleteSequence(i)}
                                         />
-                                    </TableItem>
-                                </TableRow>
+                                    </SlotItemColumn>
+                                </SlotItem>
                             ))}
-                        </Table>
-                    )}
-                </GridColumn>
-            </GridRow>
+                        </Slots>
+                    </GridColumn>
+                </GridRow>
+            )}
         </Grid>
     );
 };
