@@ -12,6 +12,7 @@ import { Text } from 'ui/common/Text';
 import { Button } from 'ui/common/Button';
 import { Heading } from 'ui/common/Heading';
 import { Toolbar } from 'ui/common/Toolbar';
+import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
 import { ButtonSquare } from 'ui/common/ButtonSquare';
 import { BarSelector } from 'ui/components/selector/BarSelector';
 import { PatternSelector } from 'ui/components/selector/PatternSelector';
@@ -52,85 +53,97 @@ export const SequenceUI: React.FC = () => {
     ));
 
     return (
-        <>
-            <Heading tag="h2">{t('sequence')}</Heading>
+        <Grid>
+            <GridRow>
+                <GridColumn>
+                    <Heading tag="h2">{t('sequence')}</Heading>
+                </GridColumn>
+            </GridRow>
 
-            <Toolbar>
-                <SequenceSelector
-                    value={sequence}
-                    onChange={(value) => {
-                        dispatch(setSequence({
-                            value,
-                            pattern: sequences[value].tracks[track].pattern,
-                        }));
-                    }}
-                />
-
-                <BarSelector
-                    value={bars}
-                    onChange={(value) => {
-                        dispatch(setSequenceLength({
-                            sequence,
-                            data: value,
-                        }));
-                    }}
-                />
-
-                {'|'}
-
-                <Button
-                    text={t('clear')}
-                    onClick={clear}
-                />
-            </Toolbar>
-
-            <List>
-                {tracks.map(({ name, pattern }, i) => (
-                    <Item key={i}>
-                        <ButtonSquare
-                            text="M"
-                            title={t('mute')}
-                            isActive={mutedTracks.includes(i)}
-                            onClick={() => dispatch(trackMute(i))}
+            <GridRow>
+                <GridColumn>
+                    <Toolbar>
+                        <SequenceSelector
+                            value={sequence}
+                            onChange={(value) => {
+                                dispatch(setSequence({
+                                    value,
+                                    pattern: sequences[value].tracks[track].pattern,
+                                }));
+                            }}
                         />
 
-                        <ButtonSquare
-                            text="S"
-                            title={t('solo')}
-                            isActive={i === soloedTrack}
-                            onClick={() => dispatch(trackSolo(i))}
+                        <BarSelector
+                            value={bars}
+                            onChange={(value) => {
+                                dispatch(setSequenceLength({
+                                    sequence,
+                                    data: value,
+                                }));
+                            }}
                         />
+
+                        {'|'}
 
                         <Button
-                            text={name}
-                            onClick={() => dispatch(
-                                setTrack({
-                                    value: i,
-                                    pattern: sequences[sequence].tracks[i].pattern,
-                                })
-                            )}
-                            disabled={i === track}
+                            text={t('clear')}
+                            onClick={clear}
                         />
+                    </Toolbar>
+                </GridColumn>
+            </GridRow>
 
-                        {' > '}
+            <GridRow>
+                <GridColumn>
+                    <List>
+                        {tracks.map(({ name, pattern }, i) => (
+                            <Item key={i}>
+                                <ButtonSquare
+                                    text="M"
+                                    title={t('mute')}
+                                    isActive={mutedTracks.includes(i)}
+                                    onClick={() => dispatch(trackMute(i))}
+                                />
 
-                        <PatternSelector
-                            value={pattern}
-                            onChange={(p) => dispatch(
-                                setSequenceTrackPattern({
-                                    sequence,
-                                    track: i,
-                                    pattern: p,
-                                })
-                            )}
-                        />
+                                <ButtonSquare
+                                    text="S"
+                                    title={t('solo')}
+                                    isActive={i === soloedTrack}
+                                    onClick={() => dispatch(trackSolo(i))}
+                                />
 
-                        {' '}
+                                <Button
+                                    text={name}
+                                    onClick={() => dispatch(
+                                        setTrack({
+                                            value: i,
+                                            pattern: sequences[sequence].tracks[i].pattern,
+                                        })
+                                    )}
+                                    disabled={i === track}
+                                />
 
-                        {`(${projectTracks[i].patterns[pattern].bars})`}
-                    </Item>
-                ))}
-            </List>
-        </>
+                                {' > '}
+
+                                <PatternSelector
+                                    value={pattern}
+                                    onChange={(p) => dispatch(
+                                        setSequenceTrackPattern({
+                                            sequence,
+                                            track: i,
+                                            pattern: p,
+                                        })
+                                    )}
+                                />
+
+                                {' '}
+
+                                {`(${projectTracks[i].patterns[pattern].bars})`}
+                            </Item>
+                        ))}
+                    </List>
+                </GridColumn>
+            </GridRow>
+        </Grid>
     );
 };

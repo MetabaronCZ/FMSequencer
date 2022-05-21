@@ -20,6 +20,7 @@ const LayoutHeader = styled.header`
 
 const LayoutContent = styled.main`
     flex: 1;
+    min-height: 0; /* fix layout oveflow */
     padding: ${toVU(2)} 0;
 `;
 

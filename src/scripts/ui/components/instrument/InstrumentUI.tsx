@@ -32,40 +32,52 @@ export const InstrumentUI: React.FC = () => {
     ));
 
     return (
-        <>
-            <Heading tag="h2">{t('instrument')}</Heading>
+        <Grid>
+            <GridRow>
+                <GridColumn>
+                    <Heading tag="h2">{t('instrument')}</Heading>
+                </GridColumn>
+            </GridRow>
 
-            <Toolbar>
-                {name}
+            <GridRow>
+                <GridColumn>
+                    <Toolbar>
+                        {name}
 
-                {' | '}
+                        {' | '}
 
-                <Button text={t('reset')} onClick={reset} />
-            </Toolbar>
+                        <Button text={t('reset')} onClick={reset} />
+                    </Toolbar>
+                </GridColumn>
+            </GridRow>
 
-            <Grid>
-                <GridRow>
-                    <GridColumn>
-                        <AlgorithmCanvas algorithm={algorithm} />
-                    </GridColumn>
+            <GridRow>
+                <GridColumn>
+                    <AlgorithmCanvas algorithm={algorithm} />
+                </GridColumn>
 
-                    <GridColumn>
-                        <InstrumentBase
-                            track={track}
-                            algorithm={algorithm}
-                            level={level}
-                            pan={pan}
-                        />
-                    </GridColumn>
+                <GridColumn>
+                    <InstrumentBase
+                        track={track}
+                        algorithm={algorithm}
+                        level={level}
+                        pan={pan}
+                    />
+                </GridColumn>
 
-                    <GridColumn>
-                        <FilterUI track={track} data={filter} />
-                    </GridColumn>
-                </GridRow>
-            </Grid>
+                <GridColumn>
+                    <FilterUI track={track} data={filter} />
+                </GridColumn>
+            </GridRow>
 
-            <OperatorList track={track} data={operators} />
-            <Keyboard track={track} />
-        </>
+            <GridRow />
+
+            <GridRow $size={1}>
+                <GridColumn>
+                    <OperatorList track={track} data={operators} />
+                    <Keyboard track={track} />
+                </GridColumn>
+            </GridRow>
+        </Grid>
     );
 };

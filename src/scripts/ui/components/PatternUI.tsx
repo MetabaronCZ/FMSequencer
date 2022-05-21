@@ -22,6 +22,7 @@ import { Button } from 'ui/common/Button';
 import { Heading } from 'ui/common/Heading';
 import { Toolbar } from 'ui/common/Toolbar';
 import { Selector } from 'ui/common/Selector';
+import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
 import { BarSelector } from 'ui/components/selector/BarSelector';
 import { StepSelector } from 'ui/components/selector/StepSelector';
 import { PatternSelector } from 'ui/components/selector/PatternSelector';
@@ -111,92 +112,104 @@ export const PatternUI: React.FC = () => {
     ));
 
     return (
-        <>
-            <Heading tag="h2">{t('pattern')}</Heading>
+        <Grid>
+            <GridRow>
+                <GridColumn>
+                    <Heading tag="h2">{t('pattern')}</Heading>
+                </GridColumn>
+            </GridRow>
 
-            <Toolbar>
-                <PatternSelector
-                    value={pattern}
-                    onChange={(value) => dispatch(setPattern(value))}
-                />
+            <GridRow>
+                <GridColumn>
+                    <Toolbar>
+                        <PatternSelector
+                            value={pattern}
+                            onChange={(value) => dispatch(setPattern(value))}
+                        />
 
-                {' | '}
+                        {' | '}
 
-                <BarSelector
-                    value={data.bars}
-                    onChange={askLength}
-                />
+                        <BarSelector
+                            value={data.bars}
+                            onChange={askLength}
+                        />
 
-                <StepSelector
-                    value={data.division}
-                    onChange={setDivision}
-                />
+                        <StepSelector
+                            value={data.division}
+                            onChange={setDivision}
+                        />
 
-                {'|'}
+                        {'|'}
 
-                <Button
-                    text={t('clear')}
-                    onClick={clear}
-                />
-            </Toolbar>
+                        <Button
+                            text={t('clear')}
+                            onClick={clear}
+                        />
+                    </Toolbar>
+                </GridColumn>
+            </GridRow>
 
-            <Steps>
-                <tbody>
-                    {steps.map((step, i) => (
-                        <tr key={i}>
-                            <Step $highlighted={0 === i % data.division}>
-                                {toFixedLength(i, 3, '0')}
-                            </Step>
+            <GridRow $size={1}>
+                <GridColumn>
+                    <Steps>
+                        <tbody>
+                            {steps.map((step, i) => (
+                                <tr key={i}>
+                                    <Step $highlighted={0 === i % data.division}>
+                                        {toFixedLength(i, 3, '0')}
+                                    </Step>
 
-                            <Cell $highlighted={!!step}>
-                                <Selector
-                                    value={step ? step.note.pitch : null}
-                                    values={pitchValues}
-                                    defaultValue={60}
-                                    placeholder="&nbsp;&mdash;&nbsp;"
-                                    plain
-                                    onChange={(value) => dispatch(
-                                        setTrackPatternNotePitch({
-                                            track,
-                                            pattern,
-                                            step: i,
-                                            data: value,
-                                        })
-                                    )}
-                                    onDelete={() => dispatch(
-                                        clearTrackPatternNote({
-                                            track,
-                                            pattern,
-                                            data: i,
-                                        })
-                                    )}
-                                />
-                            </Cell>
-
-                            <Cell $highlighted={!!step}>
-                                {step
-                                    ? (
+                                    <Cell $highlighted={!!step}>
                                         <Selector
-                                            value={step.note.velocity}
-                                            values={velocityValues}
+                                            value={step ? step.note.pitch : null}
+                                            values={pitchValues}
+                                            defaultValue={60}
+                                            placeholder="&nbsp;&mdash;&nbsp;"
                                             plain
                                             onChange={(value) => dispatch(
-                                                setTrackPatternNoteVelocity({
+                                                setTrackPatternNotePitch({
                                                     track,
                                                     pattern,
                                                     step: i,
                                                     data: value,
                                                 })
                                             )}
+                                            onDelete={() => dispatch(
+                                                clearTrackPatternNote({
+                                                    track,
+                                                    pattern,
+                                                    data: i,
+                                                })
+                                            )}
                                         />
-                                    )
-                                    : <>&nbsp;&mdash;&nbsp;</>
-                                }
-                            </Cell>
-                        </tr>
-                    ))}
-                </tbody>
-            </Steps>
-        </>
+                                    </Cell>
+
+                                    <Cell $highlighted={!!step}>
+                                        {step
+                                            ? (
+                                                <Selector
+                                                    value={step.note.velocity}
+                                                    values={velocityValues}
+                                                    plain
+                                                    onChange={(value) => dispatch(
+                                                        setTrackPatternNoteVelocity({
+                                                            track,
+                                                            pattern,
+                                                            step: i,
+                                                            data: value,
+                                                        })
+                                                    )}
+                                                />
+                                            )
+                                            : <>&nbsp;&mdash;&nbsp;</>
+                                        }
+                                    </Cell>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </Steps>
+                </GridColumn>
+            </GridRow>
+        </Grid>
     );
 };

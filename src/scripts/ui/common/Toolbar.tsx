@@ -7,5 +7,4 @@ export const Toolbar = styled.div`
     ${Text.Default};
     display: flex;
     gap: ${toVU(1)};
-    margin-bottom: ${toVU(1)};
 `;

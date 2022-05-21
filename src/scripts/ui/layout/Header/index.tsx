@@ -21,8 +21,10 @@ const Container = styled.div`
     margin: 0 auto;
 `;
 
-const Logo = styled.div`
+const Logo = styled.h1`
     ${Text.Default};
+    font-weight: bold;
+    letter-spacing: 4px;
     text-transform: uppercase;
     color: ${({ theme }) => theme.color.white};
     margin-right: ${toVU(4)};

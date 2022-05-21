@@ -38,7 +38,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: ${toVU(1)};
+    gap: ${toVU(2)};
     margin-left: ${toVU(4)};
 `;
 

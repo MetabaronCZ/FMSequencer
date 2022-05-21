@@ -8,16 +8,18 @@ import { InstrumentUI } from 'ui/components/instrument/InstrumentUI';
 
 export const View: React.FC = () => (
     <Grid $gap={2}>
-        <GridRow $gap={2}>
+        <GridRow $gap={2} $size={1}>
             <GridColumn>
-                <Grid $gap={2}>
-                    <GridRow $gap={2}>
+                <Grid>
+                    <GridRow>
                         <GridColumn>
                             <SequenceUI />
                         </GridColumn>
                     </GridRow>
 
-                    <GridRow $gap={2}>
+                    <GridRow />
+
+                    <GridRow $size={1}>
                         <GridColumn>
                             <SongUI />
                         </GridColumn>

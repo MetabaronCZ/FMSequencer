@@ -65,7 +65,6 @@ export const EnvelopeUI: React.FC<Props> = ({ track, operator, data }) => {
                 <GridColumn>
                     <SelectorField
                         label={t('envelopeAttack')}
-                        unit={t('sec')}
                         value={attack}
                         values={attackValues}
                         onChange={(value) => dispatch(
@@ -83,7 +82,6 @@ export const EnvelopeUI: React.FC<Props> = ({ track, operator, data }) => {
                 <GridColumn>
                     <SelectorField
                         label={t('envelopeDecay')}
-                        unit={t('sec')}
                         value={decay}
                         values={decayValues}
                         onChange={(value) => dispatch(
@@ -118,7 +116,6 @@ export const EnvelopeUI: React.FC<Props> = ({ track, operator, data }) => {
                 <GridColumn>
                     <SelectorField
                         label={t('envelopeRelease')}
-                        unit={t('sec')}
                         value={release}
                         values={releaseValues}
                         onChange={(value) => dispatch(

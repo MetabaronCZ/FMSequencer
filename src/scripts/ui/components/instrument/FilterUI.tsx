@@ -68,7 +68,6 @@ export const FilterUI: React.FC<Props> = ({ track, data }) => {
                 <GridColumn>
                     <SelectorField
                         label={t('filterCutoff')}
-                        unit={t('hz')}
                         value={cutoff}
                         values={frequencyValues}
                         onChange={(value) => dispatch(
