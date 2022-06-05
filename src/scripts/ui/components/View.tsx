@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { SongUI } from 'ui/components/SongUI';
-import { PatternUI } from 'ui/components/PatternUI';
 import { SequenceUI } from 'ui/components/SequenceUI';
 import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
+import { PatternUI } from 'ui/components/pattern/PatternUI';
 import { InstrumentUI } from 'ui/components/instrument/InstrumentUI';
 
 export const View: React.FC = () => (

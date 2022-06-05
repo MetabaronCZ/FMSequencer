@@ -26,7 +26,7 @@ export const createPatternData = (id: number, config: PatternConfig = {}): Patte
     };
 };
 
-interface PatternStep {
+export interface PatternStep {
     readonly id: number;
     readonly note: NoteData;
 }
