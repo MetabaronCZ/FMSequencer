@@ -19,7 +19,7 @@ export const createOperatorData = (config: OperatorConfig = {}) : OperatorData =
     return {
         type: config.type ?? 'SIN',
         level: config.level ?? LEVEL_MAX,
-        ratio: config.ratio ?? '1',
+        ratio: config.ratio ?? '1/1',
         envelope: createEnvelopeData(config.envelope),
     };
 };

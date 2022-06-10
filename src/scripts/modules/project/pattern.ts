@@ -1,54 +1,43 @@
 import { toFixedLength } from 'core/format';
 import { PatternDivisionID } from 'modules/project/config';
-import { createNoteData, NoteConfig, NoteData } from 'modules/project/note';
+import { createStepData, StepConfig, StepData } from 'modules/project/step';
 
 export interface PatternData {
     readonly name: string;
-    readonly notes: NoteData[];
-    readonly bars: number; // length in bars
-    readonly division: PatternDivisionID; // number of steps in one bar
+    readonly steps: StepData[];
+    readonly bars: number; // number of bars
+    readonly beats: number; // number of beats in a bar
+    readonly division: PatternDivisionID; // number of steps in one beat
 }
 
 export interface PatternConfig {
     readonly name?: string;
-    readonly notes?: NoteConfig[];
+    readonly steps?: StepConfig[];
     readonly bars?: number;
+    readonly beats?: number;
     readonly division?: PatternDivisionID;
 }
 
 export const createPatternData = (id: number, config: PatternConfig = {}): PatternData => {
-    const notes = config.notes ?? [];
+    const steps = config.steps ?? [];
     return {
         name: config.name ?? `Pattern ${toFixedLength(id + 1, 3, '0')}`,
-        bars: config.bars ?? 4,
+        bars: config.bars ?? 1,
+        beats: config.beats ?? 4,
         division: config.division ?? 4,
-        notes: notes.map((item) => createNoteData(item)),
+        steps: steps.map((item) => createStepData(item)),
     };
 };
 
-export interface PatternStep {
-    readonly id: number;
-    readonly note: NoteData;
-}
-export const getPatternSteps = (pattern: PatternData): Array<PatternStep | null> => {
-    const { notes, bars, division } = pattern;
-    const steps: Array<PatternStep | null> = Array(bars * division).fill(null);
-    const data = [...notes].sort((a, b) => a.start - b.start);
+export const getPatternSteps = (pattern: PatternData): StepData[] => {
+    const { steps: stepsData, beats, division, bars } = pattern;
+    const data = [...stepsData].sort((a, b) => a.start - b.start);
 
-    data.forEach((note, i) => {
-        const { start, duration } = note;
-        const last = Math.min(start + duration - 1, steps.length - 1);
+    const steps: StepData[] = Array(bars * beats * division).fill(null)
+        .map(() => createStepData());
 
-        if (steps[start]) {
-            throw new Error('Invalid pattern data!');
-        }
-        for (let j = start; j <= last; j++) {
-            steps[j] = {
-                id: i,
-                note,
-            };
-        }
-    });
-
+    for (const item of data) {
+        steps[item.start] = item;
+    }
     return steps;
 };

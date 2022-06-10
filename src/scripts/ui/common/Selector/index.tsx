@@ -2,15 +2,15 @@ import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import { SelectionValue } from 'ui/event';
-import { InputStyles } from 'ui/common/Input';
 import { selectorEvents } from 'ui/common/Selector/events';
+import { InputStyles, InputStylesProps } from 'ui/common/Input';
 
 const { setPreventScroll, releasePreventScroll, keyup, wheel } = selectorEvents;
 
 export type SelectorOnChange<T extends string | number> = (value: T) => void;
 export type SelectorOnDelete = () => void;
 
-interface StyledProps {
+interface StyledProps extends InputStylesProps {
     readonly $plain: boolean;
 }
 
@@ -41,6 +41,8 @@ export interface SelectorProps<T extends string | number> {
     readonly step?: number;
     readonly shiftStep?: number;
     readonly placeholder?: string;
+    readonly inverse?: boolean;
+    readonly borderless?: boolean;
     readonly plain?: boolean; // simpler UI theme
     readonly onChange: SelectorOnChange<T>;
     readonly onDelete?: SelectorOnDelete;
@@ -49,7 +51,8 @@ export interface SelectorProps<T extends string | number> {
 export const Selector = <T extends string | number>(props: SelectorProps<T>): JSX.Element => {
     const {
         id, value, values, defaultValue = null,
-        placeholder = '', step = 1, shiftStep = 10, plain,
+        placeholder = '', step = 1, shiftStep = 10,
+        plain = false, borderless = false, inverse = false,
         onChange, onDelete = () => null,
     } = props;
 
@@ -61,7 +64,9 @@ export const Selector = <T extends string | number>(props: SelectorProps<T>): JS
             id={id}
             ref={contElm}
             tabIndex={0}
-            $plain={!!plain}
+            $plain={plain}
+            $inverse={inverse}
+            $borderless={borderless}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
             onKeyUp={keyup(value, values, defaultValue, step, shiftStep, onChange, onDelete)}

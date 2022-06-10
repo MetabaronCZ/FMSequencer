@@ -18,25 +18,33 @@ interface Props {
     readonly value: string;
     readonly placeholder?: string;
     readonly inverse?: boolean;
+    readonly inverseLabel?: boolean;
+    readonly borderless?: boolean;
     readonly onChange: OnChange<string>;
 }
 
-export const TextField: React.FC<Props> = ({ label, value, placeholder, inverse, onChange }) => {
+export const TextField: React.FC<Props> = (props) => {
     const id = `text-field-${textFieldCounter++}`;
 
-    const props = {
-        id,
-        value,
-        placeholder,
-        onChange: change(onChange),
-    };
+    const {
+        label, inverseLabel, inverse, borderless, onChange,
+        ...otherProps
+    } = props;
+
     return (
         <Field
             id={id}
             label={label}
-            inverse={inverse}
+            inverse={inverseLabel}
         >
-            <StyledInput type="text" {...props} />
+            <StyledInput
+                id={id}
+                type="text"
+                $inverse={inverse}
+                $borderless={borderless}
+                onChange={change(onChange)}
+                {...otherProps}
+            />
         </Field>
     );
 };

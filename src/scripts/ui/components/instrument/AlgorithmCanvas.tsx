@@ -4,10 +4,12 @@ import styled from 'styled-components';
 import { AlgorithmID, OPERATOR_COUNT } from 'modules/engine/config';
 import { algorithmConfig } from 'modules/project/instrument/algorithm';
 
+import { defaultTheme } from 'ui/theme';
+
 const opSize = 15;
 const opPadding = 5;
 const canvasSize = OPERATOR_COUNT * (opSize + opPadding) + opPadding;
-const lineColor = '#fff';
+const lineColor = defaultTheme.color.white;
 
 const Container = styled.div`
     width: ${canvasSize}px;

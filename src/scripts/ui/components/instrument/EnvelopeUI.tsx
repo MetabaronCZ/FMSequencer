@@ -48,9 +48,10 @@ interface Props {
     readonly track: number;
     readonly operator: number;
     readonly data: EnvelopeData;
+    readonly highlighted: boolean;
 }
 
-export const EnvelopeUI: React.FC<Props> = ({ track, operator, data }) => {
+export const EnvelopeUI: React.FC<Props> = ({ track, operator, data, highlighted }) => {
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
     const { attack, decay, sustain, release } = data;
@@ -67,6 +68,7 @@ export const EnvelopeUI: React.FC<Props> = ({ track, operator, data }) => {
                         label={t('envelopeAttack')}
                         value={attack}
                         values={attackValues}
+                        inverse={highlighted}
                         onChange={(value) => dispatch(
                             setInstrumentOperatorEnvelopeAction({
                                 track,
@@ -84,6 +86,7 @@ export const EnvelopeUI: React.FC<Props> = ({ track, operator, data }) => {
                         label={t('envelopeDecay')}
                         value={decay}
                         values={decayValues}
+                        inverse={highlighted}
                         onChange={(value) => dispatch(
                             setInstrumentOperatorEnvelopeDecay({
                                 track,
@@ -101,6 +104,7 @@ export const EnvelopeUI: React.FC<Props> = ({ track, operator, data }) => {
                         label={t('envelopeSustain')}
                         value={sustain}
                         values={sustainValues}
+                        inverse={highlighted}
                         onChange={(value) => dispatch(
                             setInstrumentOperatorEnvelopeSustain({
                                 track,
@@ -118,6 +122,7 @@ export const EnvelopeUI: React.FC<Props> = ({ track, operator, data }) => {
                         label={t('envelopeRelease')}
                         value={release}
                         values={releaseValues}
+                        inverse={highlighted}
                         onChange={(value) => dispatch(
                             setInstrumentOperatorEnvelopeRelease({
                                 track,

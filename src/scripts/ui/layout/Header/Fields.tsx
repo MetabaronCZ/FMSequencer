@@ -56,7 +56,8 @@ export const Fields: React.FC = () => {
                 label={t('name')}
                 value={name}
                 onChange={(value) => dispatch(setName(value))}
-                inverse
+                borderless
+                inverseLabel
             />
 
             <SelectorField
@@ -64,7 +65,8 @@ export const Fields: React.FC = () => {
                 value={tempo}
                 values={tempoValues}
                 onChange={(value) => dispatch(setTempo(value))}
-                inverse
+                borderless
+                inverseLabel
             />
 
             <SelectorField
@@ -74,7 +76,8 @@ export const Fields: React.FC = () => {
                 onChange={(value) => dispatch(
                     setMasterLevel(value)
                 )}
-                inverse
+                borderless
+                inverseLabel
             />
         </Container>
     );

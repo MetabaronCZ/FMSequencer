@@ -34,6 +34,7 @@ export const PatternUI: React.FC = () => {
                     <PatternSteps
                         track={track}
                         pattern={pattern}
+                        beats={data.beats}
                         division={data.division}
                         steps={steps}
                     />

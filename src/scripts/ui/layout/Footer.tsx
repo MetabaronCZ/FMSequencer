@@ -9,7 +9,7 @@ const authorUrl = 'https://github.com/MetabaronCZ';
 
 const Container = styled.div`
     ${Text.Small};
-    color: ${({ theme }) => theme.color.grey2};
+    color: ${({ theme }) => theme.color.grey3};
     max-width: ${({ theme }) => theme.dimensions.page.width};
     padding: 0 ${toVU(2)};
     margin: 0 auto;

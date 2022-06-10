@@ -3,11 +3,24 @@ import { DefaultTheme } from 'styled-components';
 
 const borderSize = 1;
 
+/*
+    SLSO8
+    -------
+    #0d2b45
+    #203c56 > black
+    #544e68
+    #8d697a > grey3
+    #d08159 > grey2
+    #ffaa5e
+    #ffd4a3 > grey1
+    #ffecd6 > white
+*/
 const color = {
-    white: '#fff',
-    black: '#000',
-    grey1: '#f0f0f0',
-    grey2: '#ccc',
+    white: '#ffecd6',
+    black: '#203c56',
+    grey1: '#ffd4a3',
+    grey2: '#d08159',
+    grey3: '#8d697a',
 };
 
 declare module 'styled-components' {
@@ -33,6 +46,7 @@ declare module 'styled-components' {
             readonly size: number;
             readonly default: string;
             readonly grey: string;
+            readonly transparent: string;
         };
         readonly outline: {
             readonly default: string;
@@ -68,6 +82,7 @@ export const defaultTheme: DefaultTheme = {
         size: borderSize,
         default: `${borderSize}px solid ${color.black}`,
         grey: `${borderSize}px solid ${color.grey2}`,
+        transparent: `${borderSize}px solid ${color.black}1f`,
     },
     outline: {
         default: `${borderSize}px dotted ${color.white}`,

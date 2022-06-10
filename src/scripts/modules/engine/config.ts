@@ -29,10 +29,11 @@ export const oscillatorTypes = ['SIN', 'TRI', 'SAW', 'SQR'] as const;
 export type OscillatorTypeID = typeof oscillatorTypes[number];
 
 // OSC ratio
-const arr1 = fillArray(127, (i) => `1/${i + 2}`).reverse();
-const arr2 = fillArray(32, (i) => `${i + 1}`);
+export const ratios = [
+    ...fillArray(63, (i) => `1/${i + 2}`).reverse(),
+    ...fillArray(32, (i) => `${i + 1}/1`),
+] as const;
 
-export const ratios = [...arr1.concat(arr2)] as const;
 export type RatioID = typeof ratios[number];
 
 // level

@@ -2,39 +2,36 @@ import { PayloadAction } from '@reduxjs/toolkit';
 
 import { limitNumber } from 'core/number';
 
+import { stepsReducer } from 'store/steps';
 import { ProjectReducer } from 'store/project';
 import { TrackActionPayload } from 'store/track';
 
-import { createNoteData } from 'modules/project/note';
 import { createPatternData } from 'modules/project/pattern';
-import { PITCH_MAX, PITCH_MIN, VELOCITY_MAX, VELOCITY_MIN } from 'modules/engine/config';
-import { PatternDivisionID, PATTERN_LENGTH_MAX, PATTERN_LENGTH_MIN } from 'modules/project/config';
+import {
+    PatternDivisionID,
+    PATTERN_LENGTH_MAX, PATTERN_LENGTH_MIN,
+} from 'modules/project/config';
 
-interface PatternActionPayload<T> extends TrackActionPayload<T> {
+export interface PatternActionPayload<T> extends TrackActionPayload<T> {
     readonly pattern: number;
 }
-interface NoteActionPayload<T> extends PatternActionPayload<T> {
-    readonly step: number;
-}
-type SetTrackPatternLengthAction = PayloadAction<PatternActionPayload<number>>;
+type SetTrackPatternBeatsAction = PayloadAction<PatternActionPayload<number>>;
 type SetTrackPatternDivisionAction = PayloadAction<PatternActionPayload<PatternDivisionID>>;
+type SetTrackPatternBarsAction = PayloadAction<PatternActionPayload<number>>;
 type ClearTrackPatternAction = PayloadAction<TrackActionPayload<number>>;
-type SetTrackPatternNotePitchAction = PayloadAction<NoteActionPayload<number>>;
-type SetTrackPatternNoteVelocityAction = PayloadAction<NoteActionPayload<number>>;
 type ClearTrackPatternNoteAction = PayloadAction<PatternActionPayload<number>>;
 
 export type PatternsActions =
-    SetTrackPatternLengthAction |
+    SetTrackPatternBeatsAction |
     SetTrackPatternDivisionAction |
+    SetTrackPatternBarsAction |
     ClearTrackPatternAction |
-    SetTrackPatternNotePitchAction |
-    SetTrackPatternNoteVelocityAction |
     ClearTrackPatternNoteAction;
 
-const setTrackPatternLength: ProjectReducer<SetTrackPatternLengthAction> = (state, action) => {
+const setTrackPatternBeats: ProjectReducer<SetTrackPatternBeatsAction> = (state, action) => {
     const { track, pattern, data } = action.payload;
     const ptn = state.tracks[track].patterns[pattern];
-    ptn.bars = limitNumber(data, PATTERN_LENGTH_MIN, PATTERN_LENGTH_MAX);
+    ptn.beats = limitNumber(data, PATTERN_LENGTH_MIN, PATTERN_LENGTH_MAX);
 };
 
 const setTrackPatternDivision: ProjectReducer<SetTrackPatternDivisionAction> = (state, action) => {
@@ -43,15 +40,14 @@ const setTrackPatternDivision: ProjectReducer<SetTrackPatternDivisionAction> = (
     ptn.division = data;
 
     // remove out-of-pattern notes
-    const steps = ptn.bars * ptn.division;
-    ptn.notes = ptn.notes.filter(({ start }) => start <= steps - 1);
+    const steps = ptn.beats * ptn.division;
+    ptn.steps = ptn.steps.filter(({ start }) => start <= steps - 1);
+};
 
-    // shorten out-of-pattern notes
-    ptn.notes.forEach((note) => {
-        if (note.start + note.duration > steps) {
-            note.duration = steps - note.start;
-        }
-    });
+const setTrackPatternBars: ProjectReducer<SetTrackPatternBarsAction> = (state, action) => {
+    const { track, pattern, data } = action.payload;
+    const ptn = state.tracks[track].patterns[pattern];
+    ptn.bars = limitNumber(data, PATTERN_LENGTH_MIN, PATTERN_LENGTH_MAX);
 };
 
 const clearTrackPattern: ProjectReducer<ClearTrackPatternAction> = (state, action) => {
@@ -59,41 +55,17 @@ const clearTrackPattern: ProjectReducer<ClearTrackPatternAction> = (state, actio
     state.tracks[track].patterns[data] = createPatternData(data);
 };
 
-const setTrackPatternNotePitch: ProjectReducer<SetTrackPatternNotePitchAction> = (state, action) => {
-    const { track, pattern, step, data } = action.payload;
-    const { notes } = state.tracks[track].patterns[pattern];
-    let note = notes.find(({ start }) => step === start);
-
-    if (!note) {
-        // create note
-        note = createNoteData({ start: step });
-        notes.push(note);
-    }
-    note.pitch = limitNumber(data, PITCH_MIN, PITCH_MAX);
-};
-
-const setTrackPatternNoteVelocity: ProjectReducer<SetTrackPatternNoteVelocityAction> = (state, action) => {
-    const { track, pattern, step, data } = action.payload;
-    const { notes } = state.tracks[track].patterns[pattern];
-    const note = notes.find(({ start }) => step === start);
-
-    if (!note) {
-        throw new Error('Could not set note velocity: Invalid note!');
-    }
-    note.velocity = limitNumber(data, VELOCITY_MIN, VELOCITY_MAX);
-};
-
 const clearTrackPatternNote: ProjectReducer<ClearTrackPatternNoteAction> = (state, action) => {
     const { track, pattern, data } = action.payload;
     const ptn = state.tracks[track].patterns[pattern];
-    ptn.notes = ptn.notes.filter(({ start }) => start !== data);
+    ptn.steps = ptn.steps.filter(({ start }) => start !== data);
 };
 
 export const patternsReducer = {
-    setTrackPatternLength,
+    setTrackPatternBeats,
     setTrackPatternDivision,
+    setTrackPatternBars,
     clearTrackPattern,
-    setTrackPatternNotePitch,
-    setTrackPatternNoteVelocity,
     clearTrackPatternNote,
+    ...stepsReducer,
 };

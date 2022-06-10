@@ -26,7 +26,7 @@ const Logo = styled.h1`
     font-weight: bold;
     letter-spacing: 4px;
     text-transform: uppercase;
-    color: ${({ theme }) => theme.color.white};
+    color: ${({ theme }) => theme.color.grey2};
     margin-right: ${toVU(4)};
 `;
 

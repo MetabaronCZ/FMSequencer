@@ -29,6 +29,9 @@ const repeatValues = getSelection(repeats, (val) => ({
 
 const Slots = styled.ul`
     list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    gap: ${toVU(1)};
 `;
 
 const SlotItem = styled.li`
@@ -39,10 +42,10 @@ const SlotItem = styled.li`
 
 const SlotItemColumn = styled.div`
     ${Text.Default};
-`;
 
-const SlotItemColumnFiller = styled.div`
-    flex: 1;
+    &:first-child {
+        opacity: 0.5;
+    }
 `;
 
 export const SongUI: React.FC = () => {
@@ -138,7 +141,9 @@ export const SongUI: React.FC = () => {
                                         />
                                     </SlotItemColumn>
 
-                                    <SlotItemColumnFiller />
+                                    <SlotItemColumn>
+                                        {' | '}
+                                    </SlotItemColumn>
 
                                     <SlotItemColumn>
                                         <Button

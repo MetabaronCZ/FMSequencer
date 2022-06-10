@@ -11,6 +11,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     height: 100vh;
+    background: ${({ theme }) => theme.color.white};
 `;
 
 const LayoutHeader = styled.header`

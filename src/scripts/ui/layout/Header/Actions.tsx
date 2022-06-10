@@ -72,19 +72,16 @@ export const Actions: React.FC = () => {
         <Container>
             <Button
                 text={t('projectCreate')}
-                inverse
                 onClick={create}
             />
 
             <Button
                 text={t('projectLoad')}
-                inverse
                 onClick={load}
             />
 
             <Button
                 text={t('projectSave')}
-                inverse
                 onClick={save}
             />
 

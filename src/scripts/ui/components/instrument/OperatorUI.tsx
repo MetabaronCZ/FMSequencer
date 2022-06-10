@@ -11,9 +11,10 @@ interface Props {
     readonly track: number;
     readonly operator: number;
     readonly data: OperatorData;
+    readonly highlighted: boolean;
 }
 
-export const OperatorUI: React.FC<Props> = ({ track, operator, data }) => {
+export const OperatorUI: React.FC<Props> = ({ track, operator, data, highlighted }) => {
     const { level, ratio, type, envelope } = data;
     return (
         <Grid>
@@ -25,6 +26,7 @@ export const OperatorUI: React.FC<Props> = ({ track, operator, data }) => {
                         type={type}
                         level={level}
                         ratio={ratio}
+                        highlighted={highlighted}
                     />
                 </GridColumn>
 
@@ -33,6 +35,7 @@ export const OperatorUI: React.FC<Props> = ({ track, operator, data }) => {
                         track={track}
                         operator={operator}
                         data={envelope}
+                        highlighted={highlighted}
                     />
                 </GridColumn>
 

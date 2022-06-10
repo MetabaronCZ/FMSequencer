@@ -47,7 +47,7 @@ const CloseButton = styled.button`
     cursor: pointer;
 
     &:hover {
-        background-color: ${({ theme }) => theme.color.grey2};
+        background-color: ${({ theme }) => theme.color.grey3};
     }
 
     &:focus {

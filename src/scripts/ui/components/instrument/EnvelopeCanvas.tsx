@@ -7,10 +7,12 @@ import {
 } from 'modules/engine/config';
 import { EnvelopeData } from 'modules/project/instrument/envelope';
 
+import { defaultTheme } from 'ui/theme';
+
 const canvasWidth = 150;
 const canvasHeight = 100;
 const padding = 10;
-const lineColor = '#fff';
+const lineColor = defaultTheme.color.white;
 
 const Container = styled.div`
     display: flex;

@@ -31,7 +31,7 @@ const levelValues = getSelection(levels, (val) => ({
 }));
 
 const ratioValues = getSelection([...ratios], (val) => ({
-    label: toFixedLength(val, 5),
+    label: toFixedLength(val, 4),
     value: val,
 }));
 
@@ -47,9 +47,11 @@ interface Props {
     readonly type: OscillatorTypeID;
     readonly level: number;
     readonly ratio: RatioID;
+    readonly highlighted: boolean;
 }
 
-export const OperatorBase: React.FC<Props> = ({ track, operator, type, level, ratio }) => {
+export const OperatorBase: React.FC<Props> = (props) => {
+    const { track, operator, type, level, ratio, highlighted } = props;
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
     const {
@@ -73,6 +75,7 @@ export const OperatorBase: React.FC<Props> = ({ track, operator, type, level, ra
                         label={t('shape')}
                         value={type}
                         values={shapeValues}
+                        inverse={highlighted}
                         onChange={(value) => dispatch(
                             setInstrumentOperatorType({
                                 track,
@@ -90,6 +93,7 @@ export const OperatorBase: React.FC<Props> = ({ track, operator, type, level, ra
                         label={t('level')}
                         value={level}
                         values={levelValues}
+                        inverse={highlighted}
                         onChange={(value) => dispatch(
                             setInstrumentOperatorLevel({
                                 track,
@@ -107,6 +111,7 @@ export const OperatorBase: React.FC<Props> = ({ track, operator, type, level, ra
                         label={t('ratio')}
                         value={ratio}
                         values={ratioValues}
+                        inverse={highlighted}
                         onChange={(value) => dispatch(
                             setInstrumentOperatorRatio({
                                 track,
