@@ -1,4 +1,4 @@
 export const paths = {
-    HOME: '/',
+  HOME: '/',
 };
 export type PathID = keyof typeof paths;

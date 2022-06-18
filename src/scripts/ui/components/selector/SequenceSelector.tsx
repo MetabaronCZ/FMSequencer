@@ -12,23 +12,23 @@ import { SelectorField } from 'ui/common/SelectorField';
 const sequenceIds = createArray(SEQUENCE_COUNT);
 
 const values = getSelection(sequenceIds, (id) => ({
-    label: `${toFixedLength(id + 1, 3, '0')}`,
-    value: id,
+  label: `${toFixedLength(id + 1, 3, '0')}`,
+  value: id,
 }));
 
 interface Props {
-    readonly value: number;
-    readonly onChange: (value: number) => void;
+  readonly value: number;
+  readonly onChange: (value: number) => void;
 }
 
 export const SequenceSelector: React.FC<Props> = ({ value, onChange }) => {
-    const { t } = useTranslation();
-    return (
-        <SelectorField
-            label={t('sequence')}
-            value={value}
-            values={values}
-            onChange={onChange}
-        />
-    );
+  const { t } = useTranslation();
+  return (
+    <SelectorField
+      label={t('sequence')}
+      value={value}
+      values={values}
+      onChange={onChange}
+    />
+  );
 };

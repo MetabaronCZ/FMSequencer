@@ -1,18 +1,18 @@
 import { StepFXType } from 'modules/project/config';
 
 export interface StepFXData {
-    readonly type: StepFXType;
-    readonly value: number;
+  readonly type: StepFXType;
+  readonly value: number;
 }
 
 export interface StepFXConfig {
-    readonly type?: StepFXType;
-    readonly value?: number;
+  readonly type?: StepFXType;
+  readonly value?: number;
 }
 
 export const createStepFXData = (config: StepFXConfig = {}): StepFXData => {
-    return {
-        type: config.type ?? '???',
-        value: config.value ?? 100,
-    };
+  return {
+    type: config.type ?? '???',
+    value: config.value ?? 100,
+  };
 };

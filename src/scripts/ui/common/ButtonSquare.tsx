@@ -5,38 +5,45 @@ import { toVU } from 'ui/typography';
 import { clickOnly, OnClick } from 'ui/event';
 
 interface StyledProps {
-    readonly $isActive: boolean;
+  readonly $isActive: boolean;
 }
 
 const StyledButton = styled.button<StyledProps>`
-    display: inline-block;
-    height: ${toVU(2)};
-    width: ${toVU(2)};
-    background: transparent;
-    border: ${({ theme }) => theme.border.default};
-    vertical-align: middle;
-    cursor: pointer;
+  display: inline-block;
+  height: ${toVU(2)};
+  width: ${toVU(2)};
+  background: transparent;
+  border: ${({ theme }) => theme.border.default};
+  vertical-align: middle;
+  cursor: pointer;
 
-    ${({ $isActive, theme }) => $isActive && `
-        color: ${theme.color.white};
-        background: ${theme.color.black};
+  ${({ $isActive, theme }) =>
+    $isActive &&
+    `
+      color: ${theme.color.white};
+      background: ${theme.color.black};
     `}
 `;
 
 interface Props {
-    readonly text: string;
-    readonly title: string;
-    readonly isActive: boolean;
-    readonly onClick: OnClick;
+  readonly text: string;
+  readonly title: string;
+  readonly isActive: boolean;
+  readonly onClick: OnClick;
 }
 
-export const ButtonSquare: React.FC<Props> = ({ text, title, isActive, onClick }) => (
-    <StyledButton
-        $isActive={isActive}
-        type="button"
-        title={title}
-        onClick={clickOnly(onClick)}
-    >
-        {text}
-    </StyledButton>
+export const ButtonSquare: React.FC<Props> = ({
+  text,
+  title,
+  isActive,
+  onClick,
+}) => (
+  <StyledButton
+    $isActive={isActive}
+    type="button"
+    title={title}
+    onClick={clickOnly(onClick)}
+  >
+    {text}
+  </StyledButton>
 );

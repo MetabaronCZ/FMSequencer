@@ -1,10 +1,12 @@
-export const confirm = <T>(text: string, cb: (...args: T[]) => void) => (...args: T[]) => {
+export const confirm = <T>(text: string, cb: (...args: T[]) => void) => {
+  return (...args: T[]) => {
     if (!window.confirm(text)) {
-        return;
+      return;
     }
     cb(...args);
+  };
 };
 
 export const alert = (text: string): void => {
-    window.alert(text);
+  window.alert(text);
 };

@@ -9,8 +9,12 @@ import { useAppDispatch } from 'store';
 import { projectSlice } from 'store/project';
 
 import {
-    OscillatorTypeID, oscillatorTypes, ratios,
-    LEVEL_MAX, LEVEL_MIN, RatioID,
+  OscillatorTypeID,
+  oscillatorTypes,
+  ratios,
+  LEVEL_MAX,
+  LEVEL_MIN,
+  RatioID,
 } from 'modules/engine/config';
 
 import { Text } from 'ui/common/Text';
@@ -21,107 +25,112 @@ import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
 const levels = createRange(LEVEL_MIN, LEVEL_MAX);
 
 const shapeValues = getSelection([...oscillatorTypes], (item) => ({
-    label: item,
-    value: item,
+  label: item,
+  value: item,
 }));
 
 const levelValues = getSelection(levels, (val) => ({
-    label: toFixedLength(val, 3),
-    value: val,
+  label: toFixedLength(val, 3),
+  value: val,
 }));
 
 const ratioValues = getSelection([...ratios], (val) => ({
-    label: toFixedLength(val, 4),
-    value: val,
+  label: toFixedLength(val, 4),
+  value: val,
 }));
 
 const OperatrName = styled.div`
-    ${Text.Default};
-    font-weight: bold;
-    text-transform: uppercase;
+  ${Text.Default};
+  font-weight: bold;
+  text-transform: uppercase;
 `;
 
 interface Props {
-    readonly track: number;
-    readonly operator: number;
-    readonly type: OscillatorTypeID;
-    readonly level: number;
-    readonly ratio: RatioID;
-    readonly highlighted: boolean;
+  readonly track: number;
+  readonly operator: number;
+  readonly type: OscillatorTypeID;
+  readonly level: number;
+  readonly ratio: RatioID;
+  readonly highlighted: boolean;
 }
 
 export const OperatorBase: React.FC<Props> = (props) => {
-    const { track, operator, type, level, ratio, highlighted } = props;
-    const { t } = useTranslation();
-    const dispatch = useAppDispatch();
-    const {
-        setInstrumentOperatorType,
-        setInstrumentOperatorLevel, setInstrumentOperatorRatio,
-    } = projectSlice.actions;
+  const { track, operator, type, level, ratio, highlighted } = props;
+  const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+  const {
+    setInstrumentOperatorType,
+    setInstrumentOperatorLevel,
+    setInstrumentOperatorRatio,
+  } = projectSlice.actions;
 
-    return (
-        <Grid>
-            <GridRow>
-                <GridColumn>
-                    <OperatrName>
-                        {`${t('operator')} ${operator + 1}`}
-                    </OperatrName>
-                </GridColumn>
-            </GridRow>
+  return (
+    <Grid>
+      <GridRow>
+        <GridColumn>
+          <OperatrName>{`${t('operator')} ${operator + 1}`}</OperatrName>
+        </GridColumn>
+      </GridRow>
 
-            <GridRow>
-                <GridColumn>
-                    <SelectorField
-                        label={t('shape')}
-                        value={type}
-                        values={shapeValues}
-                        inverse={highlighted}
-                        onChange={(value) => dispatch(
-                            setInstrumentOperatorType({
-                                track,
-                                operator,
-                                data: value,
-                            })
-                        )}
-                    />
-                </GridColumn>
-            </GridRow>
+      <GridRow>
+        <GridColumn>
+          <SelectorField
+            label={t('shape')}
+            value={type}
+            values={shapeValues}
+            inverse={highlighted}
+            onChange={(value) => {
+              dispatch(
+                setInstrumentOperatorType({
+                  track,
+                  operator,
+                  data: value,
+                })
+              );
+            }}
+          />
+        </GridColumn>
+      </GridRow>
 
-            <GridRow>
-                <GridColumn>
-                    <SelectorField
-                        label={t('level')}
-                        value={level}
-                        values={levelValues}
-                        inverse={highlighted}
-                        onChange={(value) => dispatch(
-                            setInstrumentOperatorLevel({
-                                track,
-                                operator,
-                                data: value,
-                            })
-                        )}
-                    />
-                </GridColumn>
-            </GridRow>
+      <GridRow>
+        <GridColumn>
+          <SelectorField
+            label={t('level')}
+            value={level}
+            values={levelValues}
+            inverse={highlighted}
+            onChange={(value) => {
+              dispatch(
+                setInstrumentOperatorLevel({
+                  track,
+                  operator,
+                  data: value,
+                })
+              );
+            }}
+          />
+        </GridColumn>
+      </GridRow>
 
-            <GridRow>
-                <GridColumn>
-                    <SelectorField
-                        label={t('ratio')}
-                        value={ratio}
-                        values={ratioValues}
-                        inverse={highlighted}
-                        onChange={(value) => dispatch(
-                            setInstrumentOperatorRatio({
-                                track,
-                                operator,
-                                data: value,
-                            })
-                        )}
-                    />
-                </GridColumn>
-            </GridRow>
-        </Grid>
-    );
+      <GridRow>
+        <GridColumn>
+          <SelectorField
+            label={t('ratio')}
+            value={ratio}
+            values={ratioValues}
+            inverse={highlighted}
+            onChange={(value) => {
+              dispatch(
+                setInstrumentOperatorRatio({
+                  track,
+                  operator,
+                  data: value,
+                })
+              );
+            }}
+          />
+        </GridColumn>
+      </GridRow>
+    </Grid>
+  );
 };

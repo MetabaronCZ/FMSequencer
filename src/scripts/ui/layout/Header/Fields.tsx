@@ -20,65 +20,63 @@ const tempos = createRange(TEMPO_MIN, TEMPO_MAX);
 const levels = createRange(LEVEL_MIN, LEVEL_MAX);
 
 const tempoValues = getSelection(tempos, (val) => ({
-    label: toFixedLength(val, 3),
-    value: val,
+  label: toFixedLength(val, 3),
+  value: val,
 }));
 
 const levelValues = getSelection(levels, (val) => ({
-    label: toFixedLength(val, 3),
-    value: val,
+  label: toFixedLength(val, 3),
+  value: val,
 }));
 
 export interface ProjectSaveData {
-    readonly data: string;
-    readonly timestamp: string;
+  readonly data: string;
+  readonly timestamp: string;
 }
 
 const Container = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: ${toVU(2)};
-    margin-left: ${toVU(4)};
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: ${toVU(2)};
+  margin-left: ${toVU(4)};
 `;
 
 export const Fields: React.FC = () => {
-    const { t } = useTranslation();
-    const dispatch = useAppDispatch();
-    const { setName, setTempo, setMasterLevel } = projectSlice.actions;
+  const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+  const { setName, setTempo, setMasterLevel } = projectSlice.actions;
 
-    const { project } = useAppSelector((state) => state);
-    const { name, tempo, master } = project;
+  const { project } = useAppSelector((state) => state);
+  const { name, tempo, master } = project;
 
-    return (
-        <Container>
-            <TextField
-                label={t('name')}
-                value={name}
-                onChange={(value) => dispatch(setName(value))}
-                borderless
-                inverseLabel
-            />
+  return (
+    <Container>
+      <TextField
+        label={t('name')}
+        value={name}
+        onChange={(value) => dispatch(setName(value))}
+        borderless
+        inverseLabel
+      />
 
-            <SelectorField
-                label={t('bpm')}
-                value={tempo}
-                values={tempoValues}
-                onChange={(value) => dispatch(setTempo(value))}
-                borderless
-                inverseLabel
-            />
+      <SelectorField
+        label={t('bpm')}
+        value={tempo}
+        values={tempoValues}
+        onChange={(value) => dispatch(setTempo(value))}
+        borderless
+        inverseLabel
+      />
 
-            <SelectorField
-                label={t('level')}
-                value={master.level}
-                values={levelValues}
-                onChange={(value) => dispatch(
-                    setMasterLevel(value)
-                )}
-                borderless
-                inverseLabel
-            />
-        </Container>
-    );
+      <SelectorField
+        label={t('level')}
+        value={master.level}
+        values={levelValues}
+        onChange={(value) => dispatch(setMasterLevel(value))}
+        borderless
+        inverseLabel
+      />
+    </Container>
+  );
 };

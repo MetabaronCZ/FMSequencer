@@ -4,20 +4,20 @@ import { MasterData } from 'modules/project/master';
 import { Compressor } from 'modules/engine/compressor';
 
 export class Master extends Bus<Level, Compressor> {
-    public readonly level: Level;
-    public readonly compressor: Compressor;
+  public readonly level: Level;
+  public readonly compressor: Compressor;
 
-    constructor(ctx: AudioContext) {
-        const level = new Level(ctx);
-        const compressor = new Compressor(ctx);
-        super(level, compressor);
+  constructor(ctx: AudioContext) {
+    const level = new Level(ctx);
+    const compressor = new Compressor(ctx);
+    super(level, compressor);
 
-        this.level = level;
-        this.compressor = compressor;
-        this.level.connect(this.compressor);
-    }
+    this.level = level;
+    this.compressor = compressor;
+    this.level.connect(this.compressor);
+  }
 
-    public set(value: MasterData, time: number): void {
-        this.level.set(value.level, time);
-    }
+  public set(value: MasterData, time: number): void {
+    this.level.set(value.level, time);
+  }
 }

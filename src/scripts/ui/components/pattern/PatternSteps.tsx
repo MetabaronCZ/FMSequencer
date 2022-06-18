@@ -9,10 +9,18 @@ import { projectSlice } from 'store/project';
 
 import { StepData } from 'modules/project/step';
 import { getNoteName } from 'modules/engine/pitch';
-import { PITCH_MAX, PITCH_MIN, VELOCITY_MAX, VELOCITY_MIN } from 'modules/engine/config';
 import {
-    PatternDivisionID, stepFXIDs, stepFXTypes,
-    STEP_FX_VALUE_MAX, STEP_FX_VALUE_MIN,
+  PITCH_MAX,
+  PITCH_MIN,
+  VELOCITY_MAX,
+  VELOCITY_MIN,
+} from 'modules/engine/config';
+import {
+  PatternDivisionID,
+  stepFXIDs,
+  stepFXTypes,
+  STEP_FX_VALUE_MAX,
+  STEP_FX_VALUE_MIN,
 } from 'modules/project/config';
 
 import { toVU } from 'ui/typography';
@@ -25,207 +33,228 @@ const velocities = createRange(VELOCITY_MIN, VELOCITY_MAX);
 const fxs = createRange(STEP_FX_VALUE_MIN, STEP_FX_VALUE_MAX);
 
 const pitchValues = getSelection(pitches, (val) => ({
-    label: getNoteName(val),
-    value: val,
+  label: getNoteName(val),
+  value: val,
 }));
 
 const velocityValues = getSelection(velocities, (val) => ({
-    label: toFixedLength(val, 3),
-    value: val,
+  label: toFixedLength(val, 3),
+  value: val,
 }));
 
 const fxTypeValues = getSelection([...stepFXTypes], (id) => ({
-    label: `${toFixedLength(id, 3)}`,
-    value: id,
+  label: `${toFixedLength(id, 3)}`,
+  value: id,
 }));
 
 const fxValues = getSelection(fxs, (id) => ({
-    label: `${toFixedLength(id, 3)}`,
-    value: id,
+  label: `${toFixedLength(id, 3)}`,
+  value: id,
 }));
 
 const Container = styled.ul`
-    list-style-type: none;
+  list-style-type: none;
 `;
 
 interface StepProps {
-    readonly $isBarEnd?: boolean;
+  readonly $isBarEnd?: boolean;
 }
 
 const Step = styled.li<StepProps>`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 
-    ${({ theme, $isBarEnd }) => $isBarEnd && `
-        margin-bottom: ${toVU(0.5)};
-        padding-bottom: ${toVU(0.5)};
-        border-bottom: ${theme.border.transparent};
+  ${({ theme, $isBarEnd }) =>
+    $isBarEnd &&
+    `
+      margin-bottom: ${toVU(0.5)};
+      padding-bottom: ${toVU(0.5)};
+      border-bottom: ${theme.border.transparent};
     `}
 `;
 
 interface CellProps {
-    readonly $highlighted?: boolean;
+  readonly $highlighted?: boolean;
 }
 
 const Cell = styled.div<CellProps>`
-    ${Text.Default};
-    width: ${toVU(4)};
-    color: ${({ theme }) => theme.color.black};
-    opacity: ${({ $highlighted }) => $highlighted ? 1.0 : 0.5};
-    text-align: center;
+  ${Text.Default};
+  width: ${toVU(4)};
+  color: ${({ theme }) => theme.color.black};
+  opacity: ${({ $highlighted }) => ($highlighted ? 1.0 : 0.5)};
+  text-align: center;
 
-    &:first-child {
-        text-align: left;
-    }
+  &:first-child {
+    text-align: left;
+  }
 `;
 
 const Divider = styled.div`
-    width: ${toVU(1)};
+  width: ${toVU(1)};
 `;
 
 interface Props {
-    readonly track: number;
-    readonly pattern: number;
-    readonly beats: number;
-    readonly division: PatternDivisionID;
-    readonly steps: StepData[];
+  readonly track: number;
+  readonly pattern: number;
+  readonly beats: number;
+  readonly division: PatternDivisionID;
+  readonly steps: StepData[];
 }
 
-export const PatternSteps: React.FC<Props> = ({ track, pattern, beats, division, steps }) => {
-    const dispatch = useAppDispatch();
+export const PatternSteps: React.FC<Props> = ({
+  track,
+  pattern,
+  beats,
+  division,
+  steps,
+}) => {
+  const dispatch = useAppDispatch();
 
-    const {
-        setTrackPatternStepPitch, deleteTrackPatternStepPitch, setTrackPatternStepVelocity,
-        setTrackPatternStepFXType, setTrackPatternStepFXValue, deleteTrackPatternStepFX,
-    } = projectSlice.actions;
+  const {
+    setTrackPatternStepPitch,
+    deleteTrackPatternStepPitch,
+    setTrackPatternStepVelocity,
+    setTrackPatternStepFXType,
+    setTrackPatternStepFXValue,
+    deleteTrackPatternStepFX,
+  } = projectSlice.actions;
 
-    const stepsPerBar = beats * division;
+  const stepsPerBar = beats * division;
 
-    return (
-        <Container>
-            {steps.map((step, i) => {
-                const isHighlighted = !!step.note || step.fx.some((item) => !!item);
-                const isBarEnd = i < steps.length - 1 && (stepsPerBar - 1 === i % stepsPerBar);
-                return (
-                    <Step $isBarEnd={isBarEnd} key={i}>
-                        <Cell $highlighted={0 === i % division}>
-                            {toFixedLength(i, 3, '0')}
-                        </Cell>
+  return (
+    <Container>
+      {steps.map((step, i) => {
+        const isHighlighted = !!step.note || step.fx.some((item) => !!item);
+        const isBarEnd =
+          i < steps.length - 1 && stepsPerBar - 1 === i % stepsPerBar;
+        return (
+          <Step $isBarEnd={isBarEnd} key={i}>
+            <Cell $highlighted={0 === i % division}>
+              {toFixedLength(i, 3, '0')}
+            </Cell>
 
-                        <Cell $highlighted={isHighlighted}>
-                            <Selector
-                                value={step.note ? step.note.pitch : null}
-                                values={pitchValues}
-                                defaultValue={60}
-                                shiftStep={12}
-                                placeholder="&nbsp;&mdash;&nbsp;"
-                                plain
-                                onChange={(value) => dispatch(
-                                    setTrackPatternStepPitch({
-                                        track,
-                                        pattern,
-                                        step: i,
-                                        data: value,
-                                    })
-                                )}
-                                onDelete={() => dispatch(
-                                    deleteTrackPatternStepPitch({
-                                        track,
-                                        pattern,
-                                        step: i,
-                                        data: null,
-                                    })
-                                )}
-                            />
-                        </Cell>
+            <Cell $highlighted={isHighlighted}>
+              <Selector
+                value={step.note ? step.note.pitch : null}
+                values={pitchValues}
+                defaultValue={60}
+                shiftStep={12}
+                placeholder="&nbsp;&mdash;&nbsp;"
+                plain
+                onChange={(value) => {
+                  dispatch(
+                    setTrackPatternStepPitch({
+                      track,
+                      pattern,
+                      step: i,
+                      data: value,
+                    })
+                  );
+                }}
+                onDelete={() => {
+                  dispatch(
+                    deleteTrackPatternStepPitch({
+                      track,
+                      pattern,
+                      step: i,
+                      data: null,
+                    })
+                  );
+                }}
+              />
+            </Cell>
 
-                        <Cell $highlighted={isHighlighted}>
-                            {step.note
-                                ? (
-                                    <Selector
-                                        value={step.note.velocity}
-                                        values={velocityValues}
-                                        plain
-                                        onChange={(value) => dispatch(
-                                            setTrackPatternStepVelocity({
-                                                track,
-                                                pattern,
-                                                step: i,
-                                                data: value,
-                                            })
-                                        )}
-                                    />
-                                )
-                                : <>&nbsp;&mdash;&nbsp;</>
-                            }
-                        </Cell>
+            <Cell $highlighted={isHighlighted}>
+              {step.note ? (
+                <Selector
+                  value={step.note.velocity}
+                  values={velocityValues}
+                  plain
+                  onChange={(value) => {
+                    dispatch(
+                      setTrackPatternStepVelocity({
+                        track,
+                        pattern,
+                        step: i,
+                        data: value,
+                      })
+                    );
+                  }}
+                />
+              ) : (
+                <>&nbsp;&mdash;&nbsp;</>
+              )}
+            </Cell>
 
-                        <Divider />
+            <Divider />
 
-                        {stepFXIDs.map((fxID, f) => {
-                            const fx = step.fx[fxID];
-                            return (
-                                <React.Fragment key={fxID}>
-                                    <Cell $highlighted={isHighlighted}>
-                                        <Selector
-                                            value={fx ? fx.type : null}
-                                            values={fxTypeValues}
-                                            defaultValue="???"
-                                            placeholder="&nbsp;&mdash;&nbsp;"
-                                            plain
-                                            onChange={(value) => dispatch(
-                                                setTrackPatternStepFXType({
-                                                    track,
-                                                    pattern,
-                                                    step: i,
-                                                    fx: fxID,
-                                                    data: value,
-                                                })
-                                            )}
-                                            onDelete={() => dispatch(
-                                                deleteTrackPatternStepFX({
-                                                    track,
-                                                    pattern,
-                                                    step: i,
-                                                    fx: fxID,
-                                                    data: null,
-                                                })
-                                            )}
-                                        />
-                                    </Cell>
+            {stepFXIDs.map((fxID, f) => {
+              const fx = step.fx[fxID];
+              return (
+                <React.Fragment key={fxID}>
+                  <Cell $highlighted={isHighlighted}>
+                    <Selector
+                      value={fx ? fx.type : null}
+                      values={fxTypeValues}
+                      defaultValue="???"
+                      placeholder="&nbsp;&mdash;&nbsp;"
+                      plain
+                      onChange={(value) => {
+                        dispatch(
+                          setTrackPatternStepFXType({
+                            track,
+                            pattern,
+                            step: i,
+                            fx: fxID,
+                            data: value,
+                          })
+                        );
+                      }}
+                      onDelete={() => {
+                        dispatch(
+                          deleteTrackPatternStepFX({
+                            track,
+                            pattern,
+                            step: i,
+                            fx: fxID,
+                            data: null,
+                          })
+                        );
+                      }}
+                    />
+                  </Cell>
 
-                                    <Cell $highlighted={isHighlighted}>
-                                        {fx
-                                            ? (
-                                                <Selector
-                                                    value={fx.value}
-                                                    values={fxValues}
-                                                    plain
-                                                    onChange={(value) => dispatch(
-                                                        setTrackPatternStepFXValue({
-                                                            track,
-                                                            pattern,
-                                                            step: i,
-                                                            fx: fxID,
-                                                            data: value,
-                                                        })
-                                                    )}
-                                                />
-                                            )
-                                            : <>&nbsp;&mdash;&nbsp;</>
-                                        }
-                                    </Cell>
+                  <Cell $highlighted={isHighlighted}>
+                    {fx ? (
+                      <Selector
+                        value={fx.value}
+                        values={fxValues}
+                        plain
+                        onChange={(value) => {
+                          dispatch(
+                            setTrackPatternStepFXValue({
+                              track,
+                              pattern,
+                              step: i,
+                              fx: fxID,
+                              data: value,
+                            })
+                          );
+                        }}
+                      />
+                    ) : (
+                      <>&nbsp;&mdash;&nbsp;</>
+                    )}
+                  </Cell>
 
-                                    {f < stepFXIDs.length - 1 && (
-                                        <Divider />
-                                    )}
-                                </React.Fragment>
-                            );
-                        })}
-                    </Step>
-                );
+                  {f < stepFXIDs.length - 1 && <Divider />}
+                </React.Fragment>
+              );
             })}
-        </Container>
-    );
+          </Step>
+        );
+      })}
+    </Container>
+  );
 };

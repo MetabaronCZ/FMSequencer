@@ -16,76 +16,84 @@ import { PatternSelector } from 'ui/components/selector/PatternSelector';
 import { SignatureSelector } from 'ui/components/selector/SignatureSelector';
 
 interface Props {
-    readonly track: number;
-    readonly pattern: number;
-    readonly patterns: PatternData[];
+  readonly track: number;
+  readonly pattern: number;
+  readonly patterns: PatternData[];
 }
 
-export const PatternToolbar: React.FC<Props> = ({ track, pattern, patterns }) => {
-    const { t } = useTranslation();
-    const dispatch = useAppDispatch();
+export const PatternToolbar: React.FC<Props> = ({
+  track,
+  pattern,
+  patterns,
+}) => {
+  const { t } = useTranslation();
+  const dispatch = useAppDispatch();
 
-    const { setPattern } = sessionSlice.actions;
-    const {
-        setTrackPatternBeats, setTrackPatternDivision,
-        setTrackPatternBars, clearTrackPattern,
-    } = projectSlice.actions;
+  const { setPattern } = sessionSlice.actions;
+  const {
+    setTrackPatternBeats,
+    setTrackPatternDivision,
+    setTrackPatternBars,
+    clearTrackPattern,
+  } = projectSlice.actions;
 
-    const data = patterns[pattern];
+  const data = patterns[pattern];
 
-    const setBars = (bars: number): void => {
-        dispatch(setTrackPatternBars({
-            track,
-            pattern,
-            data: bars,
-        }));
-    };
-
-    const setSignature = (beats: number, division: PatternDivisionID): void => {
-        dispatch(setTrackPatternBeats({
-            track,
-            pattern,
-            data: beats,
-        }));
-
-        dispatch(setTrackPatternDivision({
-            track,
-            pattern,
-            data: division,
-        }));
-    };
-
-    const clear = confirm(t('confirmPatternDelete'), () => dispatch(
-        clearTrackPattern({
-            track,
-            data: pattern,
-        })
-    ));
-
-    return (
-        <Toolbar>
-            <PatternSelector
-                value={pattern}
-                onChange={(value) => dispatch(setPattern(value))}
-            />
-
-            <SignatureSelector
-                beats={data.beats}
-                division={data.division}
-                onChange={setSignature}
-            />
-
-            <BarSelector
-                value={data.bars}
-                onChange={setBars}
-            />
-
-            {'|'}
-
-            <Button
-                text={t('clear')}
-                onClick={clear}
-            />
-        </Toolbar>
+  const setBars = (bars: number): void => {
+    dispatch(
+      setTrackPatternBars({
+        track,
+        pattern,
+        data: bars,
+      })
     );
+  };
+
+  const setSignature = (beats: number, division: PatternDivisionID): void => {
+    dispatch(
+      setTrackPatternBeats({
+        track,
+        pattern,
+        data: beats,
+      })
+    );
+
+    dispatch(
+      setTrackPatternDivision({
+        track,
+        pattern,
+        data: division,
+      })
+    );
+  };
+
+  const clear = confirm(t('confirmPatternDelete'), () =>
+    dispatch(
+      clearTrackPattern({
+        track,
+        data: pattern,
+      })
+    )
+  );
+
+  return (
+    <Toolbar>
+      <PatternSelector
+        value={pattern}
+        onChange={(value) => dispatch(setPattern(value))}
+      />
+
+      <SignatureSelector
+        beats={data.beats}
+        division={data.division}
+        onChange={setSignature}
+      />
+
+      <BarSelector value={data.bars} onChange={setBars} />
+
+      {'|'}
+
+      <Button text={t('clear')} onClick={clear} />
+    </Toolbar>
+  );
 };
