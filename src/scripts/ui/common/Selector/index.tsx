@@ -1,9 +1,9 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 
-import { SelectionValue } from 'ui/event';
-import { selectorEvents } from 'ui/common/Selector/events';
 import { InputStyles, InputStylesProps } from 'ui/common/Input';
+import { selectorEvents } from 'ui/common/Selector/events';
+import { SelectionValue } from 'ui/event';
 
 const { setPreventScroll, releasePreventScroll, keyup, wheel } = selectorEvents;
 

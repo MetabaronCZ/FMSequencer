@@ -2,18 +2,18 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useAppDispatch } from 'store';
-import { sessionSlice } from 'store/session';
 import { projectSlice } from 'store/project';
+import { sessionSlice } from 'store/session';
 
-import { PatternData } from 'modules/project/pattern';
 import { PatternDivisionID } from 'modules/project/config';
+import { PatternData } from 'modules/project/pattern';
 
-import { confirm } from 'ui/dialog';
 import { Button } from 'ui/common/Button';
 import { Toolbar } from 'ui/common/Toolbar';
 import { BarSelector } from 'ui/components/selector/BarSelector';
 import { PatternSelector } from 'ui/components/selector/PatternSelector';
 import { SignatureSelector } from 'ui/components/selector/SignatureSelector';
+import { confirm } from 'ui/dialog';
 
 interface Props {
   readonly track: number;

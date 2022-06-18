@@ -2,16 +2,16 @@ import { PayloadAction } from '@reduxjs/toolkit';
 
 import { limitNumber } from 'core/number';
 
-import { stepsReducer } from 'store/steps';
 import { ProjectReducer } from 'store/project';
+import { stepsReducer } from 'store/steps';
 import { TrackActionPayload } from 'store/track';
 
-import { createPatternData } from 'modules/project/pattern';
 import {
-  PatternDivisionID,
   PATTERN_LENGTH_MAX,
   PATTERN_LENGTH_MIN,
+  PatternDivisionID,
 } from 'modules/project/config';
+import { createPatternData } from 'modules/project/pattern';
 
 export interface PatternActionPayload<T> extends TrackActionPayload<T> {
   readonly pattern: number;

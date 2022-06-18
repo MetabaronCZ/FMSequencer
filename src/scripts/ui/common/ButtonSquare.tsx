@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { OnClick, clickOnly } from 'ui/event';
 import { toVU } from 'ui/typography';
-import { clickOnly, OnClick } from 'ui/event';
 
 interface StyledProps {
   readonly $isActive: boolean;

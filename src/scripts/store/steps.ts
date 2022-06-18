@@ -3,12 +3,9 @@ import { WritableDraft } from 'immer/dist/internal';
 
 import { limitNumber } from 'core/number';
 
-import { ProjectReducer } from 'store/project';
 import { PatternActionPayload } from 'store/patterns';
+import { ProjectReducer } from 'store/project';
 
-import { createNoteData } from 'modules/project/note';
-import { createStepData } from 'modules/project/step';
-import { createStepFXData, StepFXData } from 'modules/project/fx';
 import {
   PITCH_MAX,
   PITCH_MIN,
@@ -16,11 +13,14 @@ import {
   VELOCITY_MIN,
 } from 'modules/engine/config';
 import {
-  StepFXID,
-  StepFXType,
   STEP_FX_VALUE_MAX,
   STEP_FX_VALUE_MIN,
+  StepFXID,
+  StepFXType,
 } from 'modules/project/config';
+import { StepFXData, createStepFXData } from 'modules/project/fx';
+import { createNoteData } from 'modules/project/note';
+import { createStepData } from 'modules/project/step';
 
 interface StepActionPayload<T> extends PatternActionPayload<T> {
   readonly step: number;

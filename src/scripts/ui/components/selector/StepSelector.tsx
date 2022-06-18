@@ -5,8 +5,8 @@ import { toFixedLength } from 'core/format';
 
 import { PatternDivisionID, patternDivisions } from 'modules/project/config';
 
-import { getSelection } from 'ui/event';
 import { SelectorField } from 'ui/common/SelectorField';
+import { getSelection } from 'ui/event';
 
 const values = getSelection([...patternDivisions], (id) => ({
   label: `${toFixedLength(id, 2, '0')}`,

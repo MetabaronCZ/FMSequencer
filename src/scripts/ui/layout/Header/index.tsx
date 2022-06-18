@@ -1,11 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
+import styled from 'styled-components';
 
-import { toVU } from 'ui/typography';
 import { Text } from 'ui/common/Text';
-import { Fields } from 'ui/layout/Header/Fields';
 import { Actions } from 'ui/layout/Header/Actions';
+import { Fields } from 'ui/layout/Header/Fields';
+import { toVU } from 'ui/typography';
 
 export interface ProjectSaveData {
   readonly data: string;

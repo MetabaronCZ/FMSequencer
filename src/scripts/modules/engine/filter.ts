@@ -1,5 +1,5 @@
-import { Node } from 'modules/engine/node';
 import { FilterTypeID } from 'modules/engine/config';
+import { Node } from 'modules/engine/node';
 import { FilterData, getFilterType } from 'modules/project/instrument/filter';
 
 export class Filter extends Node<BiquadFilterNode> {

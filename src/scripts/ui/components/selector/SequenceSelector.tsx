@@ -6,8 +6,8 @@ import { toFixedLength } from 'core/format';
 
 import { SEQUENCE_COUNT } from 'modules/project/config';
 
-import { getSelection } from 'ui/event';
 import { SelectorField } from 'ui/common/SelectorField';
+import { getSelection } from 'ui/event';
 
 const sequenceIds = createArray(SEQUENCE_COUNT);
 

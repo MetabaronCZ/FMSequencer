@@ -2,8 +2,8 @@ import { PayloadAction } from '@reduxjs/toolkit';
 
 import { limitNumber } from 'core/number';
 
-import { TrackActionPayload } from 'store/track';
 import { ProjectReducer } from 'store/project';
+import { TrackActionPayload } from 'store/track';
 
 import { AudioEngine } from 'modules/engine';
 import {

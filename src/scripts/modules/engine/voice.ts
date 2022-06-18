@@ -1,19 +1,18 @@
 import { fillArray } from 'core/array';
 
+import { Analyser } from 'modules/engine/analyser';
+import { Bus } from 'modules/engine/bus';
 import {
   AlgorithmID,
   FREQUENCY_BASE,
-  VELOCITY_MAX,
   MODULATOR_LEVEL_MULTIPLIER,
   OPERATOR_COUNT,
+  VELOCITY_MAX,
 } from 'modules/engine/config';
-
-import { Bus } from 'modules/engine/bus';
-import { Pan } from 'modules/engine/pan';
-import { Level } from 'modules/engine/level';
 import { Filter } from 'modules/engine/filter';
-import { Analyser } from 'modules/engine/analyser';
+import { Level } from 'modules/engine/level';
 import { Operator } from 'modules/engine/operator';
+import { Pan } from 'modules/engine/pan';
 import { InstrumentData } from 'modules/project/instrument';
 import {
   algorithmConfig,

@@ -1,7 +1,7 @@
 import {
-  createSongSequenceData,
   SongSequenceConfig,
   SongSequenceData,
+  createSongSequenceData,
 } from 'modules/project/song/sequence';
 
 export interface SongData {

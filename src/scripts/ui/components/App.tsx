@@ -4,10 +4,10 @@ import { ThemeProvider } from 'styled-components';
 
 import { store } from 'store';
 
-import { defaultTheme } from 'ui/theme';
+import { GlobalStyles } from 'ui/components/GlobalStyles';
 import { View } from 'ui/components/View';
 import { Layout } from 'ui/layout/Layout';
-import { GlobalStyles } from 'ui/components/GlobalStyles';
+import { defaultTheme } from 'ui/theme';
 
 export const App: React.FC = () => (
   <React.StrictMode>

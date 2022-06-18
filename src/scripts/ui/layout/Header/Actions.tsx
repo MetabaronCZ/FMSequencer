@@ -9,10 +9,10 @@ import { projectSlice } from 'store/project';
 
 import { ProjectConfig } from 'modules/project';
 
-import { confirm } from 'ui/dialog';
-import { toVU } from 'ui/typography';
 import { Button } from 'ui/common/Button';
+import { confirm } from 'ui/dialog';
 import { InfoBox } from 'ui/layout/Header/InfoBox';
+import { toVU } from 'ui/typography';
 
 export interface ProjectSaveData {
   readonly data: string;

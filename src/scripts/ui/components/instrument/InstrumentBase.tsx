@@ -7,20 +7,20 @@ import { toFixedLength } from 'core/format';
 import { useAppDispatch } from 'store';
 import { projectSlice } from 'store/project';
 
-import { getPanLabel } from 'modules/project/instrument';
 import {
-  AlgorithmID,
   ALGORITHM_MAX,
   ALGORITHM_MIN,
+  AlgorithmID,
   LEVEL_MAX,
   LEVEL_MIN,
   PAN_MAX,
   PAN_MIN,
 } from 'modules/engine/config';
+import { getPanLabel } from 'modules/project/instrument';
 
-import { getSelection } from 'ui/event';
-import { SelectorField } from 'ui/common/SelectorField';
 import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
+import { SelectorField } from 'ui/common/SelectorField';
+import { getSelection } from 'ui/event';
 
 const algos = createRange(ALGORITHM_MIN, ALGORITHM_MAX);
 const levels = createRange(LEVEL_MIN, LEVEL_MAX);

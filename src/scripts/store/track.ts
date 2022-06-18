@@ -1,5 +1,5 @@
-import { PatternsActions, patternsReducer } from 'store/patterns';
 import { InstrumentActions, instrumentReducer } from 'store/instrument';
+import { PatternsActions, patternsReducer } from 'store/patterns';
 
 export type TracksActions = PatternsActions | InstrumentActions;
 

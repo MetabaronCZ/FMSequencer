@@ -1,6 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
+import styled from 'styled-components';
 
 import { createRange } from 'core/array';
 import { toFixedLength } from 'core/format';
@@ -14,15 +14,15 @@ import {
   SONG_LENGTH_MAX,
 } from 'modules/project/config';
 
-import { confirm } from 'ui/dialog';
-import { toVU } from 'ui/typography';
-import { Text } from 'ui/common/Text';
-import { getSelection } from 'ui/event';
 import { Button } from 'ui/common/Button';
-import { Toolbar } from 'ui/common/Toolbar';
-import { Selector } from 'ui/common/Selector';
 import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
+import { Selector } from 'ui/common/Selector';
+import { Text } from 'ui/common/Text';
+import { Toolbar } from 'ui/common/Toolbar';
 import { SequenceSelector } from 'ui/components/selector/SequenceSelector';
+import { confirm } from 'ui/dialog';
+import { getSelection } from 'ui/event';
+import { toVU } from 'ui/typography';
 
 const repeats = createRange(SEQUENCE_LENGTH_MIN, SEQUENCE_REPEAT_MAX);
 

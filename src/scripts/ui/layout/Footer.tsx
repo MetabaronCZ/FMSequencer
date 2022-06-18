@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { toVU } from 'ui/typography';
-import { Text } from 'ui/common/Text';
 import { Link } from 'ui/common/Link';
+import { Text } from 'ui/common/Text';
+import { toVU } from 'ui/typography';
 
 const authorUrl = 'https://github.com/MetabaronCZ';
 

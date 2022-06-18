@@ -1,8 +1,8 @@
 import { LEVEL_MAX, OscillatorTypeID, RatioID } from 'modules/engine/config';
 import {
-  createEnvelopeData,
-  EnvelopeData,
   EnvelopeConfig,
+  EnvelopeData,
+  createEnvelopeData,
 } from 'modules/project/instrument/envelope';
 
 export interface OperatorData {

@@ -4,15 +4,15 @@ import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from 'store';
 import { projectSlice } from 'store/project';
 
-import { confirm } from 'ui/dialog';
 import { Button } from 'ui/common/Button';
+import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
 import { Toolbar } from 'ui/common/Toolbar';
 import { Keyboard } from 'ui/components/Keyboard';
-import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
-import { FilterUI } from 'ui/components/instrument/FilterUI';
-import { OperatorList } from 'ui/components/instrument/OperatorList';
-import { InstrumentBase } from 'ui/components/instrument/InstrumentBase';
 import { AlgorithmCanvas } from 'ui/components/instrument/AlgorithmCanvas';
+import { FilterUI } from 'ui/components/instrument/FilterUI';
+import { InstrumentBase } from 'ui/components/instrument/InstrumentBase';
+import { OperatorList } from 'ui/components/instrument/OperatorList';
+import { confirm } from 'ui/dialog';
 
 export const InstrumentUI: React.FC = () => {
   const { t } = useTranslation();

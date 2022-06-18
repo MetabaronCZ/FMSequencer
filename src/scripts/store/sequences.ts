@@ -1,6 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 
 import { ProjectReducer } from 'store/project';
+
 import { createSequenceData } from 'modules/project/sequence';
 
 interface SequenceActionPayload<T> {

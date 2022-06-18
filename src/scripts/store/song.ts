@@ -1,9 +1,9 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 
 import { limitNumber } from 'core/number';
+
 import { ProjectReducer } from 'store/project';
 
-import { createSongSequenceData } from 'modules/project/song/sequence';
 import {
   SEQUENCE_COUNT,
   SEQUENCE_REPEAT_MAX,
@@ -11,6 +11,7 @@ import {
   SONG_LENGTH_MAX,
 } from 'modules/project/config';
 import { createSongData } from 'modules/project/song';
+import { createSongSequenceData } from 'modules/project/song/sequence';
 
 interface SongPayload<T> {
   readonly slot: number;

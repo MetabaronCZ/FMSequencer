@@ -3,9 +3,9 @@ import { toFixedLength } from 'core/format';
 
 import { TRACK_COUNT } from 'modules/engine/config';
 import {
-  createSequenceTrackData,
   SequenceTrackConfig,
   SequenceTrackData,
+  createSequenceTrackData,
 } from 'modules/project/sequence/track';
 
 export interface SequenceData {

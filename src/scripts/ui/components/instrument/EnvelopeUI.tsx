@@ -7,21 +7,21 @@ import { toFixedLength } from 'core/format';
 import { useAppDispatch } from 'store';
 import { projectSlice } from 'store/project';
 
-import { EnvelopeData } from 'modules/project/instrument/envelope';
 import {
   ENVELOPE_ATTACK_MAX,
   ENVELOPE_ATTACK_MIN,
   ENVELOPE_DECAY_MAX,
   ENVELOPE_DECAY_MIN,
-  ENVELOPE_SUSTAIN_MIN,
-  ENVELOPE_SUSTAIN_MAX,
-  ENVELOPE_RELEASE_MIN,
   ENVELOPE_RELEASE_MAX,
+  ENVELOPE_RELEASE_MIN,
+  ENVELOPE_SUSTAIN_MAX,
+  ENVELOPE_SUSTAIN_MIN,
 } from 'modules/engine/config';
+import { EnvelopeData } from 'modules/project/instrument/envelope';
 
-import { getSelection } from 'ui/event';
-import { SelectorField } from 'ui/common/SelectorField';
 import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
+import { SelectorField } from 'ui/common/SelectorField';
+import { getSelection } from 'ui/event';
 
 const attacks = createRange(ENVELOPE_ATTACK_MIN, ENVELOPE_ATTACK_MAX, 10);
 const decays = createRange(ENVELOPE_DECAY_MIN, ENVELOPE_DECAY_MAX, 10);

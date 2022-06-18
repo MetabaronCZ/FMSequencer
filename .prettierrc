@@ -1,3 +1,15 @@
 {
-  "singleQuote": true
+  "singleQuote": true,
+  "importOrder": [
+    "^env$",
+    "^core(.*)$",
+    "^localization(.*)$",
+    "^store(.*)$",
+    "^modules(.*)$",
+    "^ui(.*)$",
+    "^[./]"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "importOrderGroupNamespaceSpecifiers": true
 }

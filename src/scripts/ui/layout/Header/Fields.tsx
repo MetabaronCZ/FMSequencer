@@ -1,20 +1,20 @@
 import React from 'react';
-import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
+import styled from 'styled-components';
 
 import { createRange } from 'core/array';
 import { toFixedLength } from 'core/format';
 
-import { projectSlice } from 'store/project';
 import { useAppDispatch, useAppSelector } from 'store';
+import { projectSlice } from 'store/project';
 
 import { LEVEL_MAX, LEVEL_MIN } from 'modules/engine/config';
 import { TEMPO_MAX, TEMPO_MIN } from 'modules/project/config';
 
-import { toVU } from 'ui/typography';
-import { getSelection } from 'ui/event';
-import { TextField } from 'ui/common/TextField';
 import { SelectorField } from 'ui/common/SelectorField';
+import { TextField } from 'ui/common/TextField';
+import { getSelection } from 'ui/event';
+import { toVU } from 'ui/typography';
 
 const tempos = createRange(TEMPO_MIN, TEMPO_MAX);
 const levels = createRange(LEVEL_MIN, LEVEL_MAX);

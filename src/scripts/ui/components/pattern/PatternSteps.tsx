@@ -7,26 +7,26 @@ import { toFixedLength } from 'core/format';
 import { useAppDispatch } from 'store';
 import { projectSlice } from 'store/project';
 
-import { StepData } from 'modules/project/step';
-import { getNoteName } from 'modules/engine/pitch';
 import {
   PITCH_MAX,
   PITCH_MIN,
   VELOCITY_MAX,
   VELOCITY_MIN,
 } from 'modules/engine/config';
+import { getNoteName } from 'modules/engine/pitch';
 import {
   PatternDivisionID,
-  stepFXIDs,
-  stepFXTypes,
   STEP_FX_VALUE_MAX,
   STEP_FX_VALUE_MIN,
+  stepFXIDs,
+  stepFXTypes,
 } from 'modules/project/config';
+import { StepData } from 'modules/project/step';
 
-import { toVU } from 'ui/typography';
+import { Selector } from 'ui/common/Selector';
 import { Text } from 'ui/common/Text';
 import { getSelection } from 'ui/event';
-import { Selector } from 'ui/common/Selector';
+import { toVU } from 'ui/typography';
 
 const pitches = createRange(PITCH_MIN, PITCH_MAX);
 const velocities = createRange(VELOCITY_MIN, VELOCITY_MAX);

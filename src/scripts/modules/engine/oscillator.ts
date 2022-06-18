@@ -1,12 +1,12 @@
 import { limitNumber } from 'core/number';
 
-import { Node } from 'modules/engine/node';
-import { getOscillatorType } from 'modules/project/instrument/oscillator';
 import {
   FREQUENCY_MAX,
   FREQUENCY_MIN,
   OscillatorTypeID,
 } from 'modules/engine/config';
+import { Node } from 'modules/engine/node';
+import { getOscillatorType } from 'modules/project/instrument/oscillator';
 
 export class Oscillator extends Node<OscillatorNode> {
   constructor(ctx: AudioContext) {

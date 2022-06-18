@@ -4,8 +4,8 @@ import { useAppSelector } from 'store';
 
 import { AudioEngine } from 'modules/engine';
 import { VELOCITY_MAX } from 'modules/engine/config';
-import { keyboardMapping } from 'modules/project/keyboard';
 import { InstrumentData } from 'modules/project/instrument';
+import { keyboardMapping } from 'modules/project/keyboard';
 
 const onKeyDownFn = (instrument: InstrumentData, track: number) => {
   return (e: KeyboardEvent): void => {

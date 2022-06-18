@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { getImagePath, toVU } from 'ui/typography';
 
 const loadersize = toVU(4);

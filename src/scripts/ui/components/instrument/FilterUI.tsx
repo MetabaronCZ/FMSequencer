@@ -7,18 +7,18 @@ import { toFixedLength } from 'core/format';
 import { useAppDispatch } from 'store';
 import { projectSlice } from 'store/project';
 
-import { FilterData } from 'modules/project/instrument/filter';
 import {
-  filterTypes,
   FREQUENCY_MAX,
   FREQUENCY_MIN,
-  RESONANCE_MIN,
   RESONANCE_MAX,
+  RESONANCE_MIN,
+  filterTypes,
 } from 'modules/engine/config';
+import { FilterData } from 'modules/project/instrument/filter';
 
-import { getSelection } from 'ui/event';
-import { SelectorField } from 'ui/common/SelectorField';
 import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
+import { SelectorField } from 'ui/common/SelectorField';
+import { getSelection } from 'ui/event';
 
 const freqs = createRange(FREQUENCY_MIN, FREQUENCY_MAX);
 const resos = createRange(RESONANCE_MIN, RESONANCE_MAX, 10);

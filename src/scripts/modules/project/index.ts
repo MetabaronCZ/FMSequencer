@@ -2,18 +2,18 @@ import { fillArray } from 'core/array';
 
 import { TRACK_COUNT } from 'modules/engine/config';
 import { SEQUENCE_COUNT } from 'modules/project/config';
-import { createSongData, SongConfig, SongData } from 'modules/project/song';
-import { createTrackData, TrackConfig, TrackData } from 'modules/project/track';
 import {
-  createMasterData,
   MasterConfig,
   MasterData,
+  createMasterData,
 } from 'modules/project/master';
 import {
-  createSequenceData,
   SequenceConfig,
   SequenceData,
+  createSequenceData,
 } from 'modules/project/sequence';
+import { SongConfig, SongData, createSongData } from 'modules/project/song';
+import { TrackConfig, TrackData, createTrackData } from 'modules/project/track';
 
 export interface ProjectData {
   readonly name: string;

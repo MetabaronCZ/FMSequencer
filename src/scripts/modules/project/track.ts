@@ -2,15 +2,15 @@ import { fillArray } from 'core/array';
 
 import { PATTERN_COUNT } from 'modules/project/config';
 import {
-  createPatternData,
-  PatternConfig,
-  PatternData,
-} from 'modules/project/pattern';
-import {
-  createInstrumentData,
   InstrumentConfig,
   InstrumentData,
+  createInstrumentData,
 } from 'modules/project/instrument';
+import {
+  PatternConfig,
+  PatternData,
+  createPatternData,
+} from 'modules/project/pattern';
 
 export interface TrackData {
   readonly name: string;

@@ -1,8 +1,9 @@
-import logger from 'redux-logger';
+import { Dispatch, Middleware, configureStore } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
-import { configureStore, Dispatch, Middleware } from '@reduxjs/toolkit';
+import logger from 'redux-logger';
 
 import { ENV } from 'env';
+
 import { ProjectActions, projectSlice } from 'store/project';
 import { SessionActions, sessionSlice } from 'store/session';
 

@@ -1,15 +1,15 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { WritableDraft } from 'immer/dist/internal';
 
 import { limitNumber } from 'core/number';
 
-import { SongActions, songReducer } from 'store/song';
-import { TracksActions, tracksReducer } from 'store/track';
 import { MasterActions, masterReducer } from 'store/master';
 import { SequencesActions, sequencesReducer } from 'store/sequences';
+import { SongActions, songReducer } from 'store/song';
+import { TracksActions, tracksReducer } from 'store/track';
 
 import { AudioEngine } from 'modules/engine';
-import { createProjectData, ProjectConfig, ProjectData } from 'modules/project';
+import { ProjectConfig, ProjectData, createProjectData } from 'modules/project';
 import {
   PROJECT_NAME_LENGTH,
   TEMPO_MAX,

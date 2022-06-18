@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { toVU } from 'ui/typography';
-
-import { Header } from 'ui/layout/Header';
-import { Footer } from 'ui/layout/Footer';
 import { Content } from 'ui/layout/Content';
+import { Footer } from 'ui/layout/Footer';
+import { Header } from 'ui/layout/Header';
+import { toVU } from 'ui/typography';
 
 const Container = styled.div`
   display: flex;

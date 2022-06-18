@@ -6,8 +6,8 @@ import { toFixedLength } from 'core/format';
 
 import { PATTERN_COUNT } from 'modules/project/config';
 
-import { getSelection } from 'ui/event';
 import { SelectorField } from 'ui/common/SelectorField';
+import { getSelection } from 'ui/event';
 
 const patternIds = createArray(PATTERN_COUNT);
 

@@ -1,4 +1,4 @@
-import { FilterTypeID, FREQUENCY_MAX } from 'modules/engine/config';
+import { FREQUENCY_MAX, FilterTypeID } from 'modules/engine/config';
 
 type FilterTypeData = {
   readonly [id in FilterTypeID]: BiquadFilterType;

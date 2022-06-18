@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { toVU } from 'ui/typography';
 
 const defaultSize = 1; // in unitless flex width

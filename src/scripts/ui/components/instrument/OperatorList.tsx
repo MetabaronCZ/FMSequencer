@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 import { OperatorData } from 'modules/project/instrument/operator';
 
-import { toVU } from 'ui/typography';
 import { OperatorUI } from 'ui/components/instrument/OperatorUI';
+import { toVU } from 'ui/typography';
 
 interface StyledProps {
   $highlighted: boolean;

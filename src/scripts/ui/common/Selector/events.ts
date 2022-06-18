@@ -1,5 +1,5 @@
-import { SelectionValue } from 'ui/event';
 import { SelectorOnChange, SelectorOnDelete } from 'ui/common/Selector';
+import { SelectionValue } from 'ui/event';
 
 type SelectorAction = 'UP' | 'DOWN' | 'DELETE';
 

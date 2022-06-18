@@ -1,5 +1,5 @@
-import { createNoteData, NoteConfig, NoteData } from 'modules/project/note';
-import { StepFXData, StepFXConfig, createStepFXData } from 'modules/project/fx';
+import { StepFXConfig, StepFXData, createStepFXData } from 'modules/project/fx';
+import { NoteConfig, NoteData, createNoteData } from 'modules/project/note';
 
 type StepFXListData = [StepFXData | null, StepFXData | null, StepFXData | null];
 type StepFXListConfig = [

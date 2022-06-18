@@ -1,16 +1,15 @@
+import { Bus } from 'modules/engine/bus';
 import {
+  ENVELOPE_SUSTAIN_MAX,
+  FORCED_RELEASE_TIME,
   OscillatorTypeID,
   RatioID,
-  FORCED_RELEASE_TIME,
-  ENVELOPE_SUSTAIN_MAX,
 } from 'modules/engine/config';
-
-import { Bus } from 'modules/engine/bus';
-import { Node } from 'modules/engine/node';
 import { Level } from 'modules/engine/level';
+import { Node } from 'modules/engine/node';
 import { Oscillator } from 'modules/engine/oscillator';
-import { getRatioValue } from 'modules/project/instrument/ratio';
 import { OperatorData } from 'modules/project/instrument/operator';
+import { getRatioValue } from 'modules/project/instrument/ratio';
 
 export class Operator extends Bus<Oscillator, Level> {
   private readonly osc: Oscillator;

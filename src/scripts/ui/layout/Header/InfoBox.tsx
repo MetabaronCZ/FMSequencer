@@ -1,12 +1,12 @@
 import React from 'react';
-import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
+import styled from 'styled-components';
 
-import { toVU } from 'ui/typography';
-import { Text } from 'ui/common/Text';
 import { Link } from 'ui/common/Link';
-import { clickOnly, OnClick } from 'ui/event';
+import { Text } from 'ui/common/Text';
+import { OnClick, clickOnly } from 'ui/event';
 import { ProjectSaveData } from 'ui/layout/Header';
+import { toVU } from 'ui/typography';
 
 const Container = styled.div`
   position: absolute;

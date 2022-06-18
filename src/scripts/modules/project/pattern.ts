@@ -1,6 +1,7 @@
 import { toFixedLength } from 'core/format';
+
 import { PatternDivisionID } from 'modules/project/config';
-import { createStepData, StepConfig, StepData } from 'modules/project/step';
+import { StepConfig, StepData, createStepData } from 'modules/project/step';
 
 export interface PatternData {
   readonly name: string;

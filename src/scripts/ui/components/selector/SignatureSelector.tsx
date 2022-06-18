@@ -6,14 +6,14 @@ import { toFixedLength } from 'core/format';
 
 import {
   PatternDivisionID,
-  patternDivisions,
   SEQUENCE_LENGTH_MAX,
   SEQUENCE_LENGTH_MIN,
+  patternDivisions,
 } from 'modules/project/config';
 
-import { getSelection } from 'ui/event';
 import { Field } from 'ui/common/Field';
 import { Selector } from 'ui/common/Selector';
+import { getSelection } from 'ui/event';
 
 let selectorFieldCounter = 0;
 

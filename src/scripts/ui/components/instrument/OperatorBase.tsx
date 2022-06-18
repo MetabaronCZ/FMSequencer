@@ -1,6 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
+import styled from 'styled-components';
 
 import { createRange } from 'core/array';
 import { toFixedLength } from 'core/format';
@@ -9,18 +9,18 @@ import { useAppDispatch } from 'store';
 import { projectSlice } from 'store/project';
 
 import {
-  OscillatorTypeID,
-  oscillatorTypes,
-  ratios,
   LEVEL_MAX,
   LEVEL_MIN,
+  OscillatorTypeID,
   RatioID,
+  oscillatorTypes,
+  ratios,
 } from 'modules/engine/config';
 
+import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
+import { SelectorField } from 'ui/common/SelectorField';
 import { Text } from 'ui/common/Text';
 import { getSelection } from 'ui/event';
-import { SelectorField } from 'ui/common/SelectorField';
-import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
 
 const levels = createRange(LEVEL_MIN, LEVEL_MAX);
 

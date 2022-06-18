@@ -1,8 +1,8 @@
 import { fillArray } from 'core/array';
 
-import { Voice } from 'modules/engine/voice';
-import { Master } from 'modules/engine/master';
 import { SAMPLE_RATE, TRACK_COUNT } from 'modules/engine/config';
+import { Master } from 'modules/engine/master';
+import { Voice } from 'modules/engine/voice';
 
 class Engine {
   public readonly master: Master;

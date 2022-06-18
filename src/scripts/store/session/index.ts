@@ -1,8 +1,9 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { WritableDraft } from 'immer/dist/internal';
 
 import { SessionTrackActions, sessionTrackReducer } from 'store/session/track';
-import { createSessionData, SessionConfig, SessionData } from 'modules/session';
+
+import { SessionConfig, SessionData, createSessionData } from 'modules/session';
 
 interface SessionActionPayload {
   readonly value: number;

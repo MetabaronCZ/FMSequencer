@@ -1,21 +1,21 @@
 import React from 'react';
-import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
+import styled from 'styled-components';
 
+import { useAppDispatch, useAppSelector } from 'store';
 import { projectSlice } from 'store/project';
 import { sessionSlice } from 'store/session';
-import { useAppDispatch, useAppSelector } from 'store';
 
-import { confirm } from 'ui/dialog';
-import { toVU } from 'ui/typography';
-import { Text } from 'ui/common/Text';
 import { Button } from 'ui/common/Button';
-import { Toolbar } from 'ui/common/Toolbar';
 import { ButtonSquare } from 'ui/common/ButtonSquare';
 import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
+import { Text } from 'ui/common/Text';
+import { Toolbar } from 'ui/common/Toolbar';
 import { BarSelector } from 'ui/components/selector/BarSelector';
 import { PatternSelector } from 'ui/components/selector/PatternSelector';
 import { SequenceSelector } from 'ui/components/selector/SequenceSelector';
+import { confirm } from 'ui/dialog';
+import { toVU } from 'ui/typography';
 
 const List = styled.ul`
   list-style-type: none;

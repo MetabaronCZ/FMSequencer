@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { toVU } from 'ui/typography';
 import { Text } from 'ui/common/Text';
-import { clickOnly, OnClick } from 'ui/event';
+import { OnClick, clickOnly } from 'ui/event';
+import { toVU } from 'ui/typography';
 
 const StyledButton = styled.button`
   ${Text.Default};

@@ -2,8 +2,8 @@ import { PayloadAction } from '@reduxjs/toolkit';
 
 import { limitNumber } from 'core/number';
 
-import { ProjectReducer } from 'store/project';
 import { OperatorActionPayload } from 'store/instrument/operator';
+import { ProjectReducer } from 'store/project';
 
 import {
   ENVELOPE_ATTACK_MAX,

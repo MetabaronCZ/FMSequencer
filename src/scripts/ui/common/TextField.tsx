@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { toVU } from 'ui/typography';
 import { Field } from 'ui/common/Field';
-import { change, OnChange } from 'ui/event';
 import { InputStyles } from 'ui/common/Input';
+import { OnChange, change } from 'ui/event';
+import { toVU } from 'ui/typography';
 
 let textFieldCounter = 0;
 

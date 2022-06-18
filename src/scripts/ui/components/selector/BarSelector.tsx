@@ -9,8 +9,8 @@ import {
   SEQUENCE_LENGTH_MIN,
 } from 'modules/project/config';
 
-import { getSelection } from 'ui/event';
 import { SelectorField } from 'ui/common/SelectorField';
+import { getSelection } from 'ui/event';
 
 const barValues = createRange(SEQUENCE_LENGTH_MIN, SEQUENCE_LENGTH_MAX);
 

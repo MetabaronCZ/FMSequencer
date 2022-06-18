@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { toVU } from 'ui/typography';
 import { Text } from 'ui/common/Text';
+import { toVU } from 'ui/typography';
 
 interface StyledProps {
   readonly $inverse: boolean;

@@ -1,4 +1,5 @@
 import { PayloadAction } from '@reduxjs/toolkit';
+
 import { SessionReducer } from 'store/session';
 
 type TrackSoloAction = PayloadAction<number>;

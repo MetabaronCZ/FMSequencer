@@ -3,14 +3,14 @@ import { toFixedLength } from 'core/format';
 
 import { AlgorithmID, LEVEL_MAX, OPERATOR_COUNT } from 'modules/engine/config';
 import {
-  createFilterData,
-  FilterData,
   FilterConfig,
+  FilterData,
+  createFilterData,
 } from 'modules/project/instrument/filter';
 import {
-  createOperatorData,
-  OperatorData,
   OperatorConfig,
+  OperatorData,
+  createOperatorData,
 } from 'modules/project/instrument/operator';
 
 export interface InstrumentData {

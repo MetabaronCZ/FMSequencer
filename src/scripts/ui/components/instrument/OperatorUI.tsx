@@ -3,9 +3,9 @@ import React from 'react';
 import { OperatorData } from 'modules/project/instrument/operator';
 
 import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
+import { EnvelopeCanvas } from 'ui/components/instrument/EnvelopeCanvas';
 import { EnvelopeUI } from 'ui/components/instrument/EnvelopeUI';
 import { OperatorBase } from 'ui/components/instrument/OperatorBase';
-import { EnvelopeCanvas } from 'ui/components/instrument/EnvelopeCanvas';
 
 interface Props {
   readonly track: number;

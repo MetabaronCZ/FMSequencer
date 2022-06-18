@@ -1,7 +1,7 @@
 import { css } from 'styled-components';
 
-import { toVU } from 'ui/typography';
 import { Text } from 'ui/common/Text';
+import { toVU } from 'ui/typography';
 
 export interface InputStylesProps {
   readonly $inverse?: boolean;
