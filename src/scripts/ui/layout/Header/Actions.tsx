@@ -23,9 +23,9 @@ const Container = styled.div`
   position: relative;
   display: flex;
   flex-direction: row;
-  align-items: center;
-  padding: 0 ${toVU(2)};
+  justify-content: end;
   gap: ${toVU(1)};
+  flex: 1;
 `;
 
 export const Actions: React.FC = () => {
@@ -70,11 +70,11 @@ export const Actions: React.FC = () => {
 
   return (
     <Container>
-      <Button text={t('projectCreate')} onClick={create} />
-
-      <Button text={t('projectLoad')} onClick={load} />
-
-      <Button text={t('projectSave')} onClick={save} />
+      <div>
+        <Button text={t('projectCreate')} onClick={create} />
+        <Button text={t('projectLoad')} onClick={load} />
+        <Button text={t('projectSave')} onClick={save} />
+      </div>
 
       {!!saveData && (
         <InfoBox name={project.name} data={saveData} onClose={cancelSave} />

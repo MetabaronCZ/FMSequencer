@@ -4,6 +4,7 @@ export interface SessionData {
   readonly pattern: number;
   readonly soloedTrack: number | null;
   readonly mutedTracks: number[];
+  readonly patternPage: number;
 }
 
 export interface SessionConfig {
@@ -12,6 +13,7 @@ export interface SessionConfig {
   readonly pattern?: number;
   readonly soloedTrack?: number | null;
   readonly mutedTracks?: number[];
+  readonly patternPage?: number;
 }
 
 export const createSessionData = (config: SessionConfig = {}): SessionData => {
@@ -21,5 +23,6 @@ export const createSessionData = (config: SessionConfig = {}): SessionData => {
     pattern: config.pattern ?? 0,
     soloedTrack: config.soloedTrack ?? null,
     mutedTracks: config.mutedTracks ?? [],
+    patternPage: config.patternPage ?? 1,
   };
 };

@@ -56,22 +56,10 @@ const Container = styled.ul`
   list-style-type: none;
 `;
 
-interface StepProps {
-  readonly $isBarEnd?: boolean;
-}
-
-const Step = styled.li<StepProps>`
+const Step = styled.li`
   display: flex;
   flex-direction: row;
   align-items: center;
-
-  ${({ theme, $isBarEnd }) =>
-    $isBarEnd &&
-    `
-      margin-bottom: ${toVU(0.5)};
-      padding-bottom: ${toVU(0.5)};
-      border-bottom: ${theme.border.transparent};
-    `}
 `;
 
 interface CellProps {
@@ -105,7 +93,6 @@ interface Props {
 export const PatternSteps: React.FC<Props> = ({
   track,
   pattern,
-  beats,
   division,
   steps,
 }) => {
@@ -120,18 +107,15 @@ export const PatternSteps: React.FC<Props> = ({
     deleteTrackPatternStepFX,
   } = projectSlice.actions;
 
-  const stepsPerBar = beats * division;
-
   return (
     <Container>
       {steps.map((step, i) => {
         const isHighlighted = !!step.note || step.fx.some((item) => !!item);
-        const isBarEnd =
-          i < steps.length - 1 && stepsPerBar - 1 === i % stepsPerBar;
+        const stepId = step.start;
         return (
-          <Step $isBarEnd={isBarEnd} key={i}>
+          <Step key={i}>
             <Cell $highlighted={0 === i % division}>
-              {toFixedLength(i, 3, '0')}
+              {toFixedLength(stepId, 3, '0')}
             </Cell>
 
             <Cell $highlighted={isHighlighted}>
@@ -147,7 +131,7 @@ export const PatternSteps: React.FC<Props> = ({
                     setTrackPatternStepPitch({
                       track,
                       pattern,
-                      step: i,
+                      step: stepId,
                       data: value,
                     })
                   );
@@ -157,7 +141,7 @@ export const PatternSteps: React.FC<Props> = ({
                     deleteTrackPatternStepPitch({
                       track,
                       pattern,
-                      step: i,
+                      step: stepId,
                       data: null,
                     })
                   );
@@ -176,7 +160,7 @@ export const PatternSteps: React.FC<Props> = ({
                       setTrackPatternStepVelocity({
                         track,
                         pattern,
-                        step: i,
+                        step: stepId,
                         data: value,
                       })
                     );
@@ -205,7 +189,7 @@ export const PatternSteps: React.FC<Props> = ({
                           setTrackPatternStepFXType({
                             track,
                             pattern,
-                            step: i,
+                            step: stepId,
                             fx: fxID,
                             data: value,
                           })
@@ -216,7 +200,7 @@ export const PatternSteps: React.FC<Props> = ({
                           deleteTrackPatternStepFX({
                             track,
                             pattern,
-                            step: i,
+                            step: stepId,
                             fx: fxID,
                             data: null,
                           })
@@ -236,7 +220,7 @@ export const PatternSteps: React.FC<Props> = ({
                             setTrackPatternStepFXValue({
                               track,
                               pattern,
-                              step: i,
+                              step: stepId,
                               fx: fxID,
                               data: value,
                             })

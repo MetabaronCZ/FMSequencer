@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
-import { SequenceUI } from 'ui/components/SequenceUI';
-import { SongUI } from 'ui/components/SongUI';
 import { InstrumentUI } from 'ui/components/instrument/InstrumentUI';
 import { PatternUI } from 'ui/components/pattern/PatternUI';
+import { SequenceUI } from 'ui/components/sequence/SequenceUI';
+import { SongUI } from 'ui/components/song/SongUI';
 
 export const View: React.FC = () => (
   <Grid $gap={2}>

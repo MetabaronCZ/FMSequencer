@@ -10,12 +10,14 @@ import { PatternToolbar } from 'ui/components/pattern/PatternToolbar';
 
 export const PatternUI: React.FC = () => {
   const { tracks } = useAppSelector((state) => state.project);
-  const { track, pattern } = useAppSelector((state) => state.session);
+  const { track, pattern, patternPage } = useAppSelector(
+    (state) => state.session
+  );
 
   const { patterns } = tracks[track];
 
   const data = patterns[pattern];
-  const steps = getPatternSteps(data);
+  const steps = getPatternSteps(data, patternPage);
 
   return (
     <Grid>

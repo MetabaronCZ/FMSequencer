@@ -10,7 +10,7 @@ let textFieldCounter = 0;
 
 const StyledInput = styled.input`
   ${InputStyles};
-  max-width: ${toVU(20)};
+  max-width: ${toVU(16)};
 `;
 
 interface Props {

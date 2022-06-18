@@ -24,6 +24,10 @@ const StyledButton = styled.button`
     color: ${({ theme }) => theme.color.white};
     background-color: ${({ theme }) => theme.color.black};
   }
+
+  & + & {
+    margin-left: ${toVU(0.5)};
+  }
 `;
 
 interface Props {

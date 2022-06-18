@@ -39,7 +39,6 @@ const Container = styled.div`
   flex-direction: row;
   align-items: center;
   gap: ${toVU(2)};
-  margin-left: ${toVU(4)};
 `;
 
 export const Fields: React.FC = () => {

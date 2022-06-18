@@ -33,16 +33,26 @@ export const createPatternData = (
   };
 };
 
-export const getPatternSteps = (pattern: PatternData): StepData[] => {
-  const { steps: stepsData, beats, division, bars } = pattern;
+export const getPatternSteps = (
+  pattern: PatternData,
+  page: number
+): StepData[] => {
+  const { steps: stepsData, beats, division } = pattern;
   const data = [...stepsData].sort((a, b) => a.start - b.start);
+  const perPage = beats * division;
 
-  const steps: StepData[] = Array(bars * beats * division)
+  const startStep = (page - 1) * perPage;
+
+  const steps: StepData[] = Array(perPage)
     .fill(null)
-    .map(() => createStepData());
+    .map((_, i) => createStepData({ start: startStep + i }));
 
   for (const item of data) {
-    steps[item.start] = item;
+    const index = steps.findIndex(({ start }) => item.start === start);
+
+    if (index >= 0) {
+      steps[index] = item;
+    }
   }
   return steps;
 };

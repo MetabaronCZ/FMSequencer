@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useAppDispatch } from 'store';
+import { useAppDispatch, useAppSelector } from 'store';
 import { projectSlice } from 'store/project';
 import { sessionSlice } from 'store/session';
 
@@ -9,7 +9,7 @@ import { PatternDivisionID } from 'modules/project/config';
 import { PatternData } from 'modules/project/pattern';
 
 import { Button } from 'ui/common/Button';
-import { Toolbar } from 'ui/common/Toolbar';
+import { Toolbar, ToolbarItem } from 'ui/common/Toolbar';
 import { BarSelector } from 'ui/components/selector/BarSelector';
 import { PatternSelector } from 'ui/components/selector/PatternSelector';
 import { SignatureSelector } from 'ui/components/selector/SignatureSelector';
@@ -28,8 +28,9 @@ export const PatternToolbar: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
+  const { patternPage } = useAppSelector((state) => state.session);
 
-  const { setPattern } = sessionSlice.actions;
+  const { setPattern, setPatternPage, resetPatternPage } = sessionSlice.actions;
   const {
     setTrackPatternBeats,
     setTrackPatternDivision,
@@ -47,6 +48,9 @@ export const PatternToolbar: React.FC<Props> = ({
         data: bars,
       })
     );
+    if (bars < patternPage) {
+      setPage(bars, bars);
+    }
   };
 
   const setSignature = (beats: number, division: PatternDivisionID): void => {
@@ -67,33 +71,45 @@ export const PatternToolbar: React.FC<Props> = ({
     );
   };
 
-  const clear = confirm(t('confirmPatternDelete'), () =>
+  const clear = confirm(t('confirmPatternDelete'), () => {
     dispatch(
       clearTrackPattern({
         track,
         data: pattern,
       })
-    )
-  );
+    );
+    dispatch(resetPatternPage());
+  });
+
+  const setPage = (bars: number, page: number): void => {
+    dispatch(setPatternPage({ bars, page }));
+  };
 
   return (
     <Toolbar>
-      <PatternSelector
-        value={pattern}
-        onChange={(value) => dispatch(setPattern(value))}
-      />
+      <ToolbarItem>
+        <PatternSelector
+          value={pattern}
+          onChange={(value) => dispatch(setPattern(value))}
+        />
 
-      <SignatureSelector
-        beats={data.beats}
-        division={data.division}
-        onChange={setSignature}
-      />
+        <SignatureSelector
+          beats={data.beats}
+          division={data.division}
+          onChange={setSignature}
+        />
 
-      <BarSelector value={data.bars} onChange={setBars} />
+        <BarSelector
+          bars={data.bars}
+          page={patternPage}
+          onBarsChange={setBars}
+          onPageChange={(page) => setPage(data.bars, page)}
+        />
+      </ToolbarItem>
 
-      {'|'}
-
-      <Button text={t('clear')} onClick={clear} />
+      <ToolbarItem isActions>
+        <Button text={t('clear')} onClick={clear} />
+      </ToolbarItem>
     </Toolbar>
   );
 };

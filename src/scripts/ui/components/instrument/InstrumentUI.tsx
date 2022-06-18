@@ -1,49 +1,27 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
-import { useAppDispatch, useAppSelector } from 'store';
-import { projectSlice } from 'store/project';
+import { useAppSelector } from 'store';
 
-import { Button } from 'ui/common/Button';
 import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
-import { Toolbar } from 'ui/common/Toolbar';
 import { Keyboard } from 'ui/components/Keyboard';
 import { AlgorithmCanvas } from 'ui/components/instrument/AlgorithmCanvas';
 import { FilterUI } from 'ui/components/instrument/FilterUI';
 import { InstrumentBase } from 'ui/components/instrument/InstrumentBase';
+import { InstrumentToolbar } from 'ui/components/instrument/InstrumentToolbar';
 import { OperatorList } from 'ui/components/instrument/OperatorList';
-import { confirm } from 'ui/dialog';
 
 export const InstrumentUI: React.FC = () => {
-  const { t } = useTranslation();
-  const dispatch = useAppDispatch();
   const { track } = useAppSelector((state) => state.session);
   const { tracks } = useAppSelector((state) => state.project);
-  const { resetInstrument } = projectSlice.actions;
 
   const { name, algorithm, level, pan, filter, operators } =
     tracks[track].instrument;
-
-  const reset = confirm(t('confirmInstrumentReset'), () =>
-    dispatch(
-      resetInstrument({
-        track,
-        data: null,
-      })
-    )
-  );
 
   return (
     <Grid>
       <GridRow>
         <GridColumn>
-          <Toolbar>
-            {name}
-
-            {' | '}
-
-            <Button text={t('reset')} onClick={reset} />
-          </Toolbar>
+          <InstrumentToolbar name={name} />
         </GridColumn>
       </GridRow>
 

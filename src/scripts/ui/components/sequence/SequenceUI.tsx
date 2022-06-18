@@ -10,11 +10,8 @@ import { Button } from 'ui/common/Button';
 import { ButtonSquare } from 'ui/common/ButtonSquare';
 import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
 import { Text } from 'ui/common/Text';
-import { Toolbar } from 'ui/common/Toolbar';
-import { BarSelector } from 'ui/components/selector/BarSelector';
 import { PatternSelector } from 'ui/components/selector/PatternSelector';
-import { SequenceSelector } from 'ui/components/selector/SequenceSelector';
-import { confirm } from 'ui/dialog';
+import { SequenceToolbar } from 'ui/components/sequence/SequenceToolbar';
 import { toVU } from 'ui/typography';
 
 const List = styled.ul`
@@ -39,9 +36,8 @@ export const SequenceUI: React.FC = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
-  const { trackMute, trackSolo, setSequence, setTrack } = sessionSlice.actions;
-  const { setSequenceTrackPattern, setSequenceLength, clearSequence } =
-    projectSlice.actions;
+  const { trackMute, trackSolo, setTrack } = sessionSlice.actions;
+  const { setSequenceTrackPattern } = projectSlice.actions;
 
   const { tracks: projectTracks, sequences } = useAppSelector(
     (state) => state.project
@@ -52,43 +48,11 @@ export const SequenceUI: React.FC = () => {
 
   const { bars, tracks } = sequences[sequence];
 
-  const clear = confirm(t('confirmSequenceDelete'), () =>
-    dispatch(clearSequence(sequence))
-  );
-
   return (
     <Grid>
       <GridRow>
         <GridColumn>
-          <Toolbar>
-            <SequenceSelector
-              value={sequence}
-              onChange={(value) => {
-                dispatch(
-                  setSequence({
-                    value,
-                    pattern: sequences[value].tracks[track].pattern,
-                  })
-                );
-              }}
-            />
-
-            <BarSelector
-              value={bars}
-              onChange={(value) => {
-                dispatch(
-                  setSequenceLength({
-                    sequence,
-                    data: value,
-                  })
-                );
-              }}
-            />
-
-            {'|'}
-
-            <Button text={t('clear')} onClick={clear} />
-          </Toolbar>
+          <SequenceToolbar bars={bars} />
         </GridColumn>
       </GridRow>
 

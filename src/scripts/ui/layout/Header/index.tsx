@@ -15,10 +15,18 @@ export interface ProjectSaveData {
 const Container = styled.div`
   display: flex;
   flex-direction: row;
+  gap: ${toVU(2)};
   align-items: center;
   max-width: ${({ theme }) => theme.dimensions.page.width};
   padding: 0 ${toVU(2)};
   margin: 0 auto;
+`;
+
+const Panel = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: ${toVU(2)};
+  flex: 1;
 `;
 
 const Logo = styled.h1`
@@ -34,10 +42,16 @@ export const Header: React.FC = () => {
   const { t } = useTranslation();
   return (
     <Container>
-      <Logo>{t('app')}</Logo>
+      <Panel>
+        <Logo>{t('app')}</Logo>
+        <Actions />
+      </Panel>
 
-      <Actions />
-      <Fields />
+      <Panel>
+        <Fields />
+      </Panel>
+
+      <Panel />
     </Container>
   );
 };

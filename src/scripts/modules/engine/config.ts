@@ -9,7 +9,7 @@ export const VELOCITY_MIN = 0;
 export const VELOCITY_MAX = 100;
 export const PITCH_BASE = 72;
 export const PITCH_MIN = 21;
-export const PITCH_MAX = 127;
+export const PITCH_MAX = 117;
 
 // FM / algorithm
 export const algorithmIds = [1, 2, 3, 4, 5, 6, 7, 8] as const;

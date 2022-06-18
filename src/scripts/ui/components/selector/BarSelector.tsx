@@ -9,29 +9,55 @@ import {
   SEQUENCE_LENGTH_MIN,
 } from 'modules/project/config';
 
-import { SelectorField } from 'ui/common/SelectorField';
+import { Field } from 'ui/common/Field';
+import { Selector } from 'ui/common/Selector';
 import { getSelection } from 'ui/event';
 
-const barValues = createRange(SEQUENCE_LENGTH_MIN, SEQUENCE_LENGTH_MAX);
+let barsFieldCounter = 0;
 
-const values = getSelection(barValues, (id) => ({
+const barIds = createRange(SEQUENCE_LENGTH_MIN, SEQUENCE_LENGTH_MAX);
+
+const barValues = getSelection(barIds, (id) => ({
   label: `${toFixedLength(id, 2, '0')}`,
   value: id,
 }));
 
 interface Props {
-  readonly value: number;
-  readonly onChange: (value: number) => void;
+  readonly bars: number;
+  readonly page?: number;
+  readonly onBarsChange: (bars: number) => void;
+  readonly onPageChange?: (page: number) => void;
 }
 
-export const BarSelector: React.FC<Props> = ({ value, onChange }) => {
+export const BarSelector: React.FC<Props> = ({
+  bars,
+  page = null,
+  onBarsChange,
+  onPageChange,
+}) => {
   const { t } = useTranslation();
+  const id = `sig-selector-${barsFieldCounter++}`;
+
+  const pages = createRange(SEQUENCE_LENGTH_MIN, bars);
+
+  const pageValues = getSelection(pages, (page) => ({
+    label: `${toFixedLength(page, 2, '0')}`,
+    value: page,
+  }));
+
   return (
-    <SelectorField
-      label={t('bars')}
-      value={value}
-      values={values}
-      onChange={onChange}
-    />
+    <Field id={id} label={t('bars')}>
+      {null !== page && (
+        <>
+          <Selector
+            value={page}
+            values={pageValues}
+            onChange={onPageChange ?? (() => null)}
+          />
+          {'/'}
+        </>
+      )}
+      <Selector value={bars} values={barValues} onChange={onBarsChange} />
+    </Field>
   );
 };
