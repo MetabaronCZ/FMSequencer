@@ -10,8 +10,9 @@ import { projectSlice } from 'store/project';
 import { ProjectConfig } from 'modules/project';
 
 import { Button } from 'ui/common/Button';
+import { Link } from 'ui/common/Link';
+import { Modal } from 'ui/common/Modal';
 import { confirm } from 'ui/dialog';
-import { InfoBox } from 'ui/layout/Header/InfoBox';
 import { toVU } from 'ui/typography';
 
 export interface ProjectSaveData {
@@ -20,7 +21,6 @@ export interface ProjectSaveData {
 }
 
 const Container = styled.div`
-  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: end;
@@ -77,7 +77,17 @@ export const Actions: React.FC = () => {
       </div>
 
       {!!saveData && (
-        <InfoBox name={project.name} data={saveData} onClose={cancelSave} />
+        <Modal title={t('projectSaveModal')} onClose={cancelSave}>
+          {t('saveToDisk1')}{' '}
+          <Link
+            href={saveData.data}
+            download={`${project.name}.json`}
+            onClick={cancelSave}
+          >
+            {t('saveToDisk2')}
+          </Link>{' '}
+          ({saveData.timestamp}) {t('saveToDisk3')}.
+        </Modal>
       )}
     </Container>
   );

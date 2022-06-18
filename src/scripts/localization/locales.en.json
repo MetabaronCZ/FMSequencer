@@ -51,5 +51,6 @@
   "moveDown": "Move down",
   "saveToDisk1": "Save",
   "saveToDisk2": "Project file",
-  "saveToDisk3": "to disk"
+  "saveToDisk3": "to disk",
+  "projectSaveModal": "Save file"
 }
