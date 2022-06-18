@@ -42,10 +42,8 @@ const ModalHeader = styled.div`
 `;
 
 const ModalTitle = styled.div`
-  ${Text.Default};
+  ${Text.Heading};
   flex: 1;
-  font-weight: bold;
-  text-transform: uppercase;
 `;
 
 const ModalClose = styled.button`

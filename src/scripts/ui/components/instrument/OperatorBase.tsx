@@ -39,10 +39,8 @@ const ratioValues = getSelection([...ratios], (val) => ({
   value: val,
 }));
 
-const OperatrName = styled.div`
-  ${Text.Default};
-  font-weight: bold;
-  text-transform: uppercase;
+const OperatorName = styled.div`
+  ${Text.Heading};
 `;
 
 interface Props {
@@ -68,7 +66,7 @@ export const OperatorBase: React.FC<Props> = (props) => {
     <Grid>
       <GridRow>
         <GridColumn>
-          <OperatrName>{`${t('operator')} ${operator + 1}`}</OperatrName>
+          <OperatorName>{`${t('operator')} ${operator + 1}`}</OperatorName>
         </GridColumn>
       </GridRow>
 

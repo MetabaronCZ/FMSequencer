@@ -17,7 +17,14 @@ const TextSmall = css`
   line-height: ${({ theme }) => theme.lineHeight.small};
 `;
 
+const TextHeading = css`
+  ${TextDefault};
+  font-weight: bold;
+  text-transform: uppercase;
+`;
+
 export const Text = {
   Default: TextDefault,
   Small: TextSmall,
+  Heading: TextHeading,
 };

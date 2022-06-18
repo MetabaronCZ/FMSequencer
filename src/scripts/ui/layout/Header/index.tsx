@@ -30,10 +30,8 @@ const Panel = styled.div`
 `;
 
 const Logo = styled.h1`
-  ${Text.Default};
-  font-weight: bold;
+  ${Text.Heading};
   letter-spacing: 4px;
-  text-transform: uppercase;
   color: ${({ theme }) => theme.color.grey2};
   margin-right: ${toVU(4)};
 `;

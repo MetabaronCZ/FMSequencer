@@ -10,9 +10,8 @@ import { projectSlice } from 'store/project';
 import { ProjectConfig } from 'modules/project';
 
 import { Button } from 'ui/common/Button';
-import { Link } from 'ui/common/Link';
-import { Modal } from 'ui/common/Modal';
 import { confirm } from 'ui/dialog';
+import { ProjectSaveModal } from 'ui/layout/Header/ProjectSaveModal';
 import { toVU } from 'ui/typography';
 
 export interface ProjectSaveData {
@@ -77,17 +76,11 @@ export const Actions: React.FC = () => {
       </div>
 
       {!!saveData && (
-        <Modal title={t('projectSaveModal')} onClose={cancelSave}>
-          {t('saveToDisk1')}{' '}
-          <Link
-            href={saveData.data}
-            download={`${project.name}.json`}
-            onClick={cancelSave}
-          >
-            {t('saveToDisk2')}
-          </Link>{' '}
-          ({saveData.timestamp}) {t('saveToDisk3')}.
-        </Modal>
+        <ProjectSaveModal
+          filename={`${project.name}.json`}
+          data={saveData}
+          onClose={cancelSave}
+        />
       )}
     </Container>
   );
