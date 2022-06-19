@@ -7,7 +7,7 @@ import { sessionSlice } from 'store/session';
 
 import { Button } from 'ui/common/Button';
 import { Toolbar, ToolbarItem } from 'ui/common/Toolbar';
-import { BarSelector } from 'ui/components/selector/BarSelector';
+import { SequenceLengthSelector } from 'ui/components/selector/SequenceLengthSelector';
 import { SequenceSelector } from 'ui/components/selector/SequenceSelector';
 import { confirm } from 'ui/dialog';
 
@@ -44,9 +44,9 @@ export const SequenceToolbar: React.FC<Props> = ({ bars }) => {
           }}
         />
 
-        <BarSelector
+        <SequenceLengthSelector
           bars={bars}
-          onBarsChange={(value) => {
+          onChange={(value) => {
             dispatch(
               setSequenceLength({
                 sequence,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 import { Text } from 'ui/common/Text';
@@ -75,20 +75,35 @@ interface Props {
   readonly onClose: OnClick;
 }
 
-export const Modal: React.FC<Props> = ({ title, onClose, children }) => (
-  <Container>
-    <Overlay onClick={clickOnly(onClose)} />
+export const Modal: React.FC<Props> = ({ title, onClose, children }) => {
+  useEffect(() => {
+    const escKeyHandler = (e: KeyboardEvent): void => {
+      if ('Escape' === e.key) {
+        onClose();
+      }
+    };
+    document.addEventListener('keyup', escKeyHandler);
 
-    <ModalBox>
-      <ModalHeader>
-        <ModalTitle>{title}</ModalTitle>
+    return () => {
+      document.removeEventListener('keyup', escKeyHandler);
+    };
+  }, [onClose]);
 
-        <ModalClose type="button" onClick={clickOnly(onClose)}>
-          &times;
-        </ModalClose>
-      </ModalHeader>
+  return (
+    <Container>
+      <Overlay onClick={clickOnly(onClose)} />
 
-      <ModalBody>{children}</ModalBody>
-    </ModalBox>
-  </Container>
-);
+      <ModalBox>
+        <ModalHeader>
+          <ModalTitle>{title}</ModalTitle>
+
+          <ModalClose type="button" onClick={clickOnly(onClose)}>
+            &times;
+          </ModalClose>
+        </ModalHeader>
+
+        <ModalBody>{children}</ModalBody>
+      </ModalBox>
+    </Container>
+  );
+};

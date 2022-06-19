@@ -35,7 +35,7 @@
   "confirmSongSequenceDelete": "Do you want to delete this song slot?",
   "confirmSequenceDelete": "Do you want to clear sequence?",
   "confirmPatternDelete": "Do you want to clear pattern?",
-  "confirmPatternDivisionChange": "This will realocate / delete currently set notes. Confirm?",
+  "confirmPatternSizeChange": "This will realocate / delete currently set notes. Confirm?",
   "confirmInstrumentReset": "Do you want to reset instrument do default values?",
   "confirmProjectChange": "Changing project will destroy all unused changes. Confirm?",
   "confirmSongClear": "Do you want to clear song?",
@@ -46,11 +46,14 @@
   "delete": "Delete",
   "clear": "Clear",
   "reset": "Reset",
+  "confirm": "Confirm",
   "perBar": "per bar",
   "moveUp": "Move up",
   "moveDown": "Move down",
   "saveToDisk1": "Save",
   "saveToDisk2": "Project file",
   "saveToDisk3": "to disk",
-  "projectSaveModal": "Save file"
+  "projectSaveModal": "Save file",
+  "patternBarsModal": "Set pattern length",
+  "patternSignatureModal": "Set time signature"
 }

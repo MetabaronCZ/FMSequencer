@@ -1,4 +1,5 @@
 import { PayloadAction } from '@reduxjs/toolkit';
+import { WritableDraft } from 'immer/dist/internal';
 
 import { limitNumber } from 'core/number';
 
@@ -11,7 +12,7 @@ import {
   PATTERN_LENGTH_MIN,
   PatternDivisionID,
 } from 'modules/project/config';
-import { createPatternData } from 'modules/project/pattern';
+import { PatternData, createPatternData } from 'modules/project/pattern';
 
 export interface PatternActionPayload<T> extends TrackActionPayload<T> {
   readonly pattern: number;
@@ -31,6 +32,12 @@ export type PatternsActions =
   | ClearTrackPatternAction
   | ClearTrackPatternNoteAction;
 
+const removeOutOfPatternSteps = (pattern: WritableDraft<PatternData>): void => {
+  const { beats, division, bars, steps } = pattern;
+  const stepCount = beats * division * bars;
+  pattern.steps = steps.filter(({ start }) => start < stepCount);
+};
+
 const setTrackPatternBeats: ProjectReducer<SetTrackPatternBeatsAction> = (
   state,
   action
@@ -38,6 +45,7 @@ const setTrackPatternBeats: ProjectReducer<SetTrackPatternBeatsAction> = (
   const { track, pattern, data } = action.payload;
   const ptn = state.tracks[track].patterns[pattern];
   ptn.beats = limitNumber(data, PATTERN_LENGTH_MIN, PATTERN_LENGTH_MAX);
+  removeOutOfPatternSteps(ptn);
 };
 
 const setTrackPatternDivision: ProjectReducer<SetTrackPatternDivisionAction> = (
@@ -47,10 +55,7 @@ const setTrackPatternDivision: ProjectReducer<SetTrackPatternDivisionAction> = (
   const { track, pattern, data } = action.payload;
   const ptn = state.tracks[track].patterns[pattern];
   ptn.division = data;
-
-  // remove out-of-pattern notes
-  const steps = ptn.beats * ptn.division;
-  ptn.steps = ptn.steps.filter(({ start }) => start <= steps - 1);
+  removeOutOfPatternSteps(ptn);
 };
 
 const setTrackPatternBars: ProjectReducer<SetTrackPatternBarsAction> = (
@@ -60,6 +65,7 @@ const setTrackPatternBars: ProjectReducer<SetTrackPatternBarsAction> = (
   const { track, pattern, data } = action.payload;
   const ptn = state.tracks[track].patterns[pattern];
   ptn.bars = limitNumber(data, PATTERN_LENGTH_MIN, PATTERN_LENGTH_MAX);
+  removeOutOfPatternSteps(ptn);
 };
 
 const clearTrackPattern: ProjectReducer<ClearTrackPatternAction> = (

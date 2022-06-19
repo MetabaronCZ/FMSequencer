@@ -1,18 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
+import { toFixedLength } from 'core/format';
 
 import { useAppDispatch, useAppSelector } from 'store';
 import { projectSlice } from 'store/project';
 import { sessionSlice } from 'store/session';
 
-import { PatternDivisionID } from 'modules/project/config';
 import { PatternData } from 'modules/project/pattern';
 
 import { Button } from 'ui/common/Button';
+import { Field } from 'ui/common/Field';
 import { Toolbar, ToolbarItem } from 'ui/common/Toolbar';
-import { BarSelector } from 'ui/components/selector/BarSelector';
+import { PatternSignatureModal } from 'ui/components/modals/PatternSignatureModal';
+import { PatternPaging } from 'ui/components/pattern/PatternPaging';
 import { PatternSelector } from 'ui/components/selector/PatternSelector';
-import { SignatureSelector } from 'ui/components/selector/SignatureSelector';
 import { confirm } from 'ui/dialog';
 
 interface Props {
@@ -29,47 +31,12 @@ export const PatternToolbar: React.FC<Props> = ({
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { patternPage } = useAppSelector((state) => state.session);
+  const [showSignatureModal, setSignatureModal] = useState(false);
 
-  const { setPattern, setPatternPage, resetPatternPage } = sessionSlice.actions;
-  const {
-    setTrackPatternBeats,
-    setTrackPatternDivision,
-    setTrackPatternBars,
-    clearTrackPattern,
-  } = projectSlice.actions;
+  const { clearTrackPattern } = projectSlice.actions;
+  const { setPattern, resetPatternPage } = sessionSlice.actions;
 
   const data = patterns[pattern];
-
-  const setBars = (bars: number): void => {
-    dispatch(
-      setTrackPatternBars({
-        track,
-        pattern,
-        data: bars,
-      })
-    );
-    if (bars < patternPage) {
-      setPage(bars, bars);
-    }
-  };
-
-  const setSignature = (beats: number, division: PatternDivisionID): void => {
-    dispatch(
-      setTrackPatternBeats({
-        track,
-        pattern,
-        data: beats,
-      })
-    );
-
-    dispatch(
-      setTrackPatternDivision({
-        track,
-        pattern,
-        data: division,
-      })
-    );
-  };
 
   const clear = confirm(t('confirmPatternDelete'), () => {
     dispatch(
@@ -81,9 +48,8 @@ export const PatternToolbar: React.FC<Props> = ({
     dispatch(resetPatternPage());
   });
 
-  const setPage = (bars: number, page: number): void => {
-    dispatch(setPatternPage({ bars, page }));
-  };
+  const formattedBeats = toFixedLength(data.beats, 2, '0');
+  const formattedDivision = toFixedLength(data.division, 2, '0');
 
   return (
     <Toolbar>
@@ -93,17 +59,27 @@ export const PatternToolbar: React.FC<Props> = ({
           onChange={(value) => dispatch(setPattern(value))}
         />
 
-        <SignatureSelector
-          beats={data.beats}
-          division={data.division}
-          onChange={setSignature}
-        />
+        <Field id="signature-button" label={t('signature')}>
+          <Button
+            text={`${formattedBeats}/${formattedDivision}`}
+            onClick={() => setSignatureModal(true)}
+          />
+        </Field>
 
-        <BarSelector
+        {showSignatureModal && (
+          <PatternSignatureModal
+            track={track}
+            pattern={pattern}
+            data={data}
+            onClose={() => setSignatureModal(false)}
+          />
+        )}
+
+        <PatternPaging
+          track={track}
+          pattern={pattern}
           bars={data.bars}
           page={patternPage}
-          onBarsChange={setBars}
-          onPageChange={(page) => setPage(data.bars, page)}
         />
       </ToolbarItem>
 

@@ -10,8 +10,8 @@ import { projectSlice } from 'store/project';
 import { ProjectConfig } from 'modules/project';
 
 import { Button } from 'ui/common/Button';
+import { ProjectSaveModal } from 'ui/components/modals/ProjectSaveModal';
 import { confirm } from 'ui/dialog';
-import { ProjectSaveModal } from 'ui/layout/Header/ProjectSaveModal';
 import { toVU } from 'ui/typography';
 
 export interface ProjectSaveData {
