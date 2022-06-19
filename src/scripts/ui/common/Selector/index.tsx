@@ -69,7 +69,7 @@ export const Selector = <T extends string | number>(
   } = props;
 
   const [focused, setFocused] = useState(false);
-  const contElm = useRef<HTMLDivElement>(null);
+  const contElm = useRef<HTMLOutputElement>(null);
   const selected = values.find((val) => val.value === value);
   return (
     <Container

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { PropsWithChildren, useEffect } from 'react';
 import styled from 'styled-components';
 
 import { Text } from 'ui/common/Text';
@@ -70,7 +70,7 @@ const ModalBody = styled.div`
   background-color: ${({ theme }) => theme.color.white};
 `;
 
-interface Props {
+interface Props extends PropsWithChildren {
   readonly title: string;
   readonly onClose: OnClick;
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import styled from 'styled-components';
 
 import { Label } from 'ui/common/Label';
@@ -7,7 +7,7 @@ const Container = styled.div`
   display: flex;
 `;
 
-interface Props {
+interface Props extends PropsWithChildren {
   readonly id: string;
   readonly label: string;
   readonly inverse?: boolean;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import styled from 'styled-components';
 
 import { Content } from 'ui/layout/Content';
@@ -29,7 +29,7 @@ const LayoutFooter = styled.footer`
   background: ${({ theme }) => theme.color.black};
 `;
 
-export const Layout: React.FC = ({ children }) => (
+export const Layout: React.FC<PropsWithChildren> = ({ children }) => (
   <Container>
     <LayoutHeader>
       <Header />
