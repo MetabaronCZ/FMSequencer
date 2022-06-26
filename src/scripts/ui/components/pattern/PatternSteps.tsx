@@ -1,56 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { createRange } from 'core/array';
 import { toFixedLength } from 'core/format';
 
 import { useAppDispatch } from 'store';
 import { projectSlice } from 'store/project';
 
-import {
-  PITCH_MAX,
-  PITCH_MIN,
-  VELOCITY_MAX,
-  VELOCITY_MIN,
-} from 'modules/engine/config';
-import { getNoteName } from 'modules/engine/pitch';
-import {
-  PatternDivisionID,
-  STEP_FX_VALUE_MAX,
-  STEP_FX_VALUE_MIN,
-  stepFXIDs,
-  stepFXTypes,
-} from 'modules/project/config';
+import { PatternDivisionID, stepFXIDs } from 'modules/project/config';
 import { StepData } from 'modules/project/step';
 
-import { Selector } from 'ui/common/Selector';
 import { Text } from 'ui/common/Text';
-import { getSelection } from 'ui/event';
+import { FXTypeSelector } from 'ui/components/selector/FXTypeSelector';
+import { FXValueSelector } from 'ui/components/selector/FXValueSelector';
+import { PitchSelector } from 'ui/components/selector/PitchSelector';
+import { VelocitySelector } from 'ui/components/selector/VelocitySelector';
 import { toVU } from 'ui/typography';
-
-const pitches = createRange(PITCH_MIN, PITCH_MAX);
-const velocities = createRange(VELOCITY_MIN, VELOCITY_MAX);
-const fxs = createRange(STEP_FX_VALUE_MIN, STEP_FX_VALUE_MAX);
-
-const pitchValues = getSelection(pitches, (val) => ({
-  label: getNoteName(val),
-  value: val,
-}));
-
-const velocityValues = getSelection(velocities, (val) => ({
-  label: toFixedLength(val, 3),
-  value: val,
-}));
-
-const fxTypeValues = getSelection([...stepFXTypes], (id) => ({
-  label: `${toFixedLength(id, 3)}`,
-  value: id,
-}));
-
-const fxValues = getSelection(fxs, (id) => ({
-  label: `${toFixedLength(id, 3)}`,
-  value: id,
-}));
 
 const Container = styled.ul`
   list-style-type: none;
@@ -119,13 +83,9 @@ export const PatternSteps: React.FC<Props> = ({
             </Cell>
 
             <Cell $highlighted={isHighlighted}>
-              <Selector
+              <PitchSelector
                 value={step.note ? step.note.pitch : null}
-                values={pitchValues}
-                defaultValue={60}
-                shiftStep={12}
                 placeholder="&nbsp;&mdash;&nbsp;"
-                plain
                 onChange={(value) => {
                   dispatch(
                     setTrackPatternStepPitch({
@@ -150,25 +110,20 @@ export const PatternSteps: React.FC<Props> = ({
             </Cell>
 
             <Cell $highlighted={isHighlighted}>
-              {step.note ? (
-                <Selector
-                  value={step.note.velocity}
-                  values={velocityValues}
-                  plain
-                  onChange={(value) => {
-                    dispatch(
-                      setTrackPatternStepVelocity({
-                        track,
-                        pattern,
-                        step: stepId,
-                        data: value,
-                      })
-                    );
-                  }}
-                />
-              ) : (
-                <>&nbsp;&mdash;&nbsp;</>
-              )}
+              <VelocitySelector
+                value={step.note ? step.note.velocity : null}
+                placeholder="&nbsp;&mdash;&nbsp;"
+                onChange={(value) => {
+                  dispatch(
+                    setTrackPatternStepVelocity({
+                      track,
+                      pattern,
+                      step: stepId,
+                      data: value,
+                    })
+                  );
+                }}
+              />
             </Cell>
 
             <Divider />
@@ -178,12 +133,9 @@ export const PatternSteps: React.FC<Props> = ({
               return (
                 <React.Fragment key={fxID}>
                   <Cell $highlighted={isHighlighted}>
-                    <Selector
+                    <FXTypeSelector
                       value={fx ? fx.type : null}
-                      values={fxTypeValues}
-                      defaultValue="???"
                       placeholder="&nbsp;&mdash;&nbsp;"
-                      plain
                       onChange={(value) => {
                         dispatch(
                           setTrackPatternStepFXType({
@@ -210,26 +162,21 @@ export const PatternSteps: React.FC<Props> = ({
                   </Cell>
 
                   <Cell $highlighted={isHighlighted}>
-                    {fx ? (
-                      <Selector
-                        value={fx.value}
-                        values={fxValues}
-                        plain
-                        onChange={(value) => {
-                          dispatch(
-                            setTrackPatternStepFXValue({
-                              track,
-                              pattern,
-                              step: stepId,
-                              fx: fxID,
-                              data: value,
-                            })
-                          );
-                        }}
-                      />
-                    ) : (
-                      <>&nbsp;&mdash;&nbsp;</>
-                    )}
+                    <FXValueSelector
+                      value={fx ? fx.value : null}
+                      placeholder="&nbsp;&mdash;&nbsp;"
+                      onChange={(value) => {
+                        dispatch(
+                          setTrackPatternStepFXValue({
+                            track,
+                            pattern,
+                            step: stepId,
+                            fx: fxID,
+                            data: value,
+                          })
+                        );
+                      }}
+                    />
                   </Cell>
 
                   {f < stepFXIDs.length - 1 && <Divider />}
