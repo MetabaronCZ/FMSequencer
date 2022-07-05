@@ -1,9 +1,26 @@
-import React, { PropsWithChildren, useEffect } from 'react';
-import styled from 'styled-components';
+import React, {
+  PropsWithChildren,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
+import styled, { css } from 'styled-components';
 
 import { Text } from 'ui/common/Text';
+import {
+  fadeInAnimation,
+  fadeOutAnimation,
+  growAnimation,
+  shrinkAnimation,
+} from 'ui/common/animations';
 import { OnClick, clickOnly } from 'ui/event';
 import { toVU } from 'ui/typography';
+
+const closeTimeout = 250; // in ms
+
+interface StyledProps {
+  readonly $closing: boolean;
+}
 
 const Container = styled.div`
   position: absolute;
@@ -18,7 +35,7 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-const Overlay = styled.div`
+const Overlay = styled.div<StyledProps>`
   position: absolute;
   top: 0;
   left: 0;
@@ -26,13 +43,35 @@ const Overlay = styled.div`
   height: 100%;
   z-index: 0;
   background: ${({ theme }) => `${theme.color.white}d0`};
+
+  ${({ theme, $closing }) =>
+    $closing
+      ? css`
+          animation-name: ${fadeOutAnimation};
+          animation-duration: ${closeTimeout}ms;
+        `
+      : css`
+          animation-name: ${fadeInAnimation};
+          animation-duration: ${theme.animation.duration.default};
+        `}
 `;
 
-const ModalBox = styled.div`
+const ModalBox = styled.div<StyledProps>`
   width: ${toVU(50)};
   z-index: 1;
   border: ${({ theme }) => theme.border.grey};
   background: ${({ theme }) => `${theme.color.grey1}`};
+
+  ${({ theme, $closing }) =>
+    $closing
+      ? css`
+          animation-name: ${shrinkAnimation};
+          animation-duration: ${closeTimeout}ms;
+        `
+      : css`
+          animation-name: ${growAnimation};
+          animation-duration: ${theme.animation.duration.default};
+        `}
 `;
 
 const ModalHeader = styled.div`
@@ -76,10 +115,23 @@ interface Props extends PropsWithChildren {
 }
 
 export const Modal: React.FC<Props> = ({ title, onClose, children }) => {
+  const [isClosing, setClosing] = useState(false);
+
+  const close = useCallback((): void => {
+    if (isClosing) {
+      return;
+    }
+    setClosing(true);
+
+    setTimeout(() => {
+      onClose();
+    }, closeTimeout);
+  }, [isClosing, onClose]);
+
   useEffect(() => {
     const escKeyHandler = (e: KeyboardEvent): void => {
       if ('Escape' === e.key) {
-        onClose();
+        close();
       }
     };
     document.addEventListener('keyup', escKeyHandler);
@@ -87,17 +139,17 @@ export const Modal: React.FC<Props> = ({ title, onClose, children }) => {
     return () => {
       document.removeEventListener('keyup', escKeyHandler);
     };
-  }, [onClose]);
+  }, [close]);
 
   return (
     <Container>
-      <Overlay onClick={clickOnly(onClose)} />
+      <Overlay $closing={isClosing} onClick={clickOnly(close)} />
 
-      <ModalBox>
+      <ModalBox $closing={isClosing}>
         <ModalHeader>
           <ModalTitle>{title}</ModalTitle>
 
-          <ModalClose type="button" onClick={clickOnly(onClose)}>
+          <ModalClose type="button" onClick={clickOnly(close)}>
             &times;
           </ModalClose>
         </ModalHeader>

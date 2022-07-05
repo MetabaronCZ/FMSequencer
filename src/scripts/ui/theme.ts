@@ -58,6 +58,11 @@ declare module 'styled-components' {
         readonly width: string;
       };
     };
+    readonly animation: {
+      readonly duration: {
+        readonly default: string;
+      };
+    };
   }
 }
 
@@ -92,6 +97,11 @@ export const defaultTheme: DefaultTheme = {
   dimensions: {
     page: {
       width: '1280px',
+    },
+  },
+  animation: {
+    duration: {
+      default: '400ms',
     },
   },
 };
