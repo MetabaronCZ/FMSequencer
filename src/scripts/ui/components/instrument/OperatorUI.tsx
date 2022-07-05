@@ -3,7 +3,6 @@ import React from 'react';
 import { OperatorData } from 'modules/project/instrument/operator';
 
 import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
-import { EnvelopeCanvas } from 'ui/components/instrument/EnvelopeCanvas';
 import { EnvelopeUI } from 'ui/components/instrument/EnvelopeUI';
 import { OperatorBase } from 'ui/components/instrument/OperatorBase';
 
@@ -34,7 +33,9 @@ export const OperatorUI: React.FC<Props> = ({
             highlighted={highlighted}
           />
         </GridColumn>
+      </GridRow>
 
+      <GridRow>
         <GridColumn>
           <EnvelopeUI
             track={track}
@@ -42,10 +43,6 @@ export const OperatorUI: React.FC<Props> = ({
             data={envelope}
             highlighted={highlighted}
           />
-        </GridColumn>
-
-        <GridColumn>
-          <EnvelopeCanvas envelope={envelope} />
         </GridColumn>
       </GridRow>
     </Grid>

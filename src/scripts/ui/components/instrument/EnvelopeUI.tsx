@@ -91,9 +91,7 @@ export const EnvelopeUI: React.FC<Props> = ({
             }}
           />
         </GridColumn>
-      </GridRow>
 
-      <GridRow>
         <GridColumn>
           <SelectorField
             label={t('envelopeDecay')}
@@ -111,9 +109,7 @@ export const EnvelopeUI: React.FC<Props> = ({
             }}
           />
         </GridColumn>
-      </GridRow>
 
-      <GridRow>
         <GridColumn>
           <SelectorField
             label={t('envelopeSustain')}
@@ -131,9 +127,7 @@ export const EnvelopeUI: React.FC<Props> = ({
             }}
           />
         </GridColumn>
-      </GridRow>
 
-      <GridRow>
         <GridColumn>
           <SelectorField
             label={t('envelopeRelease')}

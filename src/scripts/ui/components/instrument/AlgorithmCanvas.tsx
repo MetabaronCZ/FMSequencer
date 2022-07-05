@@ -48,7 +48,7 @@ export const AlgorithmCanvas: React.FC<Props> = ({ algorithm }) => {
 
     ctx.strokeStyle = lineColor;
     ctx.fillStyle = lineColor;
-    ctx.font = '12px "RobotoMono", sans-serif';
+    ctx.font = '11px "RobotoMono", sans-serif';
     ctx.textAlign = 'center';
     ctx.lineWidth = 1;
     ctx.lineCap = 'butt';
@@ -67,7 +67,7 @@ export const AlgorithmCanvas: React.FC<Props> = ({ algorithm }) => {
       ]);
 
       ctx.strokeRect(x0, y0, opSize, opSize);
-      ctx.fillText(`${i + 1}`, x0 + opSize / 2, y0 + opSize / 2 + 5);
+      ctx.fillText(`${i + 1}`, x0 + opSize / 2, y0 + opSize / 2 + 4);
     });
 
     ctx.lineWidth = 1;

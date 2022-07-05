@@ -68,9 +68,7 @@ export const OperatorBase: React.FC<Props> = (props) => {
         <GridColumn>
           <OperatorName>{`${t('operator')} ${operator + 1}`}</OperatorName>
         </GridColumn>
-      </GridRow>
 
-      <GridRow>
         <GridColumn>
           <SelectorField
             label={t('shape')}
@@ -88,9 +86,7 @@ export const OperatorBase: React.FC<Props> = (props) => {
             }}
           />
         </GridColumn>
-      </GridRow>
 
-      <GridRow>
         <GridColumn>
           <SelectorField
             label={t('level')}
@@ -108,9 +104,7 @@ export const OperatorBase: React.FC<Props> = (props) => {
             }}
           />
         </GridColumn>
-      </GridRow>
 
-      <GridRow>
         <GridColumn>
           <SelectorField
             label={t('ratio')}

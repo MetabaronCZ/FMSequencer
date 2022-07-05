@@ -11,24 +11,22 @@ import { EnvelopeData } from 'modules/project/instrument/envelope';
 
 import { defaultTheme } from 'ui/theme';
 
-const canvasWidth = 150;
-const canvasHeight = 100;
+const canvasWidth = 100;
+const canvasHeight = 60;
 const padding = 10;
+const labelOffset = 5;
 const lineColor = defaultTheme.color.white;
 
 const Container = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
   background: ${({ theme }) => theme.color.black};
 `;
 
 interface Props {
+  readonly operator: number;
   readonly envelope: EnvelopeData;
 }
 
-export const EnvelopeCanvas: React.FC<Props> = ({ envelope }) => {
+export const EnvelopeCanvas: React.FC<Props> = ({ operator, envelope }) => {
   const containerElm = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -56,7 +54,7 @@ export const EnvelopeCanvas: React.FC<Props> = ({ envelope }) => {
       );
     }
     const widthPart = (canvasWidth - 2 * padding) / 4;
-    const heightPart = canvasHeight - 2 * padding;
+    const heightPart = canvasHeight - 2 * padding - labelOffset;
 
     const startX = padding;
     const startY = canvasHeight - padding;
@@ -72,8 +70,11 @@ export const EnvelopeCanvas: React.FC<Props> = ({ envelope }) => {
     ctx.translate(0.5, 0.5);
 
     ctx.strokeStyle = lineColor;
-    ctx.lineCap = 'butt';
+    ctx.fillStyle = lineColor;
+    ctx.font = '11px "RobotoMono", sans-serif';
+    ctx.textAlign = 'center';
     ctx.lineWidth = 1;
+    ctx.lineCap = 'butt';
 
     ctx.moveTo(startX, startY);
     ctx.lineTo(attackX, attackY);
@@ -82,12 +83,14 @@ export const EnvelopeCanvas: React.FC<Props> = ({ envelope }) => {
     ctx.lineTo(releaseX, releaseY);
     ctx.stroke();
 
+    ctx.fillText(`OP${operator}`, 14, 10);
+
     elm.appendChild(canvas);
 
     return () => {
       elm.removeChild(canvas);
     };
-  }, [envelope]);
+  }, [operator, envelope]);
 
   return <Container ref={containerElm} />;
 };
