@@ -6,13 +6,13 @@ import React, {
 } from 'react';
 import styled, { css } from 'styled-components';
 
-import { Text } from 'ui/common/Text';
 import {
   fadeInAnimation,
   fadeOutAnimation,
   growAnimation,
   shrinkAnimation,
-} from 'ui/common/animations';
+} from 'ui/animations';
+import { Text } from 'ui/common/Text';
 import { OnClick, clickOnly } from 'ui/event';
 import { toVU } from 'ui/typography';
 

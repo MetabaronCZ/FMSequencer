@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { Text } from 'ui/common/Text';
 import { toVU } from 'ui/typography';
@@ -23,16 +23,16 @@ export const ToolbarItem = styled.li<StyledItemProps>`
 
   ${({ theme, isActions }) =>
     isActions
-      ? `
-        flex: 1;
-        text-align: right;
-      `
-      : `
-        & > *:not(:last-child)::after {
-          display: block;
-          content: '•';
-          padding: 0 ${toVU(0.5)};
-          color: ${theme.color.grey2};
-        }
-    `};
+      ? css`
+          flex: 1;
+          text-align: right;
+        `
+      : css`
+          & > *:not(:last-child)::after {
+            display: block;
+            content: '•';
+            padding: 0 ${toVU(0.5)};
+            color: ${theme.color.grey2};
+          }
+        `};
 `;

@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { OnClick, clickOnly } from 'ui/event';
 import { toVU } from 'ui/typography';
@@ -19,7 +19,7 @@ const StyledButton = styled.button<StyledProps>`
 
   ${({ $isActive, theme }) =>
     $isActive &&
-    `
+    css`
       color: ${theme.color.white};
       background: ${theme.color.black};
     `}

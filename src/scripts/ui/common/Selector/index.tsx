@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { InputStyles, InputStylesProps } from 'ui/common/Input';
 import { selectorEvents } from 'ui/common/Selector/events';
@@ -24,13 +24,13 @@ const Container = styled.output<StyledProps>`
 
   ${({ theme, $plain }) =>
     $plain &&
-    `
+    css`
       border: none;
       background-color: transparent;
 
       &:hover,
       &:focus {
-          background-color: ${theme.color.grey1};
+        background-color: ${theme.color.grey1};
       }
     `}
 `;
