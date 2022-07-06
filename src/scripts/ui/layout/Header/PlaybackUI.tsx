@@ -21,7 +21,7 @@ const List = styled.ul`
   gap: ${toVU(1)};
 `;
 
-export const Playback: React.FC = () => {
+export const PlaybackUI: React.FC = () => {
   const { t } = useTranslation();
   const [played, setPlayed] = useState<PlayTarget | null>(null);
   const [paused, setPaused] = useState<boolean>(false);

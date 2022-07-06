@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Text } from 'ui/common/Text';
 import { Actions } from 'ui/layout/Header/Actions';
 import { Fields } from 'ui/layout/Header/Fields';
-import { Playback } from 'ui/layout/Header/Playback';
+import { PlaybackUI } from 'ui/layout/Header/PlaybackUI';
 import { toVU } from 'ui/typography';
 
 export interface ProjectSaveData {
@@ -55,7 +55,7 @@ export const Header: React.FC = () => {
       </Panel>
 
       <Panel>
-        <Playback />
+        <PlaybackUI />
       </Panel>
     </Container>
   );
