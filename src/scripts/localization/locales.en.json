@@ -56,5 +56,9 @@
   "saveToDisk3": "to disk",
   "saveModalTitle": "Save file",
   "patternBarsModal": "Set pattern length",
-  "patternSignatureModal": "Set time signature"
+  "patternSignatureModal": "Set time signature",
+  "playPattern": "Play pattern",
+  "playSequence": "Play sequence",
+  "playSong": "Play song",
+  "stop": "Stop"
 }

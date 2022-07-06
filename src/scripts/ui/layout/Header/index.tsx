@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { Text } from 'ui/common/Text';
 import { Actions } from 'ui/layout/Header/Actions';
 import { Fields } from 'ui/layout/Header/Fields';
+import { Playback } from 'ui/layout/Header/Playback';
 import { toVU } from 'ui/typography';
 
 export interface ProjectSaveData {
@@ -27,6 +28,10 @@ const Panel = styled.div`
   flex-direction: row;
   gap: ${toVU(2)};
   flex: 1;
+
+  &:last-child {
+    justify-content: right;
+  }
 `;
 
 const Logo = styled.h1`
@@ -49,7 +54,9 @@ export const Header: React.FC = () => {
         <Fields />
       </Panel>
 
-      <Panel />
+      <Panel>
+        <Playback />
+      </Panel>
     </Container>
   );
 };
