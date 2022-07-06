@@ -10,14 +10,9 @@ import { projectSlice } from 'store/project';
 import { ProjectConfig } from 'modules/project';
 
 import { Button } from 'ui/common/Button';
-import { ProjectSaveModal } from 'ui/components/modals/ProjectSaveModal';
+import { SaveData, SaveModal } from 'ui/components/modals/SaveModal';
 import { confirm } from 'ui/dialog';
 import { toVU } from 'ui/typography';
-
-export interface ProjectSaveData {
-  readonly data: string;
-  readonly timestamp: string;
-}
 
 const Container = styled.div`
   display: flex;
@@ -31,7 +26,7 @@ export const Actions: React.FC = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { project } = useAppSelector((state) => state);
-  const [saveData, setSaveData] = useState<ProjectSaveData | null>(null);
+  const [saveData, setSaveData] = useState<SaveData | null>(null);
   const { loadProject } = projectSlice.actions;
 
   const cancelSave = (): void => setSaveData(null);
@@ -70,13 +65,13 @@ export const Actions: React.FC = () => {
   return (
     <Container>
       <div>
-        <Button text={t('projectCreate')} onClick={create} />
-        <Button text={t('projectLoad')} onClick={load} />
-        <Button text={t('projectSave')} onClick={save} />
+        <Button text={t('create')} onClick={create} />
+        <Button text={t('load')} onClick={load} />
+        <Button text={t('save')} onClick={save} />
       </div>
 
       {!!saveData && (
-        <ProjectSaveModal
+        <SaveModal
           filename={`${project.name}.json`}
           data={saveData}
           onClose={cancelSave}

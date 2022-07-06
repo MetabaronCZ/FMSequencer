@@ -3,22 +3,22 @@ import { useTranslation } from 'react-i18next';
 
 import { Link } from 'ui/common/Link';
 import { Modal } from 'ui/common/Modal';
-import { ProjectSaveData } from 'ui/layout/Header';
+
+export interface SaveData {
+  readonly data: string;
+  readonly timestamp: string;
+}
 
 interface Props {
   readonly filename: string;
-  readonly data: ProjectSaveData;
+  readonly data: SaveData;
   readonly onClose: () => void;
 }
 
-export const ProjectSaveModal: React.FC<Props> = ({
-  filename,
-  data,
-  onClose,
-}) => {
+export const SaveModal: React.FC<Props> = ({ filename, data, onClose }) => {
   const { t } = useTranslation();
   return (
-    <Modal title={t('projectSaveModal')} onClose={onClose}>
+    <Modal title={t('saveModalTitle')} onClose={onClose}>
       {t('saveToDisk1')}{' '}
       <Link href={data.data} download={filename} onClick={onClose}>
         {t('saveToDisk2')}

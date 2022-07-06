@@ -15,14 +15,14 @@ export const InstrumentUI: React.FC = () => {
   const { track } = useAppSelector((state) => state.session);
   const { tracks } = useAppSelector((state) => state.project);
 
-  const { name, algorithm, level, pan, filter, operators } =
-    tracks[track].instrument;
+  const { instrument } = tracks[track];
+  const { algorithm, level, pan, filter, operators } = instrument;
 
   return (
     <Grid>
       <GridRow>
         <GridColumn>
-          <InstrumentToolbar name={name} />
+          <InstrumentToolbar instrument={instrument} />
         </GridColumn>
       </GridRow>
 
