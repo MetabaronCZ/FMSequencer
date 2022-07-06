@@ -27,6 +27,15 @@ class Engine {
   public getTime(): number {
     return this.context.currentTime;
   }
+
+  // stop all voices
+  public stop(): void {
+    const time = this.getTime();
+
+    for (const voice of this.voices) {
+      voice.noteOff(time, true);
+    }
+  }
 }
 
 export const AudioEngine = new Engine();

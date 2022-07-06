@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 import { TFunction, useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
+import { useAppSelector } from 'store';
+
+import { AudioEngine } from 'modules/engine';
+import { PatternData } from 'modules/project/pattern';
+import { AudioPlayback } from 'modules/project/playback';
+
 import { PlaybackButton } from 'ui/layout/Header/PlaybackButton';
 import { toVU } from 'ui/typography';
 
@@ -24,41 +30,86 @@ const List = styled.ul`
 export const PlaybackUI: React.FC = () => {
   const { t } = useTranslation();
   const [played, setPlayed] = useState<PlayTarget | null>(null);
-  const [paused, setPaused] = useState<boolean>(false);
+  const { project, session } = useAppSelector((state) => state);
+  const { tracks, sequences, song, tempo } = project;
+  const { pattern, sequence, track, soloedTrack, mutedTracks } = session;
 
-  const playButtons = getPlayButtons(t);
-
-  const isPlayed = (target: PlayTarget): boolean => {
-    return !paused && target === played;
+  const getPattern = (trk: number, ptn: number): PatternData => {
+    return tracks[trk].patterns[ptn];
   };
 
-  const play = (target: PlayTarget): void => {
-    setPaused(false);
+  const getSequence = (seq: number): PatternData[] => {
+    return sequences[seq].tracks.map(({ pattern: ptn }, i) =>
+      getPattern(i, ptn)
+    );
+  };
+
+  const getSong = (): PatternData[][] => {
+    const result: PatternData[][] = [];
+
+    for (const { sequence: seq, repeat } of song.sequences) {
+      const seqData = getSequence(seq);
+
+      for (let i = 0; i < repeat; i++) {
+        result.push(seqData);
+      }
+    }
+    return result;
+  };
+
+  const instruments = tracks.map(({ instrument }) => instrument);
+  const currentPattern = getPattern(track, pattern);
+  const currentSequence = getSequence(sequence);
+  const currentSong = getSong();
+
+  const play = (target: PlayTarget) => () => {
+    const time = AudioEngine.getTime();
+
+    switch (target) {
+      case 'PATTERN':
+        AudioPlayback.playPattern(
+          currentPattern,
+          instruments[track],
+          track,
+          tempo,
+          time
+        );
+        break;
+
+      case 'SEQUENCE':
+        AudioPlayback.playSequence(
+          currentSequence,
+          instruments,
+          soloedTrack,
+          mutedTracks,
+          tempo,
+          time
+        );
+        break;
+
+      case 'SONG':
+        AudioPlayback.playSong(
+          currentSong,
+          instruments,
+          soloedTrack,
+          mutedTracks,
+          tempo,
+          time
+        );
+        break;
+
+      default:
+        throw new Error(`Could not play: Invalid target "${target}"!`);
+    }
     setPlayed(target);
   };
 
-  const pause = (): void => {
-    setPaused(true);
-  };
-
-  const resume = (): void => {
-    setPaused(false);
-  };
-
   const stop = (): void => {
-    setPaused(false);
+    AudioPlayback.stop();
     setPlayed(null);
   };
 
-  const togglePlay = (target: PlayTarget) => () => {
-    if (target !== played) {
-      play(target);
-    } else if (paused) {
-      resume();
-    } else {
-      pause();
-    }
-  };
+  const playButtons = getPlayButtons(t);
 
   return (
     <List>
@@ -66,9 +117,9 @@ export const PlaybackUI: React.FC = () => {
         <li key={text}>
           <PlaybackButton
             title={title}
-            ico={isPlayed(target) ? '⏸' : '⏵'}
+            ico={target === played ? '⏸' : '⏵'}
             text={text}
-            onClick={togglePlay(target)}
+            onClick={play(target)}
           />
         </li>
       ))}

@@ -1,8 +1,6 @@
 import { AudioEngine } from 'modules/engine';
-import { ProjectData } from 'modules/project';
 import { InstrumentData } from 'modules/project/instrument';
 import { PatternData } from 'modules/project/pattern';
-import { SessionData } from 'modules/session';
 
 class Playback {
   public playNote(
@@ -85,36 +83,24 @@ class Playback {
     ).then();
   }
 
-  public playSong(project: ProjectData, session: SessionData): Promise<void> {
-    const time = AudioEngine.getTime();
-    const { soloedTrack, mutedTracks } = session;
-    const tracks = project.tracks.map(({ patterns }) => patterns);
-    const instruments = project.tracks.map(({ instrument }) => instrument);
-
-    const slots: PatternData[][] = [];
-
-    // extrackt pattern data and multiply it to "repeat" slot value
-    for (const { sequence, repeat } of project.song.sequences) {
-      const seqData = project.sequences[sequence];
-
-      for (let i = 0; i < repeat; i++) {
-        slots.push(seqData.tracks.map(({ pattern }, t) => tracks[t][pattern]));
-      }
-    }
-
+  public playSong(
+    song: PatternData[][],
+    instruments: InstrumentData[],
+    soloed: number | null,
+    muted: number[],
+    bpm: number,
+    time: number
+  ): Promise<void> {
     return Promise.all(
-      slots.map((sequence) =>
-        this.playSequence(
-          sequence,
-          instruments,
-          soloedTrack,
-          mutedTracks,
-          project.tempo,
-          time
-        )
+      song.map((sequence) =>
+        this.playSequence(sequence, instruments, soloed, muted, bpm, time)
       )
     ).then();
   }
+
+  public stop(): void {
+    AudioEngine.stop();
+  }
 }
 
-export const PlaybackEngine = new Playback();
+export const AudioPlayback = new Playback();
