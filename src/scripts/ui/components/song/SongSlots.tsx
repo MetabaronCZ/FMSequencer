@@ -114,18 +114,22 @@ export const SongSlots: React.FC<Props> = ({ song }) => {
 
           <ItemColumn>
             <Button
-              text="▲"
+              text="˄"
               title={t('moveUp')}
               onClick={() => moveSequence(i, -1)}
             />
 
             <Button
-              text="▼"
+              text="˅"
               title={t('moveDown')}
               onClick={() => moveSequence(i, +1)}
             />
 
-            <Button text={t('delete')} onClick={() => deleteSequence(i)} />
+            <Button
+              text="×"
+              title={t('delete')}
+              onClick={() => deleteSequence(i)}
+            />
           </ItemColumn>
         </Item>
       ))}

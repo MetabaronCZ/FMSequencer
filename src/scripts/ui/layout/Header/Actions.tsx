@@ -65,9 +65,9 @@ export const Actions: React.FC = () => {
   return (
     <Container>
       <div>
-        <Button text={t('create')} onClick={create} />
-        <Button text={t('load')} onClick={load} />
-        <Button text={t('save')} onClick={save} />
+        <Button text="+" title={t('create')} onClick={create} />
+        <Button text="⬇" title={t('load')} onClick={load} />
+        <Button text="🖫" title={t('save')} onClick={save} />
       </div>
 
       {!!saveData && (

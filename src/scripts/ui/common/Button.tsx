@@ -8,9 +8,12 @@ import { toVU } from 'ui/typography';
 const StyledButton = styled.button`
   ${Text.Default};
   display: inline-block;
+  min-width: ${toVU(2)};
+  line-height: ${toVU(2)};
   padding: 0 ${toVU(0.5)};
   color: ${({ theme }) => theme.color.white};
   background: ${({ theme }) => theme.color.grey3};
+  text-align: center;
   border: none;
   outline: none;
   cursor: pointer;

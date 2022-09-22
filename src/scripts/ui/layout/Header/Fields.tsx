@@ -69,7 +69,7 @@ export const Fields: React.FC = () => {
       />
 
       <SelectorField
-        label={t('level')}
+        label={t('master')}
         value={master.level}
         values={levelValues}
         onChange={(value) => dispatch(setMasterLevel(value))}

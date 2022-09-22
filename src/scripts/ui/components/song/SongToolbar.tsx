@@ -32,12 +32,13 @@ export const SongToolbar: React.FC<Props> = ({ song }) => {
       <ToolbarItem isActions>
         {song.sequences.length < SONG_LENGTH_MAX && (
           <Button
-            text={t('insert')}
+            text="+"
+            title={t('insert')}
             onClick={() => dispatch(addSongSequence())}
           />
         )}
 
-        <Button text={t('clear')} onClick={clear} />
+        <Button text="×" title={t('clear')} onClick={clear} />
       </ToolbarItem>
     </Toolbar>
   );

@@ -84,7 +84,7 @@ export const PatternToolbar: React.FC<Props> = ({
       </ToolbarItem>
 
       <ToolbarItem isActions>
-        <Button text={t('clear')} onClick={clear} />
+        <Button text="×" title={t('clear')} onClick={clear} />
       </ToolbarItem>
     </Toolbar>
   );

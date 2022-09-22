@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { createRange } from 'core/array';
-import { toFixedLength } from 'core/format';
 
 import {
   SEQUENCE_LENGTH_MIN,
@@ -14,7 +13,7 @@ import { getSelection } from 'ui/event';
 const repeats = createRange(SEQUENCE_LENGTH_MIN, SEQUENCE_REPEAT_MAX);
 
 const repeatValues = getSelection(repeats, (val) => ({
-  label: toFixedLength(val, 3),
+  label: `${val}`,
   value: val,
 }));
 
