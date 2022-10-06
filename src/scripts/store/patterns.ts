@@ -10,51 +10,43 @@ import { TrackActionPayload } from 'store/track';
 import {
   PATTERN_LENGTH_MAX,
   PATTERN_LENGTH_MIN,
-  PatternDivisionID,
+  SignatureID,
 } from 'modules/project/config';
-import { PatternData, createPatternData } from 'modules/project/pattern';
+import {
+  PatternData,
+  createPatternData,
+  getSignatureData,
+} from 'modules/project/pattern';
 
 export interface PatternActionPayload<T> extends TrackActionPayload<T> {
   readonly pattern: number;
 }
-type SetTrackPatternBeatsAction = PayloadAction<PatternActionPayload<number>>;
-type SetTrackPatternDivisionAction = PayloadAction<
-  PatternActionPayload<PatternDivisionID>
+type SetTrackPatternSignatureAction = PayloadAction<
+  PatternActionPayload<SignatureID>
 >;
 type SetTrackPatternBarsAction = PayloadAction<PatternActionPayload<number>>;
 type ClearTrackPatternAction = PayloadAction<TrackActionPayload<number>>;
 type ClearTrackPatternNoteAction = PayloadAction<PatternActionPayload<number>>;
 
 export type PatternsActions =
-  | SetTrackPatternBeatsAction
-  | SetTrackPatternDivisionAction
+  | SetTrackPatternSignatureAction
   | SetTrackPatternBarsAction
   | ClearTrackPatternAction
   | ClearTrackPatternNoteAction;
 
 const removeOutOfPatternSteps = (pattern: WritableDraft<PatternData>): void => {
-  const { beats, division, bars, steps } = pattern;
+  const { signature, bars, steps } = pattern;
+  const [division, beats] = getSignatureData(signature);
   const stepCount = beats * division * bars;
   pattern.steps = steps.filter(({ start }) => start < stepCount);
 };
 
-const setTrackPatternBeats: ProjectReducer<SetTrackPatternBeatsAction> = (
-  state,
-  action
-) => {
+const setTrackPatternSignature: ProjectReducer<
+  SetTrackPatternSignatureAction
+> = (state, action) => {
   const { track, pattern, data } = action.payload;
   const ptn = state.tracks[track].patterns[pattern];
-  ptn.beats = limitNumber(data, PATTERN_LENGTH_MIN, PATTERN_LENGTH_MAX);
-  removeOutOfPatternSteps(ptn);
-};
-
-const setTrackPatternDivision: ProjectReducer<SetTrackPatternDivisionAction> = (
-  state,
-  action
-) => {
-  const { track, pattern, data } = action.payload;
-  const ptn = state.tracks[track].patterns[pattern];
-  ptn.division = data;
+  ptn.signature = data;
   removeOutOfPatternSteps(ptn);
 };
 
@@ -86,8 +78,7 @@ const clearTrackPatternNote: ProjectReducer<ClearTrackPatternNoteAction> = (
 };
 
 export const patternsReducer = {
-  setTrackPatternBeats,
-  setTrackPatternDivision,
+  setTrackPatternSignature,
   setTrackPatternBars,
   clearTrackPattern,
   clearTrackPatternNote,

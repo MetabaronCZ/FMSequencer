@@ -1,22 +1,20 @@
 import { toFixedLength } from 'core/format';
 
-import { PatternDivisionID } from 'modules/project/config';
+import { SignatureID } from 'modules/project/config';
 import { StepConfig, StepData, createStepData } from 'modules/project/step';
 
 export interface PatternData {
   readonly name: string;
   readonly steps: StepData[];
-  readonly bars: number; // number of bars
-  readonly beats: number; // number of beats in a bar
-  readonly division: PatternDivisionID; // number of steps in one beat
+  readonly signature: SignatureID;
+  readonly bars: number;
 }
 
 export interface PatternConfig {
   readonly name?: string;
   readonly steps?: StepConfig[];
+  readonly signature?: SignatureID;
   readonly bars?: number;
-  readonly beats?: number;
-  readonly division?: PatternDivisionID;
 }
 
 export const createPatternData = (
@@ -26,21 +24,26 @@ export const createPatternData = (
   const steps = config.steps ?? [];
   return {
     name: config.name ?? `Pattern ${toFixedLength(id + 1, 2, '0')}`,
+    signature: config.signature ?? '4/4',
     bars: config.bars ?? 1,
-    beats: config.beats ?? 4,
-    division: config.division ?? 4,
     steps: steps.map((item) => createStepData(item)),
   };
+};
+
+export const getSignatureData = (signature: SignatureID): [number, number] => {
+  const [division, beats] = signature.split('/').map((s) => parseInt(s, 10));
+  return [division, beats];
 };
 
 export const getPatternSteps = (
   pattern: PatternData,
   page: number
 ): StepData[] => {
-  const { steps: stepsData, beats, division } = pattern;
+  const { steps: stepsData, signature } = pattern;
   const data = [...stepsData].sort((a, b) => a.start - b.start);
-  const perPage = beats * division;
+  const [division, beats] = getSignatureData(signature);
 
+  const perPage = beats * division;
   const startStep = (page - 1) * perPage;
 
   const steps: StepData[] = Array(perPage)

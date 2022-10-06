@@ -4,8 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useAppDispatch } from 'store';
 import { projectSlice } from 'store/project';
 
-import { PatternDivisionID } from 'modules/project/config';
-import { PatternData } from 'modules/project/pattern';
+import { SignatureID } from 'modules/project/config';
 
 import { Button } from 'ui/common/Button';
 import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
@@ -13,52 +12,32 @@ import { Modal } from 'ui/common/Modal';
 import { SignatureSelector } from 'ui/components/selector/SignatureSelector';
 import { confirm } from 'ui/dialog';
 
-interface State {
-  readonly beats: number;
-  readonly division: PatternDivisionID;
-}
-
 interface Props {
   readonly track: number;
   readonly pattern: number;
-  readonly data: PatternData;
+  readonly signature: SignatureID;
   readonly onClose: () => void;
 }
 
 export const PatternSignatureModal: React.FC<Props> = ({
   track,
   pattern,
-  data,
+  signature,
   onClose,
 }) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-
-  const [state, setState] = useState<State>({
-    beats: data.beats,
-    division: data.division,
-  });
-
-  const { setTrackPatternBeats, setTrackPatternDivision } =
-    projectSlice.actions;
+  const [value, setValue] = useState<SignatureID>(signature);
+  const { setTrackPatternSignature } = projectSlice.actions;
 
   const setSignature = confirm(t('confirmPatternSizeChange'), () => {
     dispatch(
-      setTrackPatternBeats({
+      setTrackPatternSignature({
         track,
         pattern,
-        data: state.beats,
+        data: value,
       })
     );
-
-    dispatch(
-      setTrackPatternDivision({
-        track,
-        pattern,
-        data: state.division,
-      })
-    );
-
     onClose();
   });
 
@@ -67,11 +46,7 @@ export const PatternSignatureModal: React.FC<Props> = ({
       <Grid>
         <GridRow>
           <GridColumn>
-            <SignatureSelector
-              beats={state.beats}
-              division={state.division}
-              onChange={(beats, division) => setState({ beats, division })}
-            />
+            <SignatureSelector value={value} onChange={setValue} />
           </GridColumn>
 
           <GridColumn $size={0}>

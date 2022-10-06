@@ -1,6 +1,6 @@
 import { AudioEngine } from 'modules/engine';
 import { InstrumentData } from 'modules/project/instrument';
-import { PatternData } from 'modules/project/pattern';
+import { PatternData, getSignatureData } from 'modules/project/pattern';
 
 class Playback {
   public playNote(
@@ -28,7 +28,9 @@ class Playback {
     bpm: number,
     time: number
   ): Promise<void> {
-    const { steps, division, beats } = pattern;
+    const { steps, signature } = pattern;
+    const [division, beats] = getSignatureData(signature);
+
     const beat4on4Length = (60 * 1000 * 1000) / bpm; // in microseconds
     const patternBeatLength = (beat4on4Length * 4) / beats;
     const stepLength = patternBeatLength / division;

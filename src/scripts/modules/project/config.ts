@@ -6,8 +6,8 @@ export const PATTERN_COUNT = 99;
 export const PATTERN_LENGTH_MIN = 1;
 export const PATTERN_LENGTH_MAX = 16;
 
-export const patternDivisions = [1, 2, 4, 8, 16] as const;
-export type PatternDivisionID = typeof patternDivisions[number];
+export const signatures = ['3/4', '4/4', '5/4', '6/4'] as const;
+export type SignatureID = typeof signatures[number];
 
 export const stepFXIDs = [0, 1, 2] as const;
 export type StepFXID = typeof stepFXIDs[number];

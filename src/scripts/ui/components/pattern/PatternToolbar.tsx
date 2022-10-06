@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { toFixedLength } from 'core/format';
-
 import { useAppDispatch, useAppSelector } from 'store';
 import { projectSlice } from 'store/project';
 import { sessionSlice } from 'store/session';
@@ -48,9 +46,6 @@ export const PatternToolbar: React.FC<Props> = ({
     dispatch(resetPatternPage());
   });
 
-  const formattedBeats = toFixedLength(data.beats, 2, '0');
-  const formattedDivision = toFixedLength(data.division, 2, '0');
-
   return (
     <Toolbar>
       <ToolbarItem>
@@ -61,7 +56,7 @@ export const PatternToolbar: React.FC<Props> = ({
 
         <Field id="signature-button" label={t('signature')}>
           <Button
-            text={`${formattedBeats}/${formattedDivision}`}
+            text={data.signature}
             onClick={() => setSignatureModal(true)}
           />
         </Field>
@@ -70,7 +65,7 @@ export const PatternToolbar: React.FC<Props> = ({
           <PatternSignatureModal
             track={track}
             pattern={pattern}
-            data={data}
+            signature={data.signature}
             onClose={() => setSignatureModal(false)}
           />
         )}

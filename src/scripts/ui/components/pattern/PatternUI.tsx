@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useAppSelector } from 'store';
 
-import { getPatternSteps } from 'modules/project/pattern';
+import { getPatternSteps, getSignatureData } from 'modules/project/pattern';
 
 import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
 import { PatternSteps } from 'ui/components/pattern/PatternSteps';
@@ -18,6 +18,7 @@ export const PatternUI: React.FC = () => {
 
   const data = patterns[pattern];
   const steps = getPatternSteps(data, patternPage);
+  const [division, beats] = getSignatureData(data.signature);
 
   return (
     <Grid>
@@ -32,8 +33,8 @@ export const PatternUI: React.FC = () => {
           <PatternSteps
             track={track}
             pattern={pattern}
-            beats={data.beats}
-            division={data.division}
+            beats={beats}
+            division={division}
             steps={steps}
           />
         </GridColumn>

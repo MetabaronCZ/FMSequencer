@@ -6,7 +6,7 @@ import { toFixedLength } from 'core/format';
 import { useAppDispatch } from 'store';
 import { projectSlice } from 'store/project';
 
-import { PatternDivisionID, stepFXIDs } from 'modules/project/config';
+import { stepFXIDs } from 'modules/project/config';
 import { StepData } from 'modules/project/step';
 
 import { Text } from 'ui/common/Text';
@@ -50,7 +50,7 @@ interface Props {
   readonly track: number;
   readonly pattern: number;
   readonly beats: number;
-  readonly division: PatternDivisionID;
+  readonly division: number;
   readonly steps: StepData[];
 }
 
