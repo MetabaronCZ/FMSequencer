@@ -19,8 +19,9 @@ import {
 } from 'modules/engine/config';
 import { EnvelopeData } from 'modules/project/instrument/envelope';
 
-import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
+import { GridColumn, GridRow } from 'ui/common/Grid';
 import { SelectorField } from 'ui/common/SelectorField';
+import { EnvelopeCanvas } from 'ui/components/instrument/EnvelopeCanvas';
 import { getSelection } from 'ui/event';
 
 const attacks = createRange(ENVELOPE_ATTACK_MIN, ENVELOPE_ATTACK_MAX, 10);
@@ -72,7 +73,7 @@ export const EnvelopeUI: React.FC<Props> = ({
   } = projectSlice.actions;
 
   return (
-    <Grid>
+    <>
       <GridRow>
         <GridColumn>
           <SelectorField
@@ -91,7 +92,9 @@ export const EnvelopeUI: React.FC<Props> = ({
             }}
           />
         </GridColumn>
+      </GridRow>
 
+      <GridRow>
         <GridColumn>
           <SelectorField
             label={t('envelopeDecay')}
@@ -109,7 +112,9 @@ export const EnvelopeUI: React.FC<Props> = ({
             }}
           />
         </GridColumn>
+      </GridRow>
 
+      <GridRow>
         <GridColumn>
           <SelectorField
             label={t('envelopeSustain')}
@@ -127,7 +132,9 @@ export const EnvelopeUI: React.FC<Props> = ({
             }}
           />
         </GridColumn>
+      </GridRow>
 
+      <GridRow>
         <GridColumn>
           <SelectorField
             label={t('envelopeRelease')}
@@ -146,6 +153,12 @@ export const EnvelopeUI: React.FC<Props> = ({
           />
         </GridColumn>
       </GridRow>
-    </Grid>
+
+      <GridRow>
+        <GridColumn>
+          <EnvelopeCanvas envelope={data} />
+        </GridColumn>
+      </GridRow>
+    </>
   );
 };

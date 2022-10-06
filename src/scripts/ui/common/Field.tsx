@@ -9,15 +9,17 @@ const Container = styled.div`
 
 interface Props extends PropsWithChildren {
   readonly id: string;
-  readonly label: string;
+  readonly label?: string;
   readonly inverse?: boolean;
 }
 
 export const Field: React.FC<Props> = ({ id, label, inverse, children }) => (
   <Container>
-    <Label htmlFor={id} $inverse={!!inverse}>
-      {label}
-    </Label>
+    {!!label && (
+      <Label htmlFor={id} $inverse={!!inverse}>
+        {label}
+      </Label>
+    )}
 
     {children}
   </Container>

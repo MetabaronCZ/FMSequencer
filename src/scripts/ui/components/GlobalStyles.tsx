@@ -17,6 +17,10 @@ export const GlobalStyles = createGlobalStyle`
     user-select: none;
   }
 
+  canvas {
+    display: block;
+  }
+
   @font-face {
     font-family: 'RobotoMono';
     src: url('/fonts/RobotoMono-Regular.woff') format('woff');

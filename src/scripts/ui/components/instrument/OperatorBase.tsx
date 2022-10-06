@@ -1,6 +1,5 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import styled from 'styled-components';
 
 import { createRange } from 'core/array';
 import { toFixedLength } from 'core/format';
@@ -17,9 +16,8 @@ import {
   ratios,
 } from 'modules/engine/config';
 
-import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
+import { GridColumn, GridRow } from 'ui/common/Grid';
 import { SelectorField } from 'ui/common/SelectorField';
-import { Text } from 'ui/common/Text';
 import { getSelection } from 'ui/event';
 
 const levels = createRange(LEVEL_MIN, LEVEL_MAX);
@@ -35,13 +33,9 @@ const levelValues = getSelection(levels, (val) => ({
 }));
 
 const ratioValues = getSelection([...ratios], (val) => ({
-  label: toFixedLength(val, 4),
+  label: toFixedLength(val, 3),
   value: val,
 }));
-
-const OperatorName = styled.div`
-  ${Text.Heading};
-`;
 
 interface Props {
   readonly track: number;
@@ -63,12 +57,8 @@ export const OperatorBase: React.FC<Props> = (props) => {
   } = projectSlice.actions;
 
   return (
-    <Grid>
+    <>
       <GridRow>
-        <GridColumn>
-          <OperatorName>{`${t('operator')} ${operator + 1}`}</OperatorName>
-        </GridColumn>
-
         <GridColumn>
           <SelectorField
             label={t('shape')}
@@ -86,7 +76,9 @@ export const OperatorBase: React.FC<Props> = (props) => {
             }}
           />
         </GridColumn>
+      </GridRow>
 
+      <GridRow>
         <GridColumn>
           <SelectorField
             label={t('level')}
@@ -104,7 +96,9 @@ export const OperatorBase: React.FC<Props> = (props) => {
             }}
           />
         </GridColumn>
+      </GridRow>
 
+      <GridRow>
         <GridColumn>
           <SelectorField
             label={t('ratio')}
@@ -123,6 +117,6 @@ export const OperatorBase: React.FC<Props> = (props) => {
           />
         </GridColumn>
       </GridRow>
-    </Grid>
+    </>
   );
 };

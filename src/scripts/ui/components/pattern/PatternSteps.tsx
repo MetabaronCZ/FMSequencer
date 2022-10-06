@@ -32,12 +32,12 @@ interface CellProps {
 
 const Cell = styled.div<CellProps>`
   ${Text.Default};
-  width: ${toVU(4)};
   color: ${({ theme }) => theme.color.black};
   opacity: ${({ $highlighted }) => ($highlighted ? 1.0 : 0.5)};
   text-align: center;
 
   &:first-child {
+    width: ${toVU(4)};
     text-align: left;
   }
 `;
@@ -85,7 +85,7 @@ export const PatternSteps: React.FC<Props> = ({
             <Cell $highlighted={isHighlighted}>
               <PitchSelector
                 value={step.note ? step.note.pitch : null}
-                placeholder="&nbsp;&mdash;&nbsp;"
+                placeholder="&nbsp;&ndash;&nbsp;"
                 onChange={(value) => {
                   dispatch(
                     setTrackPatternStepPitch({
@@ -112,7 +112,7 @@ export const PatternSteps: React.FC<Props> = ({
             <Cell $highlighted={isHighlighted}>
               <VelocitySelector
                 value={step.note ? step.note.velocity : null}
-                placeholder="&nbsp;&mdash;&nbsp;"
+                placeholder="&nbsp;&ndash;"
                 onChange={(value) => {
                   dispatch(
                     setTrackPatternStepVelocity({
@@ -135,7 +135,7 @@ export const PatternSteps: React.FC<Props> = ({
                   <Cell $highlighted={isHighlighted}>
                     <FXTypeSelector
                       value={fx ? fx.type : null}
-                      placeholder="&nbsp;&mdash;&nbsp;"
+                      placeholder="&nbsp;&ndash;&nbsp;"
                       onChange={(value) => {
                         dispatch(
                           setTrackPatternStepFXType({
@@ -164,7 +164,7 @@ export const PatternSteps: React.FC<Props> = ({
                   <Cell $highlighted={isHighlighted}>
                     <FXValueSelector
                       value={fx ? fx.value : null}
-                      placeholder="&nbsp;&mdash;&nbsp;"
+                      placeholder="&nbsp;&ndash;"
                       onChange={(value) => {
                         dispatch(
                           setTrackPatternStepFXValue({

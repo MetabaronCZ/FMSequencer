@@ -52,7 +52,6 @@ export const Fields: React.FC = () => {
   return (
     <Container>
       <TextField
-        label={t('name')}
         value={name}
         onChange={(value) => dispatch(setName(value))}
         borderless

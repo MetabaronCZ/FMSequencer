@@ -10,42 +10,32 @@ import {
 import { EnvelopeData } from 'modules/project/instrument/envelope';
 
 import { defaultTheme } from 'ui/theme';
+import { toVU } from 'ui/typography';
 
 const canvasWidth = 100;
 const canvasHeight = 60;
 const padding = 10;
-const labelOffset = 5;
 const lineColor = defaultTheme.color.white;
 
 const Container = styled.div`
+  margin: 0 ${toVU(-0.5)} ${toVU(-0.5)};
   background: ${({ theme }) => theme.color.black};
 `;
 
 interface Props {
-  readonly operator: number;
   readonly envelope: EnvelopeData;
 }
 
-export const EnvelopeCanvas: React.FC<Props> = ({ operator, envelope }) => {
+export const EnvelopeCanvas: React.FC<Props> = ({ envelope }) => {
   const containerElm = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const attack = envelope.attack / ENVELOPE_ATTACK_MAX;
-    const decay = envelope.decay / ENVELOPE_DECAY_MAX;
-    const sustain = envelope.sustain / ENVELOPE_SUSTAIN_MAX;
-    const release = envelope.release / ENVELOPE_RELEASE_MAX;
-
     const elm = containerElm.current;
 
     if (!elm) {
       return;
     }
     const canvas = document.createElement('canvas');
-    canvas.width = canvasWidth;
-    canvas.height = canvasHeight;
-    canvas.style.width = canvasWidth + 'px';
-    canvas.style.height = canvasHeight + 'px';
-
     const ctx = canvas.getContext('2d');
 
     if (!ctx) {
@@ -53,11 +43,24 @@ export const EnvelopeCanvas: React.FC<Props> = ({ operator, envelope }) => {
         'Could not initialize Algorithm canvas: 2D context not supported!'
       );
     }
-    const widthPart = (canvasWidth - 2 * padding) / 4;
-    const heightPart = canvasHeight - 2 * padding - labelOffset;
+    const width = elm.offsetWidth;
+    const height = width / (canvasWidth / canvasHeight);
+
+    canvas.width = width;
+    canvas.height = height;
+    canvas.style.width = width + 'px';
+    canvas.style.height = height + 'px';
+
+    const attack = envelope.attack / ENVELOPE_ATTACK_MAX;
+    const decay = envelope.decay / ENVELOPE_DECAY_MAX;
+    const sustain = envelope.sustain / ENVELOPE_SUSTAIN_MAX;
+    const release = envelope.release / ENVELOPE_RELEASE_MAX;
+
+    const widthPart = (width - 2 * padding) / 4;
+    const heightPart = height - 2 * padding;
 
     const startX = padding;
-    const startY = canvasHeight - padding;
+    const startY = height - padding;
     const attackX = startX + attack * widthPart;
     const attackY = startY - heightPart;
     const decayX = attackX + decay * widthPart;
@@ -70,9 +73,6 @@ export const EnvelopeCanvas: React.FC<Props> = ({ operator, envelope }) => {
     ctx.translate(0.5, 0.5);
 
     ctx.strokeStyle = lineColor;
-    ctx.fillStyle = lineColor;
-    ctx.font = '11px "RobotoMono", sans-serif';
-    ctx.textAlign = 'center';
     ctx.lineWidth = 1;
     ctx.lineCap = 'butt';
 
@@ -83,14 +83,12 @@ export const EnvelopeCanvas: React.FC<Props> = ({ operator, envelope }) => {
     ctx.lineTo(releaseX, releaseY);
     ctx.stroke();
 
-    ctx.fillText(`OP${operator}`, 14, 10);
-
     elm.appendChild(canvas);
 
     return () => {
       elm.removeChild(canvas);
     };
-  }, [operator, envelope]);
+  }, [envelope]);
 
   return <Container ref={containerElm} />;
 };

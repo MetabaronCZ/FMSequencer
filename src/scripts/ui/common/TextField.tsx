@@ -14,7 +14,7 @@ const StyledInput = styled.input`
 `;
 
 interface Props {
-  readonly label: string;
+  readonly label?: string;
   readonly value: string;
   readonly placeholder?: string;
   readonly inverse?: boolean;

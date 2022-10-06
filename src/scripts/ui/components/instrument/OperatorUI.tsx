@@ -1,10 +1,22 @@
 import React from 'react';
+import styled from 'styled-components';
 
 import { OperatorData } from 'modules/project/instrument/operator';
 
-import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
+import { Grid } from 'ui/common/Grid';
 import { EnvelopeUI } from 'ui/components/instrument/EnvelopeUI';
 import { OperatorBase } from 'ui/components/instrument/OperatorBase';
+import { toVU } from 'ui/typography';
+
+interface StyledProps {
+  $highlighted: boolean;
+}
+
+const Container = styled.div<StyledProps>`
+  padding: ${toVU(1)};
+  background: ${({ theme, $highlighted }) =>
+    $highlighted ? theme.color.grey1 : ''};
+`;
 
 interface Props {
   readonly track: number;
@@ -21,30 +33,24 @@ export const OperatorUI: React.FC<Props> = ({
 }) => {
   const { level, ratio, type, envelope } = data;
   return (
-    <Grid>
-      <GridRow>
-        <GridColumn>
-          <OperatorBase
-            track={track}
-            operator={operator}
-            type={type}
-            level={level}
-            ratio={ratio}
-            highlighted={highlighted}
-          />
-        </GridColumn>
-      </GridRow>
+    <Container $highlighted={highlighted}>
+      <Grid>
+        <OperatorBase
+          track={track}
+          operator={operator}
+          type={type}
+          level={level}
+          ratio={ratio}
+          highlighted={highlighted}
+        />
 
-      <GridRow>
-        <GridColumn>
-          <EnvelopeUI
-            track={track}
-            operator={operator}
-            data={envelope}
-            highlighted={highlighted}
-          />
-        </GridColumn>
-      </GridRow>
-    </Grid>
+        <EnvelopeUI
+          track={track}
+          operator={operator}
+          data={envelope}
+          highlighted={highlighted}
+        />
+      </Grid>
+    </Container>
   );
 };

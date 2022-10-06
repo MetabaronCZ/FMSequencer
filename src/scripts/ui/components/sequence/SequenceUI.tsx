@@ -97,8 +97,9 @@ export const SequenceUI: React.FC = () => {
                       })
                     );
                   }}
-                />{' '}
-                ({t('bars')}: {projectTracks[i].patterns[pattern].bars})
+                />
+                {' | '}
+                {t('bars')}: {projectTracks[i].patterns[pattern].bars}
               </Item>
             ))}
           </List>

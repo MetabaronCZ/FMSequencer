@@ -96,7 +96,7 @@ export const defaultTheme: DefaultTheme = {
   },
   dimensions: {
     page: {
-      width: '1280px',
+      width: '1140px',
     },
   },
   animation: {

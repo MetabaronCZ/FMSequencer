@@ -30,8 +30,8 @@ export type OscillatorTypeID = typeof oscillatorTypes[number];
 
 // OSC ratio
 export const ratios = [
-  ...fillArray(63, (i) => `1/${i + 2}`).reverse(),
-  ...fillArray(32, (i) => `${i + 1}/1`),
+  ...fillArray(63, (i) => `/${i + 2}`).reverse(),
+  ...fillArray(32, (i) => `*${i + 1}`),
 ] as const;
 
 export type RatioID = typeof ratios[number];
