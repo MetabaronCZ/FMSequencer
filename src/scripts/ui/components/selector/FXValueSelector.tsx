@@ -11,7 +11,7 @@ import { getSelection } from 'ui/event';
 const fxs = createRange(STEP_FX_VALUE_MIN, STEP_FX_VALUE_MAX);
 
 const fxValues = getSelection(fxs, (id) => ({
-  label: `${toFixedLength(id, 3)}`,
+  label: `${toFixedLength(id, 2)}`,
   value: id,
 }));
 

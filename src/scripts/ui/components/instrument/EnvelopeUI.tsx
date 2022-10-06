@@ -39,7 +39,7 @@ const decayValues = getSelection(decays, (item) => ({
 }));
 
 const sustainValues = getSelection(sustains, (item) => ({
-  label: toFixedLength(item, 3),
+  label: toFixedLength(item, 2),
   value: item,
 }));
 

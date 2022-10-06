@@ -82,7 +82,7 @@ export const SongSlots: React.FC<Props> = ({ song }) => {
     <List>
       {song.sequences.map(({ sequence, repeat }, i) => (
         <Item key={i}>
-          <ItemColumn>{toFixedLength(i + 1, 3, '0')}</ItemColumn>
+          <ItemColumn>{toFixedLength(i + 1, 2, '0')}</ItemColumn>
 
           <ItemColumn>
             <SequenceSelector

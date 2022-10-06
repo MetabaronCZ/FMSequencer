@@ -12,7 +12,7 @@ import { getSelection } from 'ui/event';
 const patternIds = createArray(PATTERN_COUNT);
 
 const values = getSelection(patternIds, (id) => ({
-  label: `${toFixedLength(id + 1, 3, '0')}`,
+  label: `${toFixedLength(id + 1, 2, '0')}`,
   value: id,
 }));
 

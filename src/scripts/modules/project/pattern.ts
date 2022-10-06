@@ -25,7 +25,7 @@ export const createPatternData = (
 ): PatternData => {
   const steps = config.steps ?? [];
   return {
-    name: config.name ?? `Pattern ${toFixedLength(id + 1, 3, '0')}`,
+    name: config.name ?? `Pattern ${toFixedLength(id + 1, 2, '0')}`,
     bars: config.bars ?? 1,
     beats: config.beats ?? 4,
     division: config.division ?? 4,

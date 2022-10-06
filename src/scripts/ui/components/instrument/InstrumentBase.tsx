@@ -32,7 +32,7 @@ const algoValues = getSelection(algos, (algo) => ({
 }));
 
 const levelValues = getSelection(levels, (val) => ({
-  label: toFixedLength(val, 3),
+  label: toFixedLength(val, 2),
   value: val,
 }));
 

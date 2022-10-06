@@ -12,7 +12,7 @@ import { getSelection } from 'ui/event';
 const sequenceIds = createArray(SEQUENCE_COUNT);
 
 const values = getSelection(sequenceIds, (id) => ({
-  label: `${toFixedLength(id + 1, 3, '0')}`,
+  label: `${toFixedLength(id + 1, 2, '0')}`,
   value: id,
 }));
 

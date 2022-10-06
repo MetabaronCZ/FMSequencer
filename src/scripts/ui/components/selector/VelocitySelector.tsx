@@ -11,7 +11,7 @@ import { getSelection } from 'ui/event';
 const velocities = createRange(VELOCITY_MIN, VELOCITY_MAX);
 
 const velocityValues = getSelection(velocities, (val) => ({
-  label: toFixedLength(val, 3),
+  label: toFixedLength(val, 2),
   value: val,
 }));
 

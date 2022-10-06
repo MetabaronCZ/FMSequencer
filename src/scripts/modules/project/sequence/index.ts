@@ -26,7 +26,7 @@ export const createSequenceData = (
 ): SequenceData => {
   const tracks = config.tracks ?? [];
   return {
-    name: config.name ?? `Sequence ${toFixedLength(id + 1, 3, '0')}`,
+    name: config.name ?? `Sequence ${toFixedLength(id + 1, 2, '0')}`,
     tracks: fillArray(TRACK_COUNT, (i) =>
       createSequenceTrackData(id, i, tracks[i])
     ),

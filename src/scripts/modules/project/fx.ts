@@ -13,6 +13,6 @@ export interface StepFXConfig {
 export const createStepFXData = (config: StepFXConfig = {}): StepFXData => {
   return {
     type: config.type ?? '???',
-    value: config.value ?? 100,
+    value: config.value ?? 80,
   };
 };

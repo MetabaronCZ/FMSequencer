@@ -6,7 +6,7 @@ export const TRACK_COUNT = 8;
 
 // pitch / velocity
 export const VELOCITY_MIN = 0;
-export const VELOCITY_MAX = 100;
+export const VELOCITY_MAX = 99;
 export const PITCH_BASE = 72;
 export const PITCH_MIN = 21;
 export const PITCH_MAX = 117;
@@ -38,7 +38,7 @@ export type RatioID = typeof ratios[number];
 
 // level
 export const LEVEL_MIN = 0;
-export const LEVEL_MAX = 100;
+export const LEVEL_MAX = 99;
 
 // pan
 export const PAN_MIN = -50;
@@ -61,7 +61,7 @@ export const ENVELOPE_ATTACK_MAX = 10;
 export const ENVELOPE_DECAY_MIN = 0;
 export const ENVELOPE_DECAY_MAX = 10;
 export const ENVELOPE_SUSTAIN_MIN = 0;
-export const ENVELOPE_SUSTAIN_MAX = 100;
+export const ENVELOPE_SUSTAIN_MAX = 99;
 export const ENVELOPE_RELEASE_MIN = 0;
 export const ENVELOPE_RELEASE_MAX = 10;
 
