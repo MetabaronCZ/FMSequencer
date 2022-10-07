@@ -54,21 +54,21 @@ export const PatternToolbar: React.FC<Props> = ({
           onChange={(value) => dispatch(setPattern(value))}
         />
 
-        <Field id="signature-button" label={t('signature')}>
+        <Field id="signature-button">
           <Button
             text={data.signature}
+            title={t('signature')}
             onClick={() => setSignatureModal(true)}
           />
+          {showSignatureModal && (
+            <PatternSignatureModal
+              track={track}
+              pattern={pattern}
+              signature={data.signature}
+              onClose={() => setSignatureModal(false)}
+            />
+          )}
         </Field>
-
-        {showSignatureModal && (
-          <PatternSignatureModal
-            track={track}
-            pattern={pattern}
-            signature={data.signature}
-            onClose={() => setSignatureModal(false)}
-          />
-        )}
 
         <PatternPaging
           track={track}

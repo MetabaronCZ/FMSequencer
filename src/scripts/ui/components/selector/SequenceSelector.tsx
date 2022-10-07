@@ -1,5 +1,4 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
 import { createArray } from 'core/array';
 import { toFixedLength } from 'core/format';
@@ -12,7 +11,7 @@ import { getSelection } from 'ui/event';
 const sequenceIds = createArray(SEQUENCE_COUNT);
 
 const values = getSelection(sequenceIds, (id) => ({
-  label: `${toFixedLength(id + 1, 2, '0')}`,
+  label: `SEQ ${toFixedLength(id + 1, 2, '0')}`,
   value: id,
 }));
 
@@ -21,14 +20,6 @@ interface Props {
   readonly onChange: (value: number) => void;
 }
 
-export const SequenceSelector: React.FC<Props> = ({ value, onChange }) => {
-  const { t } = useTranslation();
-  return (
-    <SelectorField
-      label={t('sequence')}
-      value={value}
-      values={values}
-      onChange={onChange}
-    />
-  );
-};
+export const SequenceSelector: React.FC<Props> = ({ value, onChange }) => (
+  <SelectorField value={value} values={values} onChange={onChange} />
+);

@@ -31,7 +31,7 @@ export const ToolbarItem = styled.li<StyledItemProps>`
           & > *:not(:last-child)::after {
             display: block;
             content: '•';
-            padding: 0 ${toVU(0.5)};
+            padding-right: ${toVU(0.5)};
             color: ${theme.color.grey2};
           }
         `};

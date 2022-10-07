@@ -2,9 +2,11 @@ import React, { PropsWithChildren } from 'react';
 import styled from 'styled-components';
 
 import { Label } from 'ui/common/Label';
+import { toVU } from 'ui/typography';
 
 const Container = styled.div`
   display: flex;
+  gap: ${toVU(0.5)};
 `;
 
 interface Props extends PropsWithChildren {

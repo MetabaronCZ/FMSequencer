@@ -38,7 +38,7 @@ export type RatioID = typeof ratios[number];
 
 // level
 export const LEVEL_MIN = 0;
-export const LEVEL_MAX = 99;
+export const LEVEL_MAX = 100;
 
 // pan
 export const PAN_MIN = -50;
@@ -57,12 +57,12 @@ export const FREQUENCY_MAX = SAMPLE_RATE / 2;
 
 // envelope
 export const ENVELOPE_ATTACK_MIN = 0;
-export const ENVELOPE_ATTACK_MAX = 10;
+export const ENVELOPE_ATTACK_MAX = 9.9;
 export const ENVELOPE_DECAY_MIN = 0;
-export const ENVELOPE_DECAY_MAX = 10;
+export const ENVELOPE_DECAY_MAX = 9.9;
 export const ENVELOPE_SUSTAIN_MIN = 0;
-export const ENVELOPE_SUSTAIN_MAX = 99;
+export const ENVELOPE_SUSTAIN_MAX = 100;
 export const ENVELOPE_RELEASE_MIN = 0;
-export const ENVELOPE_RELEASE_MAX = 10;
+export const ENVELOPE_RELEASE_MAX = 9.9;
 
 export const FORCED_RELEASE_TIME = 0.01;

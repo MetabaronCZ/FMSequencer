@@ -25,7 +25,7 @@ const tempoValues = getSelection(tempos, (val) => ({
 }));
 
 const levelValues = getSelection(levels, (val) => ({
-  label: toFixedLength(val, 2),
+  label: toFixedLength(val, 3),
   value: val,
 }));
 
@@ -35,10 +35,15 @@ export interface ProjectSaveData {
 }
 
 const Container = styled.div`
+  flex: 1;
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: ${toVU(2)};
+  gap: ${toVU(1)};
+
+  & > *:first-child {
+    flex: 1;
+  }
 `;
 
 export const Fields: React.FC = () => {

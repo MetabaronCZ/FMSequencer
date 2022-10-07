@@ -36,9 +36,9 @@ const Panel = styled.div`
 
 const Logo = styled.h1`
   ${Text.Heading};
+  flex: 1;
   letter-spacing: 4px;
   color: ${({ theme }) => theme.color.grey2};
-  margin-right: ${toVU(4)};
 `;
 
 export const Header: React.FC = () => {

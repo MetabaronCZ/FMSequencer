@@ -19,7 +19,6 @@ const Container = styled.div`
   flex-direction: row;
   justify-content: end;
   gap: ${toVU(1)};
-  flex: 1;
 `;
 
 export const Actions: React.FC = () => {

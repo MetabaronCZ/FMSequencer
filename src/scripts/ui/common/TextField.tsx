@@ -4,13 +4,12 @@ import styled from 'styled-components';
 import { Field } from 'ui/common/Field';
 import { InputStyles } from 'ui/common/Input';
 import { OnChange, change } from 'ui/event';
-import { toVU } from 'ui/typography';
 
 let textFieldCounter = 0;
 
 const StyledInput = styled.input`
   ${InputStyles};
-  max-width: ${toVU(16)};
+  width: 100%;
 `;
 
 interface Props {

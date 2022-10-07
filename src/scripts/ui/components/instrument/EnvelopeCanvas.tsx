@@ -14,7 +14,7 @@ import { toVU } from 'ui/typography';
 
 const canvasWidth = 100;
 const canvasHeight = 60;
-const padding = 10;
+const padding = 5;
 const lineColor = defaultTheme.color.white;
 
 const Container = styled.div`

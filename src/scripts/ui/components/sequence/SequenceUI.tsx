@@ -16,20 +16,17 @@ import { toVU } from 'ui/typography';
 
 const List = styled.ul`
   list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: ${toVU(1)};
 `;
 
 const Item = styled.li`
   ${Text.Default};
   display: flex;
-  gap: ${toVU(1)};
   flex-direction: row;
   align-items: center;
-  padding: ${toVU(0.5)} 0;
-  margin-bottom: 1px;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
+  gap: ${toVU(1)};
 `;
 
 export const SequenceUI: React.FC = () => {

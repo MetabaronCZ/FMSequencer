@@ -78,6 +78,7 @@ const ModalHeader = styled.div`
   display: flex;
   flex-direction: row;
   padding: ${toVU(1)};
+  gap: ${toVU(2)};
 `;
 
 const ModalTitle = styled.div`
@@ -89,7 +90,6 @@ const ModalClose = styled.button`
   ${Text.Default};
   font-size: 24px;
   width: ${({ theme }) => theme.lineHeight.default};
-  margin-left: ${toVU(2)};
   background: transparent;
   border: none;
   cursor: pointer;

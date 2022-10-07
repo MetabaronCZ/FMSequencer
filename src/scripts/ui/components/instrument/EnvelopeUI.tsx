@@ -30,22 +30,22 @@ const sustains = createRange(ENVELOPE_SUSTAIN_MIN, ENVELOPE_SUSTAIN_MAX);
 const releases = createRange(ENVELOPE_RELEASE_MIN, ENVELOPE_RELEASE_MAX, 10);
 
 const attackValues = getSelection(attacks, (item) => ({
-  label: toFixedLength(item.toFixed(1), 4),
+  label: toFixedLength(item.toFixed(1), 3),
   value: item,
 }));
 
 const decayValues = getSelection(decays, (item) => ({
-  label: toFixedLength(item.toFixed(1), 4),
+  label: toFixedLength(item.toFixed(1), 3),
   value: item,
 }));
 
 const sustainValues = getSelection(sustains, (item) => ({
-  label: toFixedLength(item, 2),
+  label: toFixedLength(item, 3),
   value: item,
 }));
 
 const releaseValues = getSelection(releases, (item) => ({
-  label: toFixedLength(item.toFixed(1), 4),
+  label: toFixedLength(item.toFixed(1), 3),
   value: item,
 }));
 

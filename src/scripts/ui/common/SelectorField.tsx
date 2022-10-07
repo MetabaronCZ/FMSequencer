@@ -6,7 +6,7 @@ import { Selector, SelectorProps } from 'ui/common/Selector';
 let selectorFieldCounter = 0;
 
 interface Props<T extends string | number> extends SelectorProps<T> {
-  readonly label: string;
+  readonly label?: string;
   readonly inverse?: boolean;
   readonly inverseLabel?: boolean;
   readonly borderless?: boolean;
