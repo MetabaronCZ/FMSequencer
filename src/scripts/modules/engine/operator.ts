@@ -1,3 +1,4 @@
+import { AudioEngine } from 'modules/engine';
 import { Bus } from 'modules/engine/bus';
 import {
   ENVELOPE_SUSTAIN_MAX,
@@ -38,6 +39,13 @@ export class Operator extends Bus<Oscillator, Level> {
     this.setLevel(value.level, time);
   }
 
+  public setActive(active: boolean): void {
+    if (!active) {
+      const time = AudioEngine.getTime();
+      this.stop(time, true);
+    }
+  }
+
   public setType(value: OscillatorTypeID): void {
     this.osc.setType(value);
   }
@@ -62,6 +70,9 @@ export class Operator extends Bus<Oscillator, Level> {
   }
 
   public start(baseFrequency: number, data: OperatorData, time: number): void {
+    if (!data.active) {
+      return;
+    }
     const { type, level, ratio, envelope } = data;
     this.activeBaseFrequency = baseFrequency;
 

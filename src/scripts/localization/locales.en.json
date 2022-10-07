@@ -10,6 +10,8 @@
   "filterCutoff": "Cutoff",
   "filterResonance": "Resonance",
   "operator": "OP",
+  "on": "On",
+  "off": "Off",
   "shape": "OSC",
   "ratio": "MUL",
   "envelopeAttack": "ATT",

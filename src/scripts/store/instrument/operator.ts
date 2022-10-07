@@ -16,6 +16,9 @@ import {
 export interface OperatorActionPayload<T> extends TrackActionPayload<T> {
   readonly operator: number;
 }
+type SetInstrumentOperatorActiveAction = PayloadAction<
+  OperatorActionPayload<boolean>
+>;
 type SetInstrumentOperatorTypeAction = PayloadAction<
   OperatorActionPayload<OscillatorTypeID>
 >;
@@ -31,13 +34,24 @@ export type InstrumentOperatorActions =
   | SetInstrumentOperatorLevelAction
   | SetInstrumentOperatorRatioAction;
 
+const setInstrumentOperatorActive: ProjectReducer<
+  SetInstrumentOperatorActiveAction
+> = (state, action) => {
+  const { track, operator, data } = action.payload;
+  state.tracks[track].instrument.operators[operator].active = data;
+
+  const op = AudioEngine.voices[track].operators[operator];
+  op.setActive(data);
+};
+
 const setInstrumentOperatorType: ProjectReducer<
   SetInstrumentOperatorTypeAction
 > = (state, action) => {
   const { track, operator, data } = action.payload;
   state.tracks[track].instrument.operators[operator].type = data;
 
-  AudioEngine.voices[track].operators[operator].setType(data);
+  const op = AudioEngine.voices[track].operators[operator];
+  op.setType(data);
 };
 
 const setInstrumentOperatorLevel: ProjectReducer<
@@ -48,7 +62,8 @@ const setInstrumentOperatorLevel: ProjectReducer<
   state.tracks[track].instrument.operators[operator].level = value;
 
   const time = AudioEngine.getTime();
-  AudioEngine.voices[track].operators[operator].setLevel(value, time);
+  const op = AudioEngine.voices[track].operators[operator];
+  op.setLevel(value, time);
 };
 
 const setInstrumentOperatorRatio: ProjectReducer<
@@ -58,10 +73,12 @@ const setInstrumentOperatorRatio: ProjectReducer<
   state.tracks[track].instrument.operators[operator].ratio = data;
 
   const time = AudioEngine.getTime();
-  AudioEngine.voices[track].operators[operator].setRatio(data, time);
+  const op = AudioEngine.voices[track].operators[operator];
+  op.setRatio(data, time);
 };
 
 export const instrumentOperatorReducer = {
+  setInstrumentOperatorActive,
   setInstrumentOperatorType,
   setInstrumentOperatorLevel,
   setInstrumentOperatorRatio,

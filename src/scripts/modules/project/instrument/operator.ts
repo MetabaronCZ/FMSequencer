@@ -6,6 +6,7 @@ import {
 } from 'modules/project/instrument/envelope';
 
 export interface OperatorData {
+  readonly active: boolean;
   readonly type: OscillatorTypeID;
   readonly level: number;
   readonly ratio: RatioID;
@@ -13,6 +14,7 @@ export interface OperatorData {
 }
 
 export interface OperatorConfig {
+  readonly active?: boolean;
   readonly type?: OscillatorTypeID;
   readonly level?: number;
   readonly ratio?: RatioID;
@@ -23,6 +25,7 @@ export const createOperatorData = (
   config: OperatorConfig = {}
 ): OperatorData => {
   return {
+    active: config.active ?? true,
     type: config.type ?? 'SIN',
     level: config.level ?? LEVEL_MAX,
     ratio: config.ratio ?? '*1',
