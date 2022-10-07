@@ -7,12 +7,11 @@ import { toVU } from 'ui/typography';
 
 const authorUrl = 'https://github.com/MetabaronCZ';
 
-const Container = styled.div`
+const Container = styled.footer`
   ${Text.Small};
   color: ${({ theme }) => theme.color.grey3};
-  max-width: ${({ theme }) => theme.dimensions.page.width};
-  padding: 0 ${toVU(2)};
-  margin: 0 auto;
+  padding: ${toVU(1)} ${toVU(2)};
+  background: ${({ theme }) => theme.color.black};
 `;
 
 export const Footer: React.FC = () => {

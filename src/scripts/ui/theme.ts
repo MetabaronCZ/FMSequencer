@@ -56,6 +56,7 @@ declare module 'styled-components' {
     readonly dimensions: {
       readonly page: {
         readonly width: string;
+        readonly height: string;
       };
     };
     readonly animation: {
@@ -97,6 +98,7 @@ export const defaultTheme: DefaultTheme = {
   dimensions: {
     page: {
       width: '1120px',
+      height: toVU(68),
     },
   },
   animation: {

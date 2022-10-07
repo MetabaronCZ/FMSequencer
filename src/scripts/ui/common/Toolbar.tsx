@@ -7,7 +7,7 @@ export const Toolbar = styled.ul`
   list-style-type: none;
   display: flex;
   gap: ${toVU(1)};
-  padding-bottom: ${toVU(1)};
+  padding-bottom: calc(${toVU(1)} - 1px);
   border-bottom: 1px dashed ${({ theme }) => theme.color.grey3};
 `;
 

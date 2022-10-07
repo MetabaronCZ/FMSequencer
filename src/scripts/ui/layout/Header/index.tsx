@@ -13,14 +13,13 @@ export interface ProjectSaveData {
   readonly timestamp: string;
 }
 
-const Container = styled.div`
+const Container = styled.header`
   display: flex;
   flex-direction: row;
   gap: ${toVU(2)};
   align-items: center;
-  max-width: ${({ theme }) => theme.dimensions.page.width};
-  padding: 0 ${toVU(2)};
-  margin: 0 auto;
+  padding: ${toVU(1)} ${toVU(2)};
+  background: ${({ theme }) => theme.color.black};
 `;
 
 const Panel = styled.div`
