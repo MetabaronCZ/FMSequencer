@@ -34,6 +34,7 @@ const StyledButton = styled.button`
 `;
 
 interface Props {
+  readonly className?: string;
   readonly text: string;
   readonly title?: string;
   readonly disabled?: boolean;
@@ -41,9 +42,10 @@ interface Props {
 }
 
 export const Button: React.FC<Props> = (props) => {
-  const { text, title, disabled = false, onClick } = props;
+  const { className, text, title, disabled = false, onClick } = props;
   return (
     <StyledButton
+      className={className}
       type="button"
       title={title}
       disabled={disabled}

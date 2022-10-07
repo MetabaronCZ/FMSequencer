@@ -17,6 +17,11 @@ const Label = styled.div`
   flex: 1;
 `;
 
+const StyledButton = styled(Button)`
+  width: ${toVU(2)};
+  padding: 0;
+`;
+
 interface Props {
   readonly label?: string;
   readonly checked?: boolean;
@@ -27,7 +32,7 @@ export const Checkbox: React.FC<Props> = ({ label, checked, onChange }) => {
   const { t } = useTranslation();
   return (
     <Container>
-      <Button
+      <StyledButton
         text={checked ? '✓' : '✕'}
         title={checked ? t('on') : t('off')}
         onClick={() => onChange(!checked)}
