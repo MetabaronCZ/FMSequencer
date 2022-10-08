@@ -44,11 +44,11 @@ export const PatternBarsModal: React.FC<Props> = ({
         data: state.bars,
       })
     );
-    if (bars < patternPage) {
+    if (patternPage > state.bars) {
       dispatch(
         setPatternPage({
-          bars,
-          page: bars,
+          bars: state.bars,
+          page: state.bars,
         })
       );
     }

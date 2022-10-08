@@ -24,6 +24,8 @@
   "solo": "Solo",
   "bars": "Bars",
   "steps": "Steps",
+  "prev": "Previous",
+  "next": "Next",
   "signature": "Signature",
   "alertInvalidFileSelected": "Could not load file: Invalid data!",
   "confirmPatternLengthChange": "This will also delete allocated notes. Confirm?",

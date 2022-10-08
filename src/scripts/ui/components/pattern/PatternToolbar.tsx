@@ -1,19 +1,31 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import styled from 'styled-components';
+
+import { toFixedLength } from 'core/format';
+import { limitNumber } from 'core/number';
 
 import { useAppDispatch, useAppSelector } from 'store';
 import { projectSlice } from 'store/project';
 import { sessionSlice } from 'store/session';
 
+import { SEQUENCE_LENGTH_MIN } from 'modules/project/config';
 import { PatternData } from 'modules/project/pattern';
 
 import { Button } from 'ui/common/Button';
 import { Field } from 'ui/common/Field';
+import { Text } from 'ui/common/Text';
 import { Toolbar, ToolbarItem } from 'ui/common/Toolbar';
+import { PatternBarsModal } from 'ui/components/modals/PatternBarsModal';
 import { PatternSignatureModal } from 'ui/components/modals/PatternSignatureModal';
-import { PatternPaging } from 'ui/components/pattern/PatternPaging';
 import { PatternSelector } from 'ui/components/selector/PatternSelector';
 import { confirm } from 'ui/dialog';
+import { toVU } from 'ui/typography';
+
+const CurrentBar = styled.div`
+  ${Text.Default};
+  padding: 0 ${toVU(0.5)};
+`;
 
 interface Props {
   readonly track: number;
@@ -29,12 +41,14 @@ export const PatternToolbar: React.FC<Props> = ({
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { patternPage } = useAppSelector((state) => state.session);
+
+  const [showBarsModal, setBarsModal] = useState(false);
   const [showSignatureModal, setSignatureModal] = useState(false);
 
   const { clearTrackPattern } = projectSlice.actions;
-  const { setPattern, resetPatternPage } = sessionSlice.actions;
+  const { setPattern, setPatternPage, resetPatternPage } = sessionSlice.actions;
 
-  const data = patterns[pattern];
+  const { signature, bars } = patterns[pattern];
 
   const clear = confirm(t('confirmPatternDelete'), () => {
     dispatch(
@@ -46,6 +60,11 @@ export const PatternToolbar: React.FC<Props> = ({
     dispatch(resetPatternPage());
   });
 
+  const gotoPage = (diff: number): void => {
+    const page = limitNumber(patternPage + diff, 0, bars);
+    dispatch(setPatternPage({ page, bars }));
+  };
+
   return (
     <Toolbar>
       <ToolbarItem>
@@ -56,7 +75,7 @@ export const PatternToolbar: React.FC<Props> = ({
 
         <Field id="signature-button">
           <Button
-            text={data.signature}
+            text={signature}
             title={t('signature')}
             onClick={() => setSignatureModal(true)}
           />
@@ -64,21 +83,45 @@ export const PatternToolbar: React.FC<Props> = ({
             <PatternSignatureModal
               track={track}
               pattern={pattern}
-              signature={data.signature}
+              signature={signature}
               onClose={() => setSignatureModal(false)}
             />
           )}
         </Field>
 
-        <PatternPaging
-          track={track}
-          pattern={pattern}
-          bars={data.bars}
-          page={patternPage}
-        />
+        <Field id="bars-button" label={t('bars')}>
+          <Button
+            text={`${toFixedLength(bars, 2, '0')}`}
+            onClick={() => setBarsModal(true)}
+          />
+          {showBarsModal && (
+            <PatternBarsModal
+              track={track}
+              pattern={pattern}
+              bars={bars}
+              onClose={() => setBarsModal(false)}
+            />
+          )}
+        </Field>
       </ToolbarItem>
 
       <ToolbarItem isActions>
+        <Button
+          text="<"
+          title={t('prev')}
+          disabled={patternPage <= SEQUENCE_LENGTH_MIN}
+          onClick={() => gotoPage(-1)}
+        />
+
+        <CurrentBar>{toFixedLength(patternPage, 2, '0')}</CurrentBar>
+
+        <Button
+          text=">"
+          title={t('next')}
+          disabled={patternPage >= bars}
+          onClick={() => gotoPage(+1)}
+        />
+
         <Button text="×" title={t('clear')} onClick={clear} />
       </ToolbarItem>
     </Toolbar>
