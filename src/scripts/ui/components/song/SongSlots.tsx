@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
@@ -11,9 +11,9 @@ import { SongData } from 'modules/project/song';
 
 import { IcoButton } from 'ui/common/IcoButton';
 import { Text } from 'ui/common/Text';
+import { Confirm } from 'ui/components/modals/Confirm';
 import { SequenceRepeatSelector } from 'ui/components/selector/SequenceRepeatSelector';
 import { SequenceSelector } from 'ui/components/selector/SequenceSelector';
-import { confirm } from 'ui/dialog';
 import { toVU } from 'ui/typography';
 
 const List = styled.ul`
@@ -49,6 +49,7 @@ interface Props {
 export const SongSlots: React.FC<Props> = ({ song }) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
+  const [deleteID, setDeleteID] = useState<number | null>(null);
 
   const {
     setSongSequence,
@@ -66,76 +67,81 @@ export const SongSlots: React.FC<Props> = ({ song }) => {
     );
   };
 
-  const deleteSequence = confirm(
-    t('confirmSongSequenceDelete'),
-    (id: number) => {
-      dispatch(
-        removeSongSequence({
-          slot: id,
-          data: null,
-        })
-      );
-    }
-  );
-
   return (
-    <List>
-      {song.sequences.map(({ sequence, repeat }, i) => (
-        <Item key={i}>
-          <ItemColumn>{toFixedLength(i + 1, 2, '0')}</ItemColumn>
+    <>
+      <List>
+        {song.sequences.map(({ sequence, repeat }, i) => (
+          <Item key={i}>
+            <ItemColumn>{toFixedLength(i + 1, 2, '0')}</ItemColumn>
 
-          <ItemColumn>
-            <SequenceSelector
-              value={sequence}
-              onChange={(value) => {
-                dispatch(
-                  setSongSequence({
-                    slot: i,
-                    data: value,
-                  })
-                );
-              }}
-            />
-          </ItemColumn>
+            <ItemColumn>
+              <SequenceSelector
+                value={sequence}
+                onChange={(value) => {
+                  dispatch(
+                    setSongSequence({
+                      slot: i,
+                      data: value,
+                    })
+                  );
+                }}
+              />
+            </ItemColumn>
 
-          <ItemColumn>
-            <SequenceRepeatSelector
-              value={repeat}
-              onChange={(value) => {
-                dispatch(
-                  setSongSequenceRepeat({
-                    slot: i,
-                    data: value,
-                  })
-                );
-              }}
-            />
-          </ItemColumn>
+            <ItemColumn>
+              <SequenceRepeatSelector
+                value={repeat}
+                onChange={(value) => {
+                  dispatch(
+                    setSongSequenceRepeat({
+                      slot: i,
+                      data: value,
+                    })
+                  );
+                }}
+              />
+            </ItemColumn>
 
-          <ItemColumn>
-            {song.sequences.length > 1 && (
-              <>
-                <IcoButton
-                  ico="arrowDown"
-                  title={t('moveDown')}
-                  onClick={() => moveSequence(i, +1)}
-                />
-                <IcoButton
-                  ico="arrowUp"
-                  title={t('moveUp')}
-                  onClick={() => moveSequence(i, -1)}
-                />
-              </>
-            )}
+            <ItemColumn>
+              {song.sequences.length > 1 && (
+                <>
+                  <IcoButton
+                    ico="arrowDown"
+                    title={t('moveDown')}
+                    onClick={() => moveSequence(i, +1)}
+                  />
+                  <IcoButton
+                    ico="arrowUp"
+                    title={t('moveUp')}
+                    onClick={() => moveSequence(i, -1)}
+                  />
+                </>
+              )}
 
-            <IcoButton
-              ico="cross"
-              title={t('delete')}
-              onClick={() => deleteSequence(i)}
-            />
-          </ItemColumn>
-        </Item>
-      ))}
-    </List>
+              <IcoButton
+                ico="cross"
+                title={t('delete')}
+                onClick={() => setDeleteID(i)}
+              />
+            </ItemColumn>
+          </Item>
+        ))}
+      </List>
+
+      {null !== deleteID && (
+        <Confirm
+          text={t('confirmSongSequenceDelete')}
+          onClose={() => setDeleteID(null)}
+          onConfirm={() => {
+            dispatch(
+              removeSongSequence({
+                slot: deleteID,
+                data: null,
+              })
+            );
+          }}
+        />
+      )}
+    </>
   );
 };

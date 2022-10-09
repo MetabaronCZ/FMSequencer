@@ -49,6 +49,9 @@ export const projectSlice = createSlice({
     return state;
   },
   reducers: {
+    createProject: () => {
+      return createProjectData();
+    },
     loadProject: (state, action: LoadProjectAction) => {
       return createProjectData(action.payload);
     },

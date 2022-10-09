@@ -8,9 +8,9 @@ import { SignatureID } from 'modules/project/config';
 
 import { Button } from 'ui/common/Button';
 import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
+import { Infobox } from 'ui/common/Infobox';
 import { Modal } from 'ui/common/Modal';
 import { SignatureSelector } from 'ui/components/selector/SignatureSelector';
-import { confirm } from 'ui/dialog';
 
 interface Props {
   readonly track: number;
@@ -30,7 +30,7 @@ export const PatternSignatureModal: React.FC<Props> = ({
   const [value, setValue] = useState<SignatureID>(signature);
   const { setTrackPatternSignature } = projectSlice.actions;
 
-  const setSignature = confirm(t('confirmPatternSizeChange'), () => {
+  const setSignature = (): void => {
     dispatch(
       setTrackPatternSignature({
         track,
@@ -39,7 +39,7 @@ export const PatternSignatureModal: React.FC<Props> = ({
       })
     );
     onClose();
-  });
+  };
 
   return (
     <Modal title={t('patternSignatureModal')} onClose={onClose}>
@@ -51,6 +51,12 @@ export const PatternSignatureModal: React.FC<Props> = ({
 
           <GridColumn $size={0}>
             <Button text={t('confirm')} onClick={setSignature} />
+          </GridColumn>
+        </GridRow>
+
+        <GridRow>
+          <GridColumn>
+            <Infobox>{t('confirmPatternSizeChange')}</Infobox>
           </GridColumn>
         </GridRow>
       </Grid>

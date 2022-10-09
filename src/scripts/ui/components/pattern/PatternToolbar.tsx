@@ -17,10 +17,10 @@ import { Field } from 'ui/common/Field';
 import { IcoButton } from 'ui/common/IcoButton';
 import { Text } from 'ui/common/Text';
 import { Toolbar, ToolbarItem } from 'ui/common/Toolbar';
+import { Confirm } from 'ui/components/modals/Confirm';
 import { PatternBarsModal } from 'ui/components/modals/PatternBarsModal';
 import { PatternSignatureModal } from 'ui/components/modals/PatternSignatureModal';
 import { PatternSelector } from 'ui/components/selector/PatternSelector';
-import { confirm } from 'ui/dialog';
 import { toVU } from 'ui/typography';
 
 const CurrentBar = styled.div`
@@ -44,6 +44,7 @@ export const PatternToolbar: React.FC<Props> = ({
   const { patternPage } = useAppSelector((state) => state.session);
 
   const [showBarsModal, setBarsModal] = useState(false);
+  const [showClearModal, setShowClearModal] = useState(false);
   const [showSignatureModal, setSignatureModal] = useState(false);
 
   const { clearTrackPattern } = projectSlice.actions;
@@ -51,80 +52,89 @@ export const PatternToolbar: React.FC<Props> = ({
 
   const { signature, bars } = patterns[pattern];
 
-  const clear = confirm(t('confirmPatternDelete'), () => {
-    dispatch(
-      clearTrackPattern({
-        track,
-        data: pattern,
-      })
-    );
-    dispatch(resetPatternPage());
-  });
-
   const gotoPage = (diff: number): void => {
     const page = limitNumber(patternPage + diff, 0, bars);
     dispatch(setPatternPage({ page, bars }));
   };
 
   return (
-    <Toolbar>
-      <ToolbarItem>
-        <PatternSelector
-          value={pattern}
-          onChange={(value) => dispatch(setPattern(value))}
-        />
-
-        <Field id="signature-button">
-          <Button
-            text={signature}
-            title={t('signature')}
-            onClick={() => setSignatureModal(true)}
+    <>
+      <Toolbar>
+        <ToolbarItem>
+          <PatternSelector
+            value={pattern}
+            onChange={(value) => dispatch(setPattern(value))}
           />
-          {showSignatureModal && (
-            <PatternSignatureModal
-              track={track}
-              pattern={pattern}
-              signature={signature}
-              onClose={() => setSignatureModal(false)}
-            />
-          )}
-        </Field>
 
-        <Field id="bars-button" label={t('bars')}>
-          <Button
-            text={`${toFixedLength(bars, 2, '0')}`}
-            onClick={() => setBarsModal(true)}
+          <Field id="signature-button">
+            <Button
+              text={signature}
+              title={t('signature')}
+              onClick={() => setSignatureModal(true)}
+            />
+          </Field>
+
+          <Field id="bars-button" label={t('bars')}>
+            <Button
+              text={`${toFixedLength(bars, 2, '0')}`}
+              onClick={() => setBarsModal(true)}
+            />
+          </Field>
+        </ToolbarItem>
+
+        <ToolbarItem isActions>
+          <IcoButton
+            ico="arrowLeft"
+            title={t('prev')}
+            disabled={patternPage <= SEQUENCE_LENGTH_MIN}
+            onClick={() => gotoPage(-1)}
           />
-          {showBarsModal && (
-            <PatternBarsModal
-              track={track}
-              pattern={pattern}
-              bars={bars}
-              onClose={() => setBarsModal(false)}
-            />
-          )}
-        </Field>
-      </ToolbarItem>
 
-      <ToolbarItem isActions>
-        <IcoButton
-          ico="arrowLeft"
-          title={t('prev')}
-          disabled={patternPage <= SEQUENCE_LENGTH_MIN}
-          onClick={() => gotoPage(-1)}
+          <CurrentBar>{toFixedLength(patternPage, 2, '0')}</CurrentBar>
+
+          <IcoButton
+            ico="arrowRight"
+            title={t('next')}
+            disabled={patternPage >= bars}
+            onClick={() => gotoPage(+1)}
+          />
+
+          <IcoButton
+            ico="cross"
+            title={t('clear')}
+            onClick={() => setShowClearModal(true)}
+          />
+        </ToolbarItem>
+      </Toolbar>
+
+      {showSignatureModal && (
+        <PatternSignatureModal
+          track={track}
+          pattern={pattern}
+          signature={signature}
+          onClose={() => setSignatureModal(false)}
         />
+      )}
 
-        <CurrentBar>{toFixedLength(patternPage, 2, '0')}</CurrentBar>
-
-        <IcoButton
-          ico="arrowRight"
-          title={t('next')}
-          disabled={patternPage >= bars}
-          onClick={() => gotoPage(+1)}
+      {showBarsModal && (
+        <PatternBarsModal
+          track={track}
+          pattern={pattern}
+          bars={bars}
+          onClose={() => setBarsModal(false)}
         />
+      )}
 
-        <IcoButton ico="cross" title={t('clear')} onClick={clear} />
-      </ToolbarItem>
-    </Toolbar>
+      {showClearModal && (
+        <Confirm
+          text={t('confirmSongClear')}
+          onClose={() => setShowClearModal(false)}
+          onConfirm={() => {
+            dispatch(clearTrackPattern({ track, data: pattern }));
+            dispatch(resetPatternPage());
+          }}
+        />
+      )}
+    </>
   );
 };

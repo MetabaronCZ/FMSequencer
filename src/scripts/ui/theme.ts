@@ -46,6 +46,7 @@ declare module 'styled-components' {
     readonly border: {
       readonly size: number;
       readonly default: string;
+      readonly dashed: string;
       readonly grey: string;
       readonly transparent: string;
     };
@@ -88,6 +89,7 @@ export const defaultTheme: DefaultTheme = {
   border: {
     size: borderSize,
     default: `${borderSize}px solid ${color.black}`,
+    dashed: `${borderSize}px dashed ${color.grey2}`,
     grey: `${borderSize}px solid ${color.grey2}`,
     transparent: `${borderSize}px solid ${color.black}1f`,
   },

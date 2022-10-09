@@ -10,8 +10,8 @@ import { InstrumentData } from 'modules/project/instrument';
 
 import { IcoButton } from 'ui/common/IcoButton';
 import { Toolbar, ToolbarItem } from 'ui/common/Toolbar';
+import { Confirm } from 'ui/components/modals/Confirm';
 import { SaveData, SaveModal } from 'ui/components/modals/SaveModal';
-import { confirm } from 'ui/dialog';
 
 interface Props {
   readonly instrument: InstrumentData;
@@ -20,8 +20,11 @@ interface Props {
 export const InstrumentToolbar: React.FC<Props> = ({ instrument }) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const { track } = useAppSelector((state) => state.session);
+  const [showLoadModal, setShowLoadModal] = useState(false);
+  const [showResetModal, setShowResetModal] = useState(false);
   const [saveData, setSaveData] = useState<SaveData | null>(null);
+
+  const { track } = useAppSelector((state) => state.session);
   const { loadInstrument, resetInstrument } = projectSlice.actions;
 
   const cancelSave = (): void => setSaveData(null);
@@ -40,52 +43,71 @@ export const InstrumentToolbar: React.FC<Props> = ({ instrument }) => {
     cancelSave();
   }, [instrument]);
 
-  const load = confirm(t('confirmInstrumentChange'), () => {
-    loadFile()
-      .then((data) => {
-        return dispatch(
-          loadInstrument({
-            track,
-            data,
-          })
-        );
-      })
-      .catch(() => alert(t('alertInvalidFileSelected')));
-  });
-
-  const save = (): void => {
-    setSaveData({
-      data: getSaveFileUrl(instrument),
-      timestamp: new Date().toLocaleTimeString(),
-    });
-  };
-
-  const reset = confirm(t('confirmInstrumentReset'), () => {
-    dispatch(
-      resetInstrument({
-        track,
-        data: null,
-      })
-    );
-  });
-
   return (
-    <Toolbar>
-      <ToolbarItem>{instrument.name}</ToolbarItem>
+    <>
+      <Toolbar>
+        <ToolbarItem>{instrument.name}</ToolbarItem>
 
-      <ToolbarItem isActions>
-        <IcoButton ico="download" title={t('load')} onClick={load} />
-        <IcoButton ico="save" title={t('save')} onClick={save} />
-        <IcoButton ico="reload" title={t('reset')} onClick={reset} />
-      </ToolbarItem>
+        <ToolbarItem isActions>
+          <IcoButton
+            ico="download"
+            title={t('load')}
+            onClick={() => setShowLoadModal(true)}
+          />
 
-      {!!saveData && (
-        <SaveModal
-          filename={`${instrument.name}.json`}
-          data={saveData}
-          onClose={cancelSave}
+          <IcoButton
+            ico="save"
+            title={t('save')}
+            onClick={() => {
+              setSaveData({
+                data: getSaveFileUrl(instrument),
+                timestamp: new Date().toLocaleTimeString(),
+              });
+            }}
+          />
+
+          <IcoButton
+            ico="reload"
+            title={t('reset')}
+            onClick={() => setShowResetModal(true)}
+          />
+        </ToolbarItem>
+
+        {!!saveData && (
+          <SaveModal
+            filename={`${instrument.name}.json`}
+            data={saveData}
+            onClose={cancelSave}
+          />
+        )}
+      </Toolbar>
+
+      {showLoadModal && (
+        <Confirm
+          text={t('confirmInstrumentChange')}
+          onClose={() => setShowLoadModal(false)}
+          onConfirm={() => {
+            loadFile()
+              .then((data) => {
+                return dispatch(
+                  loadInstrument({
+                    track,
+                    data,
+                  })
+                );
+              })
+              .catch(() => alert(t('alertInvalidFileSelected')));
+          }}
         />
       )}
-    </Toolbar>
+
+      {showResetModal && (
+        <Confirm
+          text={t('confirmInstrumentReset')}
+          onClose={() => setShowResetModal(false)}
+          onConfirm={() => dispatch(resetInstrument({ track, data: null }))}
+        />
+      )}
+    </>
   );
 };

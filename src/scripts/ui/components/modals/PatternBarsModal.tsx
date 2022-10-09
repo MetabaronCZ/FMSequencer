@@ -7,9 +7,9 @@ import { sessionSlice } from 'store/session';
 
 import { Button } from 'ui/common/Button';
 import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
+import { Infobox } from 'ui/common/Infobox';
 import { Modal } from 'ui/common/Modal';
 import { BarSelector } from 'ui/components/selector/BarSelector';
-import { confirm } from 'ui/dialog';
 
 interface State {
   readonly bars: number;
@@ -36,7 +36,7 @@ export const PatternBarsModal: React.FC<Props> = ({
   const { setTrackPatternBars } = projectSlice.actions;
   const { patternPage } = useAppSelector((state) => state.session);
 
-  const setBars = confirm(t('confirmPatternSizeChange'), () => {
+  const setBars = (): void => {
     dispatch(
       setTrackPatternBars({
         track,
@@ -53,7 +53,7 @@ export const PatternBarsModal: React.FC<Props> = ({
       );
     }
     onClose();
-  });
+  };
 
   return (
     <Modal title={t('patternBarsModal')} onClose={onClose}>
@@ -68,6 +68,12 @@ export const PatternBarsModal: React.FC<Props> = ({
 
           <GridColumn $size={0}>
             <Button text={t('confirm')} onClick={setBars} />
+          </GridColumn>
+        </GridRow>
+
+        <GridRow>
+          <GridColumn>
+            <Infobox>{t('confirmPatternSizeChange')}</Infobox>
           </GridColumn>
         </GridRow>
       </Grid>
