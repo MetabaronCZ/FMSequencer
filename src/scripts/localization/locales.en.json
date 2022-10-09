@@ -47,6 +47,7 @@
   "create": "Create",
   "load": "Load",
   "save": "Save",
+  "close": "Close",
   "perBar": "per bar",
   "moveUp": "Move up",
   "moveDown": "Move down",

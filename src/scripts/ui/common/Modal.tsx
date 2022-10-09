@@ -4,6 +4,7 @@ import React, {
   useEffect,
   useState,
 } from 'react';
+import { useTranslation } from 'react-i18next';
 import styled, { css } from 'styled-components';
 
 import {
@@ -12,6 +13,7 @@ import {
   growAnimation,
   shrinkAnimation,
 } from 'ui/animations';
+import { IcoButton } from 'ui/common/IcoButton';
 import { Text } from 'ui/common/Text';
 import { OnClick, clickOnly } from 'ui/event';
 import { toVU } from 'ui/typography';
@@ -86,20 +88,14 @@ const ModalTitle = styled.div`
   flex: 1;
 `;
 
-const ModalClose = styled.button`
-  ${Text.Default};
-  font-size: 24px;
-  width: ${({ theme }) => theme.lineHeight.default};
+const ModalClose = styled(IcoButton)`
+  color: ${({ theme }) => theme.color.black};
+  font-weight: bold;
   background: transparent;
-  border: none;
-  cursor: pointer;
 
-  &:hover {
-    background-color: ${({ theme }) => theme.color.white};
-  }
-
+  &:hover,
   &:focus {
-    outline: ${({ theme }) => theme.outline.black};
+    background-color: ${({ theme }) => theme.color.white};
   }
 `;
 
@@ -115,6 +111,7 @@ interface Props extends PropsWithChildren {
 }
 
 export const Modal: React.FC<Props> = ({ title, onClose, children }) => {
+  const { t } = useTranslation();
   const [isClosing, setClosing] = useState(false);
 
   const close = useCallback((): void => {
@@ -148,10 +145,7 @@ export const Modal: React.FC<Props> = ({ title, onClose, children }) => {
       <ModalBox $closing={isClosing}>
         <ModalHeader>
           <ModalTitle>{title}</ModalTitle>
-
-          <ModalClose type="button" onClick={clickOnly(close)}>
-            &times;
-          </ModalClose>
+          <ModalClose ico="cross" title={t('close')} onClick={close} />
         </ModalHeader>
 
         <ModalBody>{children}</ModalBody>

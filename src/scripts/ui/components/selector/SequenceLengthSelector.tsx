@@ -30,7 +30,6 @@ interface Props {
 export const SequenceLengthSelector: React.FC<Props> = ({ bars, onChange }) => {
   const { t } = useTranslation();
   const id = `sequence-length-selector-${barsFieldCounter++}`;
-
   return (
     <Field id={id} label={t('bars')}>
       <Selector value={bars} values={barValues} onChange={onChange} />

@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from 'store';
 import { projectSlice } from 'store/project';
 import { sessionSlice } from 'store/session';
 
-import { Button } from 'ui/common/Button';
+import { IcoButton } from 'ui/common/IcoButton';
 import { Toolbar, ToolbarItem } from 'ui/common/Toolbar';
 import { SequenceLengthSelector } from 'ui/components/selector/SequenceLengthSelector';
 import { SequenceSelector } from 'ui/components/selector/SequenceSelector';
@@ -58,7 +58,7 @@ export const SequenceToolbar: React.FC<Props> = ({ bars }) => {
       </ToolbarItem>
 
       <ToolbarItem isActions>
-        <Button text="×" title={t('clear')} onClick={clear} />
+        <IcoButton ico="cross" title={t('clear')} onClick={clear} />
       </ToolbarItem>
     </Toolbar>
   );

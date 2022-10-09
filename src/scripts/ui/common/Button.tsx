@@ -41,17 +41,20 @@ interface Props {
   readonly onClick: OnClick;
 }
 
-export const Button: React.FC<Props> = (props) => {
-  const { className, text, title, disabled = false, onClick } = props;
-  return (
-    <StyledButton
-      className={className}
-      type="button"
-      title={title}
-      disabled={disabled}
-      onClick={clickOnly(onClick)}
-    >
-      {text}
-    </StyledButton>
-  );
-};
+export const Button: React.FC<Props> = ({
+  className,
+  text,
+  title,
+  disabled = false,
+  onClick,
+}) => (
+  <StyledButton
+    className={className}
+    type="button"
+    title={title}
+    disabled={disabled}
+    onClick={clickOnly(onClick)}
+  >
+    {text}
+  </StyledButton>
+);

@@ -8,7 +8,7 @@ import { projectSlice } from 'store/project';
 
 import { InstrumentData } from 'modules/project/instrument';
 
-import { Button } from 'ui/common/Button';
+import { IcoButton } from 'ui/common/IcoButton';
 import { Toolbar, ToolbarItem } from 'ui/common/Toolbar';
 import { SaveData, SaveModal } from 'ui/components/modals/SaveModal';
 import { confirm } from 'ui/dialog';
@@ -74,9 +74,9 @@ export const InstrumentToolbar: React.FC<Props> = ({ instrument }) => {
       <ToolbarItem>{instrument.name}</ToolbarItem>
 
       <ToolbarItem isActions>
-        <Button text="⬇" title={t('load')} onClick={load} />
-        <Button text="🖫" title={t('save')} onClick={save} />
-        <Button text="↺" title={t('reset')} onClick={reset} />
+        <IcoButton ico="download" title={t('load')} onClick={load} />
+        <IcoButton ico="save" title={t('save')} onClick={save} />
+        <IcoButton ico="reload" title={t('reset')} onClick={reset} />
       </ToolbarItem>
 
       {!!saveData && (

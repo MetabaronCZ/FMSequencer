@@ -9,7 +9,7 @@ import { projectSlice } from 'store/project';
 
 import { SongData } from 'modules/project/song';
 
-import { Button } from 'ui/common/Button';
+import { IcoButton } from 'ui/common/IcoButton';
 import { Text } from 'ui/common/Text';
 import { SequenceRepeatSelector } from 'ui/components/selector/SequenceRepeatSelector';
 import { SequenceSelector } from 'ui/components/selector/SequenceSelector';
@@ -115,22 +115,21 @@ export const SongSlots: React.FC<Props> = ({ song }) => {
           <ItemColumn>
             {song.sequences.length > 1 && (
               <>
-                <Button
-                  text="˄"
-                  title={t('moveUp')}
-                  onClick={() => moveSequence(i, -1)}
-                />
-
-                <Button
-                  text="˅"
+                <IcoButton
+                  ico="arrowDown"
                   title={t('moveDown')}
                   onClick={() => moveSequence(i, +1)}
+                />
+                <IcoButton
+                  ico="arrowUp"
+                  title={t('moveUp')}
+                  onClick={() => moveSequence(i, -1)}
                 />
               </>
             )}
 
-            <Button
-              text="×"
+            <IcoButton
+              ico="cross"
               title={t('delete')}
               onClick={() => deleteSequence(i)}
             />

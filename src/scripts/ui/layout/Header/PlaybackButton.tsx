@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { IcoID, icos } from 'ui/Icos';
 import { Text } from 'ui/common/Text';
 import { OnClick, clickOnly } from 'ui/event';
 import { toVU } from 'ui/typography';
@@ -26,7 +27,7 @@ const StyledText = styled.span`
 `;
 
 interface Props {
-  readonly ico: string;
+  readonly ico: IcoID;
   readonly text?: string;
   readonly title: string;
   readonly onClick: OnClick;
@@ -40,7 +41,7 @@ export const PlaybackButton: React.FC<Props> = ({
 }) => {
   return (
     <StyledButton type="button" title={title} onClick={clickOnly(onClick)}>
-      {ico}
+      {icos[ico]}
       {!!text && <StyledText>{text}</StyledText>}
     </StyledButton>
   );

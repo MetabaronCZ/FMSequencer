@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
-import { Button } from 'ui/common/Button';
+import { IcoButton } from 'ui/common/IcoButton';
 import { Text } from 'ui/common/Text';
 import { toVU } from 'ui/typography';
 
@@ -17,11 +17,6 @@ const Label = styled.div`
   flex: 1;
 `;
 
-const StyledButton = styled(Button)`
-  width: ${toVU(2)};
-  padding: 0;
-`;
-
 interface Props {
   readonly label?: string;
   readonly checked?: boolean;
@@ -32,8 +27,8 @@ export const Checkbox: React.FC<Props> = ({ label, checked, onChange }) => {
   const { t } = useTranslation();
   return (
     <Container>
-      <StyledButton
-        text={checked ? '✓' : '✕'}
+      <IcoButton
+        ico={checked ? 'check' : 'cross'}
         title={checked ? t('on') : t('off')}
         onClick={() => onChange(!checked)}
       />

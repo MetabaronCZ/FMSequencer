@@ -9,7 +9,7 @@ import { projectSlice } from 'store/project';
 
 import { ProjectConfig } from 'modules/project';
 
-import { Button } from 'ui/common/Button';
+import { IcoButton } from 'ui/common/IcoButton';
 import { SaveData, SaveModal } from 'ui/components/modals/SaveModal';
 import { confirm } from 'ui/dialog';
 import { toVU } from 'ui/typography';
@@ -64,9 +64,9 @@ export const Actions: React.FC = () => {
   return (
     <Container>
       <div>
-        <Button text="+" title={t('create')} onClick={create} />
-        <Button text="⬇" title={t('load')} onClick={load} />
-        <Button text="🖫" title={t('save')} onClick={save} />
+        <IcoButton ico="plus" title={t('create')} onClick={create} />
+        <IcoButton ico="download" title={t('load')} onClick={load} />
+        <IcoButton ico="save" title={t('save')} onClick={save} />
       </div>
 
       {!!saveData && (

@@ -117,7 +117,7 @@ export const PlaybackUI: React.FC = () => {
         <li key={text}>
           <PlaybackButton
             title={title}
-            ico={target === played ? '⏸' : '⏵'}
+            ico={target === played ? 'pause' : 'play'}
             text={text}
             onClick={play(target)}
           />
@@ -125,7 +125,7 @@ export const PlaybackUI: React.FC = () => {
       ))}
 
       <li>
-        <PlaybackButton title={t('stop')} ico="⏹" onClick={stop} />
+        <PlaybackButton title={t('stop')} ico="stop" onClick={stop} />
       </li>
     </List>
   );

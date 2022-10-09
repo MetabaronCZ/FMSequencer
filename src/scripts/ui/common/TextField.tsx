@@ -22,12 +22,15 @@ interface Props {
   readonly onChange: OnChange<string>;
 }
 
-export const TextField: React.FC<Props> = (props) => {
+export const TextField: React.FC<Props> = ({
+  label,
+  inverseLabel,
+  inverse,
+  borderless,
+  onChange,
+  ...otherProps
+}) => {
   const id = `text-field-${textFieldCounter++}`;
-
-  const { label, inverseLabel, inverse, borderless, onChange, ...otherProps } =
-    props;
-
   return (
     <Field id={id} label={label} inverse={inverseLabel}>
       <StyledInput

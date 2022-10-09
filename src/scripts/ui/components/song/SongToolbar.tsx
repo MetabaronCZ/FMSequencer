@@ -7,7 +7,7 @@ import { projectSlice } from 'store/project';
 import { SONG_LENGTH_MAX } from 'modules/project/config';
 import { SongData } from 'modules/project/song';
 
-import { Button } from 'ui/common/Button';
+import { IcoButton } from 'ui/common/IcoButton';
 import { Toolbar, ToolbarItem } from 'ui/common/Toolbar';
 import { confirm } from 'ui/dialog';
 
@@ -31,14 +31,14 @@ export const SongToolbar: React.FC<Props> = ({ song }) => {
 
       <ToolbarItem isActions>
         {song.sequences.length < SONG_LENGTH_MAX && (
-          <Button
-            text="+"
+          <IcoButton
+            ico="plus"
             title={t('insert')}
             onClick={() => dispatch(addSongSequence())}
           />
         )}
 
-        <Button text="×" title={t('clear')} onClick={clear} />
+        <IcoButton ico="cross" title={t('clear')} onClick={clear} />
       </ToolbarItem>
     </Toolbar>
   );

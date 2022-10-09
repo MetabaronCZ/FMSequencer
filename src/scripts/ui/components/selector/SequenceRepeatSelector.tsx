@@ -29,7 +29,6 @@ export const SequenceRepeatSelector: React.FC<Props> = ({
   return (
     <>
       {'×'}
-
       <Selector value={value} values={repeatValues} onChange={onChange} />
     </>
   );

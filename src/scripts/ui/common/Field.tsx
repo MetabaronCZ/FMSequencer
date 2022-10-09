@@ -22,7 +22,6 @@ export const Field: React.FC<Props> = ({ id, label, inverse, children }) => (
         {label}
       </Label>
     )}
-
     {children}
   </Container>
 );

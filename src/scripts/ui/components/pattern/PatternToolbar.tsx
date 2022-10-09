@@ -14,6 +14,7 @@ import { PatternData } from 'modules/project/pattern';
 
 import { Button } from 'ui/common/Button';
 import { Field } from 'ui/common/Field';
+import { IcoButton } from 'ui/common/IcoButton';
 import { Text } from 'ui/common/Text';
 import { Toolbar, ToolbarItem } from 'ui/common/Toolbar';
 import { PatternBarsModal } from 'ui/components/modals/PatternBarsModal';
@@ -106,8 +107,8 @@ export const PatternToolbar: React.FC<Props> = ({
       </ToolbarItem>
 
       <ToolbarItem isActions>
-        <Button
-          text="<"
+        <IcoButton
+          ico="arrowLeft"
           title={t('prev')}
           disabled={patternPage <= SEQUENCE_LENGTH_MIN}
           onClick={() => gotoPage(-1)}
@@ -115,14 +116,14 @@ export const PatternToolbar: React.FC<Props> = ({
 
         <CurrentBar>{toFixedLength(patternPage, 2, '0')}</CurrentBar>
 
-        <Button
-          text=">"
+        <IcoButton
+          ico="arrowRight"
           title={t('next')}
           disabled={patternPage >= bars}
           onClick={() => gotoPage(+1)}
         />
 
-        <Button text="×" title={t('clear')} onClick={clear} />
+        <IcoButton ico="cross" title={t('clear')} onClick={clear} />
       </ToolbarItem>
     </Toolbar>
   );
