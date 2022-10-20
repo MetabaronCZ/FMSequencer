@@ -38,11 +38,6 @@ declare module 'styled-components' {
       readonly default: string;
       readonly small: string;
     };
-    readonly breakpoint: {
-      readonly small: string;
-      readonly medium: string;
-      readonly large: string;
-    };
     readonly border: {
       readonly size: number;
       readonly default: string;
@@ -81,11 +76,6 @@ export const defaultTheme: DefaultTheme = {
     default: toVU(2),
     small: toVU(2),
   },
-  breakpoint: {
-    small: 'screen and (min-width: 576px)',
-    medium: 'screen and (min-width: 768px)',
-    large: 'screen and (min-width: 992px)',
-  },
   border: {
     size: borderSize,
     default: `${borderSize}px solid ${color.black}`,
@@ -99,7 +89,7 @@ export const defaultTheme: DefaultTheme = {
   },
   dimensions: {
     page: {
-      width: '1120px',
+      width: '1080px',
       height: toVU(68),
     },
   },

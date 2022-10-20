@@ -59,7 +59,7 @@ export const InstrumentBase: React.FC<Props> = ({
   const { setInstrumentAlgorithm, setInstrumentLevel, setInstrumentPan } =
     projectSlice.actions;
   return (
-    <Grid>
+    <Grid $gap={0.5}>
       <GridRow>
         <GridColumn>
           <SelectorField

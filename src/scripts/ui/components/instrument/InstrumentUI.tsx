@@ -5,6 +5,7 @@ import { useAppSelector } from 'store';
 import { Grid, GridColumn, GridRow } from 'ui/common/Grid';
 import { Keyboard } from 'ui/components/Keyboard';
 import { AlgorithmCanvas } from 'ui/components/instrument/AlgorithmCanvas';
+import { EnvelopeCanvas } from 'ui/components/instrument/EnvelopeCanvas';
 import { FilterUI } from 'ui/components/instrument/FilterUI';
 import { InstrumentBase } from 'ui/components/instrument/InstrumentBase';
 import { InstrumentToolbar } from 'ui/components/instrument/InstrumentToolbar';
@@ -51,6 +52,14 @@ export const InstrumentUI: React.FC = () => {
           <OperatorList track={track} data={operators} />
           <Keyboard track={track} />
         </GridColumn>
+      </GridRow>
+
+      <GridRow>
+        {operators.map(({ envelope }, i) => (
+          <GridColumn key={i}>
+            <EnvelopeCanvas envelope={envelope} />
+          </GridColumn>
+        ))}
       </GridRow>
     </Grid>
   );

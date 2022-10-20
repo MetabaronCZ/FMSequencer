@@ -10,7 +10,6 @@ import {
 import { EnvelopeData } from 'modules/project/instrument/envelope';
 
 import { defaultTheme } from 'ui/theme';
-import { toVU } from 'ui/typography';
 
 const canvasWidth = 100;
 const canvasHeight = 60;
@@ -18,7 +17,6 @@ const padding = 5;
 const lineColor = defaultTheme.color.white;
 
 const Container = styled.div`
-  margin: 0 ${toVU(-0.5)} ${toVU(-0.5)};
   background: ${({ theme }) => theme.color.black};
 `;
 
@@ -44,7 +42,7 @@ export const EnvelopeCanvas: React.FC<Props> = ({ envelope }) => {
       );
     }
     const width = elm.offsetWidth;
-    const height = width / (canvasWidth / canvasHeight);
+    const height = Math.floor(width / (canvasWidth / canvasHeight));
 
     canvas.width = width;
     canvas.height = height;

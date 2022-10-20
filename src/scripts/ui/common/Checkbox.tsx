@@ -6,6 +6,8 @@ import { IcoButton } from 'ui/common/IcoButton';
 import { Text } from 'ui/common/Text';
 import { toVU } from 'ui/typography';
 
+let checkboxCounter = 0;
+
 const Container = styled.label`
   display: flex;
   flex-direction: row;
@@ -18,16 +20,19 @@ const Label = styled.div`
 `;
 
 interface Props {
+  readonly id?: string;
   readonly label?: string;
   readonly checked?: boolean;
   readonly onChange: (checked: boolean) => void;
 }
 
-export const Checkbox: React.FC<Props> = ({ label, checked, onChange }) => {
+export const Checkbox: React.FC<Props> = ({ id, label, checked, onChange }) => {
   const { t } = useTranslation();
+  id = id ?? `checkbox-${checkboxCounter++}`;
   return (
-    <Container>
+    <Container htmlFor={id}>
       <IcoButton
+        id={id}
         ico={checked ? 'check' : 'cross'}
         title={checked ? t('on') : t('off')}
         onClick={() => onChange(!checked)}

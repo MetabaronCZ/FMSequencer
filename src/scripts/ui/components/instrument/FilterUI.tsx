@@ -54,7 +54,7 @@ export const FilterUI: React.FC<Props> = ({ track, data }) => {
   } = projectSlice.actions;
 
   return (
-    <Grid>
+    <Grid $gap={0.5}>
       <GridRow>
         <GridColumn>
           <SelectorField

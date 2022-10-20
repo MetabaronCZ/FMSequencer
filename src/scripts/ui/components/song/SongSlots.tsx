@@ -20,13 +20,13 @@ const List = styled.ul`
   list-style-type: none;
   display: flex;
   flex-direction: column;
-  gap: ${toVU(1)};
+  gap: ${toVU(0.5)};
 `;
 
 const Item = styled.li`
   display: flex;
   flex-direction: row;
-  gap: ${toVU(1)};
+  gap: ${toVU(0.5)};
 `;
 
 const ItemColumn = styled.div`

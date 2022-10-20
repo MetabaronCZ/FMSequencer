@@ -12,6 +12,7 @@ const StyledButton = styled(Button)`
 `;
 
 interface Props {
+  readonly id?: string;
   readonly className?: string;
   readonly title: string;
   readonly ico: IcoID;
@@ -20,6 +21,7 @@ interface Props {
 }
 
 export const IcoButton: React.FC<Props> = ({
+  id,
   className,
   title,
   ico,
@@ -27,6 +29,7 @@ export const IcoButton: React.FC<Props> = ({
   onClick,
 }) => (
   <StyledButton
+    id={id}
     className={className}
     text={icos[ico]}
     title={title}

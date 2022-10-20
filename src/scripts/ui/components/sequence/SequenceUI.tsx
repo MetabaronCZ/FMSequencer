@@ -18,7 +18,7 @@ const List = styled.ul`
   list-style-type: none;
   display: flex;
   flex-direction: column;
-  gap: ${toVU(1)};
+  gap: ${toVU(0.5)};
 `;
 
 const Item = styled.li`
@@ -26,7 +26,7 @@ const Item = styled.li`
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: ${toVU(1)};
+  gap: ${toVU(0.5)};
 `;
 
 export const SequenceUI: React.FC = () => {
