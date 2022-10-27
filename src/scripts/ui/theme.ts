@@ -90,7 +90,7 @@ export const defaultTheme: DefaultTheme = {
   dimensions: {
     page: {
       width: '1080px',
-      height: toVU(68),
+      height: toVU(66),
     },
   },
   animation: {

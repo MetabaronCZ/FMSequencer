@@ -29,7 +29,7 @@ class Playback {
     time: number
   ): Promise<void> {
     const { steps, signature } = pattern;
-    const [division, beats] = getSignatureData(signature);
+    const [beats, division] = getSignatureData(signature);
 
     const beat4on4Length = (60 * 1000 * 1000) / bpm; // in microseconds
     const patternBeatLength = (beat4on4Length * 4) / beats;

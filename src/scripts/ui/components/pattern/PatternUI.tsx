@@ -18,7 +18,7 @@ export const PatternUI: React.FC = () => {
 
   const data = patterns[pattern];
   const steps = getPatternSteps(data, patternPage);
-  const [division, beats] = getSignatureData(data.signature);
+  const [beats, division] = getSignatureData(data.signature);
 
   return (
     <Grid>

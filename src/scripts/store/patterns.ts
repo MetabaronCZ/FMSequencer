@@ -36,7 +36,7 @@ export type PatternsActions =
 
 const removeOutOfPatternSteps = (pattern: WritableDraft<PatternData>): void => {
   const { signature, bars, steps } = pattern;
-  const [division, beats] = getSignatureData(signature);
+  const [beats, division] = getSignatureData(signature);
   const stepCount = beats * division * bars;
   pattern.steps = steps.filter(({ start }) => start < stepCount);
 };

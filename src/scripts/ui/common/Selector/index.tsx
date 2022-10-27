@@ -102,7 +102,7 @@ export const Selector = <T extends string | number>(
           onDelete
         )(e)
       }
-      onMouseEnter={() => setPreventScroll(contElm.current)}
+      onMouseEnter={() => focused && setPreventScroll(contElm.current)}
       onMouseLeave={() => releasePreventScroll(contElm.current)}
     >
       {selected ? selected.label : placeholder}

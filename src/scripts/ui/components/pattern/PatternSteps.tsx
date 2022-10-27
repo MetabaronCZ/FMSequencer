@@ -37,7 +37,6 @@ const Cell = styled.div<CellProps>`
   text-align: center;
 
   &:first-child {
-    width: ${toVU(4)};
     text-align: left;
   }
 `;
@@ -82,10 +81,12 @@ export const PatternSteps: React.FC<Props> = ({
               {toFixedLength(stepId, 3, '0')}
             </Cell>
 
+            <Divider />
+
             <Cell $highlighted={isHighlighted}>
               <PitchSelector
                 value={step.note ? step.note.pitch : null}
-                placeholder="&nbsp;&ndash;&nbsp;"
+                placeholder="---"
                 onChange={(value) => {
                   dispatch(
                     setTrackPatternStepPitch({
@@ -112,7 +113,7 @@ export const PatternSteps: React.FC<Props> = ({
             <Cell $highlighted={isHighlighted}>
               <VelocitySelector
                 value={step.note ? step.note.velocity : null}
-                placeholder="&nbsp;&ndash;"
+                placeholder="--"
                 onChange={(value) => {
                   dispatch(
                     setTrackPatternStepVelocity({
@@ -135,7 +136,7 @@ export const PatternSteps: React.FC<Props> = ({
                   <Cell $highlighted={isHighlighted}>
                     <FXTypeSelector
                       value={fx ? fx.type : null}
-                      placeholder="&nbsp;&ndash;&nbsp;"
+                      placeholder="---"
                       onChange={(value) => {
                         dispatch(
                           setTrackPatternStepFXType({
@@ -164,7 +165,7 @@ export const PatternSteps: React.FC<Props> = ({
                   <Cell $highlighted={isHighlighted}>
                     <FXValueSelector
                       value={fx ? fx.value : null}
-                      placeholder="&nbsp;&ndash;"
+                      placeholder="--"
                       onChange={(value) => {
                         dispatch(
                           setTrackPatternStepFXValue({

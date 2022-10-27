@@ -31,8 +31,8 @@ export const createPatternData = (
 };
 
 export const getSignatureData = (signature: SignatureID): [number, number] => {
-  const [division, beats] = signature.split('/').map((s) => parseInt(s, 10));
-  return [division, beats];
+  const [beats, division] = signature.split('/').map((s) => parseInt(s, 10));
+  return [beats, division];
 };
 
 export const getPatternSteps = (
@@ -41,7 +41,7 @@ export const getPatternSteps = (
 ): StepData[] => {
   const { steps: stepsData, signature } = pattern;
   const data = [...stepsData].sort((a, b) => a.start - b.start);
-  const [division, beats] = getSignatureData(signature);
+  const [beats, division] = getSignatureData(signature);
 
   const perPage = beats * division;
   const startStep = (page - 1) * perPage;
